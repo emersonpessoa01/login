@@ -1,1 +1,1 @@
-web: nodemon --experimental-modules app.js
+web: npm start
