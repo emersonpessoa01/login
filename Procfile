@@ -1,1 +1,1 @@
-web: yarn start
+web: nodemon --experimental-modules app.js
