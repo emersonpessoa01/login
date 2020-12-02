@@ -62,5 +62,5 @@ app.get('/api/', (_, res) => {
 });
 
 app.listen(process.env.PORT || 8080, () => {
-  console.log("Fala Dev -- APP startado na porta http://localhost:3002");
+  console.log("Fala Dev -- APP startado na porta http://localhost:3000");
 });
