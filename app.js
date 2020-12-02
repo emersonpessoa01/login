@@ -7,10 +7,11 @@ import { transactionRouter } from "./routes/transactionRouter.js";
 import dotenv from 'dotenv';
 dotenv.config();
 
-//criando variaveis de ambiente
-// process.env.USER_DB = "emersonpessoa"
-
-//Conexao com o MongoDB
+/**
+ criando variaveis de ambiente
+ Conexao com o MongoDB
+ * 
+ */
 console.log('Iniciando conexão ao MongoDB...');
 
 (async () => {
@@ -30,7 +31,6 @@ console.log('Iniciando conexão ao MongoDB...');
 })();
 
 const app = express();
-// app.use(express.json());
 
 /**
  * Vinculando o React ao app

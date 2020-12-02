@@ -30,7 +30,7 @@ export default function App() {
       {
         transactions.map(({_id,description}) =>{
           return (
-          <p key={_id}>{description}</p>
+          <p className="center" key={_id}>{description}</p>
           )
         })
       }
