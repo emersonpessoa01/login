@@ -1,66 +1,39 @@
-import express from 'express'
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import path from "path";
-import cors from "cors";
-import { transactionRouter } from "./routes/transactionRouter.js";
-import dotenv from 'dotenv';
-dotenv.config();
+import React from "react";
+import axios from "axios";
 
-//criando variaveis de ambiente
-// process.env.USER_DB = "emersonpessoa"
+const api = axios.create({
+  baseURL: "https://api-transaction-chanceller.herokuapp.com/",
+  headers: {
+    'Content-type': 'application/json',
+  },
+});
 
-//Conexao com o MongoDB
-console.log('Iniciando conexão ao MongoDB...');
+export default function App() {
+  const [transactions, setTransactions] = React.useState([]);
 
-(async () => {
-  const { DB_CONNECTION } = process.env;
-  try {
-    await mongoose.connect(
-      DB_CONNECTION,
+  React.useEffect(() => {
+    const fetchTransactions = async () => {
+      // const axiosObject = await api.get("/transaction");//demonstra toda estrutura do objeto
+      const { data } = await api.get("/transaction"); //pegando somete o que interessa do vetor de objeto
+      // console.log(axiosObject);
+      console.log(data);
+
+      setTransactions(data)
+    };
+    fetchTransactions();
+  }, []);
+
+  return (
+    <div className="containe">
+      <h1 className="center">Desafio Final do Bootcamp full Stack</h1>
+
       {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+        transactions.map(({_id,description}) =>{
+          return (
+          <p key={_id}>{description}</p>
+          )
+        })
       }
-    );
-    console.log("Conectado ao MongoDb Atlas");
-  } catch (err) {
-    console.log("Erro ao conectar no MongoDB");
-  }
-})();
-
-const app = express();
-// app.use(express.json());
-
-/**
- * Vinculando o React ao app
- */
-app.use(express.static(path.join('client/build')));
-
-/**
- * lIBERANDO ACESSO À TODOS OS HOSTS
- */
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  console.log("Acessou o Middleware!");
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  app.use(cors());
-  next();
-});
-app.use("/transaction", transactionRouter);
-
-/**
- * Rota raiz
- */
-app.get('/api/', (_, res) => {
-  res.send({
-    message:
-      'Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações',
-  });
-});
-
-app.listen(process.env.PORT || 8080, () => {
-  console.log("Fala Dev -- APP startado na porta http://localhost:3002");
-});
+    </div>
+  );
+}
