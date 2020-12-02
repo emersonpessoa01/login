@@ -1,7 +1,7 @@
 ### Controle-finaceiro em construção
 - Backend vinculado ao Frontend(client)<br>
 - npm start para iniciar a aplicação<br>
-- Abrir na porta 3002<br>
+- Abrir na porta 3000<br>
 - Rota raiz: localhost:3000/api<br>
 - Middleware: localhost:3000/transaction
 
