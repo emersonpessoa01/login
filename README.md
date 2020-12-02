@@ -1,5 +1,5 @@
 ### Controle-finaceiro em construção
-- Backend vinculado ao Front<br>
+- Backend vinculado ao Frontend(client)<br>
 - npm start para iniciar a aplicação<br>
 - Abrir na porta 3002<br>
 - Rota raiz: localhost:3002/api<br>
