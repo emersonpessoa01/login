@@ -18,7 +18,7 @@
   },
   "scripts": {
     "server": "nodemon --experimental-modules app.js",
-    "start": "nodemon --experimental-modules app.js",
+    "start": "node --experimental-modules app.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "nodemonConfig": {
