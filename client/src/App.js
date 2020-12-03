@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const api = axios.create({
-  baseURL: "https://api-transaction-chanceller.herokuapp.com/",
+  baseURL: "api",
   headers: {
     'Content-type': 'application/json',
   },
@@ -12,29 +12,27 @@ const api = axios.create({
 export default function App() {
   const [transactions, setTransactions] = React.useState([]);
 
-  React.useEffect(() => {
+  React.useEffect(() => { 
     const fetchTransactions = async () => {
-      // const axiosObject = await api.get("/transaction");//demonstra toda estrutura do objeto
-      const { data } = await api.get("/transaction"); //pegando somente o que interessa do vetor de objeto
+      // const axiosObject = await api.get("/transaction?period=2019-07");//axiosObject - demonstra toda estrutura do objeto
+      const { data } = await api.get("/transaction?period=2019-07"); //pegando somente o que interessa do vetor de objeto
       // console.log(axiosObject);
       console.log(data);
 
-      setTransactions(data)
+      setTransactions(data.transactions)
     };
     fetchTransactions();
   }, []);
 
   return (
-    <div className="containe">
+    <div className="container">
       <h1 className="center">Desafio Final do Bootcamp full Stack</h1>
 
       {
-        transactions.map(({_id,description}) =>{
-          return (
-          <p className="center" key={_id}>{description}</p>
-          )
+        transactions.map(transaction=>{
+        return<p key={transaction}>{transaction}</p>
         })
-      }
+      } 
     </div>
   );
 }
