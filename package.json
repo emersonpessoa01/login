@@ -10,12 +10,11 @@
     "mongodb": "3.5.9",
     "mongoose": "5.9.19",
     "mongoose-date-format": "1.2.0",
+    "nodemon": "2.0.6",
     "path": "0.12.7",
     "yarn": "^1.22.4"
   },
-  "devDependencies": {
-    "nodemon": "2.0.4"
-  },
+  "devDependencies": {},
   "scripts": {
     "server": "node --experimental-modules app.js",
     "start": "nodemon --experimental-modules app.js",
