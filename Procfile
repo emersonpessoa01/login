@@ -1,1 +1,1 @@
-web: node --experimental-modules app.js
+web: nodemon --experimental-modules app.js
