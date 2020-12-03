@@ -1,5 +1,5 @@
 {
-  "name": "controle-financeiro",
+  "name": "bootcamp-full-stack-desafio-final",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,14 +9,11 @@
     "express": "4.17.1",
     "mongodb": "3.5.9",
     "mongoose": "5.9.19",
-    "mongoose-date-format": "1.2.0",
-    "nodemon": "2.0.6",
-    "path": "0.12.7",
     "yarn": "^1.22.4"
   },
   "devDependencies": {},
   "scripts": {
-    "server": "node --experimental-modules app.js",
+    "dev": "node --experimental-modules app.js",
     "start": "nodemon --experimental-modules app.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
@@ -27,6 +24,5 @@
   },
   "engines": {
     "node": "12.9.1"
-  },
-  "type": "module"
+  },"type":"module"
 }
