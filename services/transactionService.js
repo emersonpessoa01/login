@@ -10,7 +10,12 @@ const findAll = async (req, res) => {
     if (period != null) {
       const transaction = await transactionModel.find({});
 
-      res.send(transaction.filter((time) => time.yearMonth === period));
+      res.send(
+        transaction.filter((time) => time.yearMonth === period) && {
+          length: 2,
+          transactions: ["transaction1", "transaction2"],
+        }
+      );
     } else {
       res.send(
         ' E necessario informar o parametro "period", cujo o valor deve estar no formato yyyy-mm'
