@@ -54,7 +54,8 @@ app.use("/transaction", transactionRouter);
 /**
  * Rota raiz
  */
-app.get('/api/', (_, res) => {
+
+app.get('/api', (_, res) => {
   res.send({
     message:
       'Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações',
@@ -62,5 +63,5 @@ app.get('/api/', (_, res) => {
 });
 
 app.listen(process.env.PORT || 8080, () => {
-  console.log("Fala Dev -- APP startado na porta http://localhost:3000");
+  console.log("Fala Dev -- API startado em http://localhost:3000");
 });
