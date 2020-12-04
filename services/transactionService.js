@@ -7,7 +7,7 @@ import { transactionModel } from "../models/transactionModel.js";
 const findAll = async (req, res) => {
   const { period } = req.query;
   try {
-    if (period != null) {
+    if (period != null && period.length ==7) {
       const transaction = await transactionModel.find({});
 
       res.send(
@@ -18,7 +18,7 @@ const findAll = async (req, res) => {
       );
     } else {
       res.send(
-        ' E necessario informar o parametro "period", cujo o valor deve estar no formato yyyy-mm'
+        'É necessario informar o parâmetro "period", cujo o valor deve estar no formato yyyy-mm'
       );
     }
   } catch (err) {
