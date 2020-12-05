@@ -15,7 +15,7 @@ export default function App() {
   React.useEffect(() => { 
     const fetchTransactions = async () => {
       // const axiosObject = await api.get("/transaction?period=2019-07");//axiosObject - demonstra toda estrutura do objeto
-      const { data } = await api.get("/transaction?period=2019-07"); //pegando somente o que interessa do vetor de objeto
+       const { data } = await api.get("/transaction?period=2019-07"); //pegando somente o que interessa do vetor de objeto
       // console.log(axiosObject);
       console.log(data);
 
@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <div className="container">
-      <h1 className="center">Desafio Final do Bootcamp Full Stack</h1>
+      <h1 className="center">Desafio Final do Bootcamp full Stack</h1>
 
       {
         transactions.map(transaction=>{

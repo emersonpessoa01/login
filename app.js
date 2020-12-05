@@ -19,8 +19,8 @@ app.use(express.static(path.join("client/build")));
 /**
  * Rota raiz
  */
-app.get("/api/", (_, response) => {
-  response.send({
+app.get("/api/", (_, res) => {
+  res.send({
     message:
       "Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações",
   });

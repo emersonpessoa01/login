@@ -1,28 +1,42 @@
 //controller - responsável pelo tratamento e persistência de dados
 import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
-
 import { transactionModel } from "../models/transactionModel.js";
 
-const findAll = async (req, res) => {
-  const { period } = req.query;
-  try {
-    if (period != null && period.length ==7) {
-      const transaction = await transactionModel.find({});
+const ObjectId = mongoose.Types.ObjectId;
 
-      res.send(
-        transaction.filter((time) => time.yearMonth === period) && {
-          length: 2,
-          transactions: ["transaction1", "transaction2"],
-        }
+//intergração do backend com O mongoDB
+// const getTransactions=async(period)=>{
+//   const transactions = await transactionModel.find({yearMonth: period});
+//   return transactions
+// }
+
+const findAll = async (req, res) => {
+  const { query } = req;
+  try {
+    if (!query.period) {
+      //apresenta a falha de cara no console
+      throw new Error(
+        `É necessário informar o parametro "period", cujo valor deve está no formato yyyy-mm`
       );
     } else {
-      res.send(
-        'É necessario informar o parâmetro "period", cujo o valor deve estar no formato yyyy-mm'
-      );
+      const { period } = query;
+      if (period.length === 7) {
+        //itera com o mongoDB
+        const filteredTransactions = await transactionModel.find({ yearMonth: period })
+
+        res.send({
+          length:filteredTransactions.length,
+          transactions: filteredTransactions,
+        });
+      } else {
+        throw new Error("Período inválido. Use o formato yyyy-mm");
+        // res.status(400).send({
+        //   message: "Período inválido. Use o formato yyyy-mm"})
+      }
     }
-  } catch (err) {
-    res.status(404).send(err);
+  } catch ({ message }) {
+    console.log(message);
+    res.status(400).send({ error: message });
   }
 };
 
@@ -94,7 +108,7 @@ const remove = async (req, res) => {
     console.log(transaction);
 
     if (!transaction) {
-      res.status(404).send("Documento nao encontrado");
+      res.status(404).send("Documento não encontrado");
     }
     res.status(200).send(`${transaction} - Transaction removido com sucesso!`);
   } catch (err) {
