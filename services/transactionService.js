@@ -124,7 +124,7 @@ const remove = async (req, res) => {
       res.status(404).send("Documento não encontrado");
     }
     res.status(200).send({
-      status: "Deletedo com sucesso",
+      message: `Lançamento de id:"${id}" excluído com sucesso`,
       transaction
     });
   } catch (err) {
