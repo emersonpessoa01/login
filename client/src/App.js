@@ -11,7 +11,7 @@ const api = axios.create({
 
 export default function App() {
   const [transactions, setTransactions] = React.useState([]);
-  const [filteredTransactions, setFilteredTransactions] = React.useState([]);
+  // const [filteredTransactions, setFilteredTransactions] = React.useState([]);
 
   React.useEffect(() => { 
     const fetchTransactions = async () => {
@@ -21,7 +21,7 @@ export default function App() {
       console.log(data);
 
       setTransactions(data.transactions)
-      setfilteredTransactions(data.transactions)
+      // setfilteredTransactions(data.transactions)
     };
     fetchTransactions();
   }, []);
