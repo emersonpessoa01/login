@@ -4,7 +4,7 @@ import { transactionModel } from "../models/transactionModel.js";
 
 const ObjectId = mongoose.Types.ObjectId;
 
-//intergração do backend com O mongoDB
+//integração do backend com o mongoDB
 // const getTransactions=async(period)=>{
 //   const transactions = await transactionModel.find({yearMonth: period});
 //   return transactions
@@ -22,10 +22,12 @@ const findAll = async (req, res) => {
       const { period } = query;
       if (period.length === 7) {
         //itera com o mongoDB
-        const filteredTransactions = await transactionModel.find({ yearMonth: period })
+        const filteredTransactions = await transactionModel.find({
+          yearMonth: period,
+        });
 
         res.send({
-          length:filteredTransactions.length,
+          length: filteredTransactions.length,
           transactions: filteredTransactions,
         });
       } else {
@@ -60,10 +62,18 @@ const findOne = async (req, res) => {
 
 const create = async (req, res) => {
   const transaction = new transactionModel(req.body);
-
+  
   try {
+    if (JSON.stringify(req.body) === "{}") {
+      res.status(400).send({
+        error: 'Inválido.Conteúdo vazio'
+      });
+    }
     await transaction.save();
-    res.send(transaction);
+    res.send({
+      status: "ok",
+      transaction
+    });
   } catch (err) {
     res.status(500).send(err);
   }
@@ -93,7 +103,10 @@ const update = async (req, res) => {
         .send({ message: "Nenhuma transaction encontrado para atualizar" });
     }
 
-    res.status(200).send(transaction);
+    res.status(200).send({
+      status:"Atualizado com sucesso",
+      transaction,
+    });
   } catch (error) {
     res
       .status(500)
@@ -110,7 +123,10 @@ const remove = async (req, res) => {
     if (!transaction) {
       res.status(404).send("Documento não encontrado");
     }
-    res.status(200).send(`${transaction} - Transaction removido com sucesso!`);
+    res.status(200).send({
+      status: "Deletedo com sucesso",
+      transaction
+    });
   } catch (err) {
     res.status(500).send(err);
   }
