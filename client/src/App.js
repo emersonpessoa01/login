@@ -57,6 +57,8 @@ export default function App() {
     fetchTransactions();
   }, [currentPeriods]);
 
+  const {transactionStyle} = styles;
+
   return (
     <div className="container">
       <h1 className="center">Desafio Final do Bootcamp full Stack</h1>
@@ -74,7 +76,7 @@ export default function App() {
 
 
           {filteredTransactions.map(({ _id,yearMonthDay,category, description, value }) => {
-            return <p key={_id}>{yearMonthDay} - <strong>{category}</strong> - {description} - {value}</p>;
+            return <p key={_id} style={transactionStyle}>{yearMonthDay} - <strong>{category}</strong> -{' '} {description} - {value}</p>;
           })}
         </>
       ) : (
@@ -82,4 +84,13 @@ export default function App() {
       )}
     </div>
   );
+}
+
+const styles = {
+  transactionStyle:{
+    padding: '5px',
+    margin: '5px',
+    border:'1px solid lightgray',
+    borderRadius: '5px'
+  }
 }
