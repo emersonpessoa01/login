@@ -36,11 +36,14 @@ const PERIODS = [
   "2021/01",
 ];
 
+const LIST_SCREEN = 0;
+const MAINTENANCE_SCREEN = 1;
+
 export default function App() {
   const [transactions, setTransactions] = React.useState([]);
   const [filteredTransactions, setFilteredTransactions] = React.useState([]);
   const [currentPeriods, setCurrentPeriods] = React.useState(PERIODS[0]);
-
+  const [currentScreen, setCurrentScreen] = React.useState(MAINTENANCE_SCREEN);
   React.useEffect(() => {
     const fetchTransactions = async () => {
       // const axiosObject = await api.get("/transaction?period=2019-07");//axiosObject - demonstra toda estrutura do objeto
@@ -57,20 +60,25 @@ export default function App() {
   return (
     <div className="container">
       <h1 className="center">Desafio Final do Bootcamp full Stack</h1>
+      {currentScreen === LIST_SCREEN ? (
+        <>
+          <select
+            className="browser-default"
+            value={currentPeriods}
+            onChange={(evt) => setCurrentPeriods(evt.target.value)}
+          >
+            {PERIODS.map((period) => {
+              return <option key={period}>{period}</option>;
+            })}
+          </select>
 
-      <select
-        className="browser-default"
-        value={currentPeriods}
-        onChange={(evt) => setCurrentPeriods(evt.target.value)}
-      >
-        {PERIODS.map((period) => {
-          return <option key={period}>{period}</option>;
-        })}
-      </select>
-
-      {filteredTransactions.map(({ _id, description }) => {
-        return <p key={_id}>{description}</p>;
-      })}
+          {filteredTransactions.map(({ _id, description }) => {
+            return <p key={_id}>{description}</p>;
+          })}
+        </>
+      ) : (
+        <p>TELA DE MANUTENÇÃO</p>
+      )}
     </div>
   );
 }

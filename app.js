@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 /**
- * Vinculando o React ao app
+ * Vinculando o React a api
  */
 app.use(express.static(path.join("client/build")));
 
