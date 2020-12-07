@@ -9,31 +9,31 @@ const api = axios.create({
 });
 
 const PERIODS = [
-  "2019/01",
-  "2019/02",
-  "2019/03",
-  "2019/04",
-  "2019/06",
-  "2019/06",
-  "2019/07",
-  "2019/08",
-  "2019/09",
-  "2019/10",
-  "2019/11",
-  "2019/12",
-  "2020/01",
-  "2020/02",
-  "2020/03",
-  "2020/04",
-  "2020/05",
-  "2020/06",
-  "2020/07",
-  "2020/08",
-  "2020/09",
-  "2020/10",
-  "2020/11",
-  "2020/12",
-  "2021/01",
+  "2019-01",
+  "2019-02",
+  "2019-03",
+  "2019-04",
+  "2019-06",
+  "2019-06",
+  "2019-07",
+  "2019-08",
+  "2019-09",
+  "2019-10",
+  "2019-11",
+  "2019-12",
+  "2020-01",
+  "2020-02",
+  "2020-03",
+  "2020-04",
+  "2020-05",
+  "2020-06",
+  "2020-07",
+  "2020-08",
+  "2020-09",
+  "2020-10",
+  "2020-11",
+  "2020-12",
+  "2021-01",
 ];
 
 const LIST_SCREEN = 0;
@@ -43,11 +43,11 @@ export default function App() {
   const [transactions, setTransactions] = React.useState([]);
   const [filteredTransactions, setFilteredTransactions] = React.useState([]);
   const [currentPeriods, setCurrentPeriods] = React.useState(PERIODS[0]);
-  const [currentScreen, setCurrentScreen] = React.useState(MAINTENANCE_SCREEN);
+  const [currentScreen, setCurrentScreen] = React.useState(LIST_SCREEN);
   React.useEffect(() => {
     const fetchTransactions = async () => {
       // const axiosObject = await api.get("/transaction?period=2019-07");//axiosObject - demonstra toda estrutura do objeto
-      const { data } = await api.get("/transaction?period=2019-07"); //pegando somente o que interessa do vetor de objeto
+      const { data } = await api.get(`/transaction?period=${currentPeriods}`); //pegando somente o que interessa do vetor de objeto
       // console.log(axiosObject);
       console.log(data);
 
@@ -55,7 +55,7 @@ export default function App() {
       setFilteredTransactions(data.transactions);
     };
     fetchTransactions();
-  }, []);
+  }, [currentPeriods]);
 
   return (
     <div className="container">
@@ -72,8 +72,9 @@ export default function App() {
             })}
           </select>
 
-          {filteredTransactions.map(({ _id, description }) => {
-            return <p key={_id}>{description}</p>;
+
+          {filteredTransactions.map(({ _id,category, description }) => {
+            return <p key={_id}><strong>{category}</strong> - {description}</p>;
           })}
         </>
       ) : (
