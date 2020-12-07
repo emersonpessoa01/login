@@ -73,8 +73,8 @@ export default function App() {
           </select>
 
 
-          {filteredTransactions.map(({ _id,category, description }) => {
-            return <p key={_id}><strong>{category}</strong> - {description}</p>;
+          {filteredTransactions.map(({ _id,category, description, value }) => {
+            return <p key={_id}><strong>{category}</strong> - {description} - {value}</p>;
           })}
         </>
       ) : (
