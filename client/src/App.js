@@ -39,11 +39,15 @@ const PERIODS = [
 const LIST_SCREEN = 0;
 const MAINTENANCE_SCREEN = 1;
 
+const EARNING_COLOR = "#1abc9c";
+const EXPENSE_COLOR = "#E4405F";
+
 export default function App() {
   const [transactions, setTransactions] = React.useState([]);
   const [filteredTransactions, setFilteredTransactions] = React.useState([]);
   const [currentPeriods, setCurrentPeriods] = React.useState(PERIODS[0]);
   const [currentScreen, setCurrentScreen] = React.useState(LIST_SCREEN);
+
   React.useEffect(() => {
     const fetchTransactions = async () => {
       // const axiosObject = await api.get("/transaction?period=2019-07");//axiosObject - demonstra toda estrutura do objeto
@@ -57,7 +61,7 @@ export default function App() {
     fetchTransactions();
   }, [currentPeriods]);
 
-  const {transactionStyle} = styles;
+  const { transactionStyle } = styles;
 
   return (
     <div className="container">
@@ -74,23 +78,32 @@ export default function App() {
             })}
           </select>
 
+          {filteredTransactions.map(
+            ({ _id, yearMonthDay, category, description, value, type }) => {
+              const currentColor =
+                type === "+" ? EARNING_COLOR : EXPENSE_COLOR;
 
-          {filteredTransactions.map(({ _id,yearMonthDay,category, description, value }) => {
-            return <p key={_id} style={transactionStyle}>{yearMonthDay} - <strong>{category}</strong> -{' '} {description} - {value}</p>;
-          })}
+              return (
+                <p key={_id} style={{...transactionStyle, backgroundColor: currentColor}}>
+                  {yearMonthDay} - <strong>{category}</strong> - {description} -{" "}
+                  {value}
+                </p>
+              );
+            }
+          )}
         </>
       ) : (
-        <p>TELA DE MANUTENÇÃO</p>
+        <p>TELA D E MANUTENÇÃO</p>
       )}
     </div>
   );
 }
 
 const styles = {
-  transactionStyle:{
-    padding: '5px',
-    margin: '5px',
-    border:'1px solid lightgray',
-    borderRadius: '5px'
-  }
-}
+  transactionStyle: {
+    padding: "5px",
+    margin: "5px",
+    border: "1px solid lightgray",
+    borderRadius: "5px",
+  },
+};
