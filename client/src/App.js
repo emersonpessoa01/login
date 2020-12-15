@@ -40,7 +40,7 @@ const PERIODS = [
 const LIST_SCREEN = 0;
 const MAINTENANCE_SCREEN = 1;
 
-const EARNING_COLOR = "#1abc9c";
+const EARNING_COLOR = "#0094ff";
 const EXPENSE_COLOR = "#E4405F";
 
 export default function App() {
@@ -94,6 +94,14 @@ export default function App() {
     setFilteredText(text.toLowerCase());
   };
 
+  const formatter = Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+  const numberFormatter = (number) => {
+    return formatter.format(number);
+  };
+
   const { transactionStyle, buttonStyle } = styles;
 
   return (
@@ -141,7 +149,7 @@ export default function App() {
                   </span>
                   <span>
                     {yearMonthDay} - <strong>{category}</strong> - {description}{" "}
-                    - {value}
+                    - {numberFormatter(value)}
                   </span>
                 </div>
               );
