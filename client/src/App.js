@@ -7,7 +7,7 @@ const api = axios.create({
     "Content-type": "application/json",
   },
 });
-const RESOURCE= "/transaction"
+const RESOURCE = "/transaction";
 
 const PERIODS = [
   "2019-01",
@@ -48,7 +48,7 @@ export default function App() {
   const [filteredTransactions, setFilteredTransactions] = React.useState([]);
   const [currentPeriods, setCurrentPeriods] = React.useState(PERIODS[0]);
   const [currentScreen, setCurrentScreen] = React.useState(LIST_SCREEN);
-  const [filteredText, setFilteredText] = React.useState("")
+  const [filteredText, setFilteredText] = React.useState("");
 
   React.useEffect(() => {
     const fetchTransactions = async () => {
@@ -62,36 +62,37 @@ export default function App() {
     fetchTransactions();
   }, [currentPeriods]);
 
-  React.useEffect(() =>{
-    let newFilteredTransactions =[...transactions]
-    setFilteredTransactions(transactions)
+  React.useEffect(() => {
+    let newFilteredTransactions = [...transactions];
+    setFilteredTransactions(transactions);
 
-    if(filteredText.trim() !== ""){
-      newFilteredTransactions = newFilteredTransactions.filter(transaction =>{
-        return transaction.description.toLowerCase().includes(filteredText)
-      })
+    if (filteredText.trim() !== "") {
+      newFilteredTransactions = newFilteredTransactions.filter(
+        (transaction) => {
+          return transaction.description.toLowerCase().includes(filteredText);
+        }
+      );
     }
-    setFilteredTransactions(newFilteredTransactions)
-  },[transactions, filteredText])
+    setFilteredTransactions(newFilteredTransactions);
+  }, [transactions, filteredText]);
 
-
-  const handleDeleteTransaction=async(event)=>{
+  const handleDeleteTransaction = async (event) => {
     const id = event.target.id;
     // console.log(id)
 
-    await api.delete(`${RESOURCE}/${id}`)
+    await api.delete(`${RESOURCE}/${id}`);
 
-    const newTransactions = transactions.filter(transaction =>{
+    const newTransactions = transactions.filter((transaction) => {
       return transaction._id !== id;
-    })
+    });
 
-    setTransactions(newTransactions)
-  }
+    setTransactions(newTransactions);
+  };
 
-  const handleFilterChange=(event) =>{
-      const text = event.target.value.trim()
-      setFilteredText(text.toLowerCase())
-  }
+  const handleFilterChange = (event) => {
+    const text = event.target.value.trim();
+    setFilteredText(text.toLowerCase());
+  };
 
   const { transactionStyle, buttonStyle } = styles;
 
@@ -110,7 +111,12 @@ export default function App() {
             })}
           </select>
 
-          <input type="text" placeholder="Filtro..." value={filteredText} onChange={handleFilterChange}/>
+          <input
+            type="text"
+            placeholder="Filtro..."
+            value={filteredText}
+            onChange={handleFilterChange}
+          />
 
           {filteredTransactions.map(
             ({ _id, yearMonthDay, category, description, value, type }) => {
@@ -122,13 +128,20 @@ export default function App() {
                   style={{ ...transactionStyle, backgroundColor: currentColor }}
                 >
                   <span style={buttonStyle}>
-                  <button className="waves-effect waves-light btn" onClick={handleDeleteTransaction} id={_id}>Editar</button>
-                  <button className="waves-effect waves-light btn red darken-4-">X</button>
+                    <button
+                      className="waves-effect waves-light btn"
+                      onClick={handleDeleteTransaction}
+                      id={_id}
+                    >
+                      Editar
+                    </button>
+                    <button className="waves-effect waves-light btn red darken-4-">
+                      X
+                    </button>
                   </span>
                   <span>
-                    {yearMonthDay} -{" "} 
-                    <strong>{category}</strong> - {" "}
-                     {description} - {value}
+                    {yearMonthDay} - <strong>{category}</strong> - {description}{" "}
+                    - {value}
                   </span>
                 </div>
               );
@@ -151,5 +164,5 @@ const styles = {
   },
   buttonStyle: {
     margin: "10px",
-  }
+  },
 };
