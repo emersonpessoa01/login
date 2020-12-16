@@ -9,11 +9,10 @@ export default function ListScreen({
   filteredText,
   currentPeriod,
   onDeleteTransaction,
+  onEditTransaction,
   onFilterChange,
   onPeriodChange,
-
 }) {
-
   const formatter = Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -32,7 +31,7 @@ export default function ListScreen({
         onChange={onPeriodChange}
       >
         {periods.map((period) => {
-          return <option key={period}>{period}</option>;
+          return <option>{period}</option>;
         })}
       </select>
 
@@ -54,7 +53,13 @@ export default function ListScreen({
               style={{ ...transactionStyle, backgroundColor: currentColor }}
             >
               <span style={buttonEditar}>
-                <button className="waves-effect waves-light btn">Editar</button>
+                <button
+                  className="waves-effect waves-light btn"
+                  onClick={onEditTransaction}
+                  id={_id}
+                >
+                  Editar
+                </button>
               </span>
               <span>
                 <button
