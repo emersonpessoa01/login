@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import ListScreen from "./components/ListScreen";
 
 const api = axios.create({
   baseURL: "api",
@@ -39,9 +40,6 @@ const PERIODS = [
 
 const LIST_SCREEN = 0;
 const MAINTENANCE_SCREEN = 1;
-
-const EARNING_COLOR = "#0094ff";
-const EXPENSE_COLOR = "#9897FF";
 
 export default function App() {
   const [transactions, setTransactions] = React.useState([]);
@@ -98,71 +96,22 @@ export default function App() {
     setCurrentPeriod(event.target.value);
   };
 
-  const formatter = Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-  const numberFormatter = (number) => {
-    return formatter.format(number);
-  };
-
-  const { transactionStyle, buttonEditar } = styles;
 
   return (
     <div className="container">
       <h1 className="center">Desafio Final do Bootcamp full Stack</h1>
       {currentScreen === LIST_SCREEN ? (
-        <>
-          <select
-            className="browser-default"
-            value={currentPeriod}
-            onChange={handlePeriodChange}
-          >
-            {PERIODS.map((period) => {
-              return <option key={period}>{period}</option>;
-            })}
-          </select>
+        <ListScreen 
+        transactions={filteredTransactions}
+        periods={PERIODS}
+        currentPeriod={currentPeriod}
+        filteredText={filteredText}
+        onDeleteTransaction={handleDeleteTransaction}
+        onFilterChange={handleFilterChange}
+        onPeriodChange={handlePeriodChange}
 
-          <input
-            type="text"
-            autoFocus={true}
-            placeholder="Escreva a categoria..."
-            value={filteredText}
-            onChange={handleFilterChange}
-          />
 
-          {filteredTransactions.map(
-            ({ _id, yearMonthDay, category, description, value, type }) => {
-              const currentColor = type === "+" ? EARNING_COLOR : EXPENSE_COLOR;
-
-              return (
-                <div
-                  key={_id}
-                  style={{ ...transactionStyle, backgroundColor: currentColor }}
-                >
-                  <span style={buttonEditar}>
-                    <button className="waves-effect waves-light btn">
-                      Editar
-                    </button>
-                  </span>
-                  <span>
-                    <button
-                      className="waves-effect waves-light btn red darken-4"
-                      onClick={handleDeleteTransaction}
-                      id={_id}
-                    >
-                      X
-                    </button>
-                  </span>
-                  <span style={{ margin: 7 }}>
-                    {yearMonthDay}-<strong>{category}</strong>-{description}-
-                    {numberFormatter(value)}
-                  </span>
-                </div>
-              );
-            }
-          )}
-        </>
+        />
       ) : (
         <p>TELA DE MANUTENÇÃO</p>
       )}
@@ -170,14 +119,3 @@ export default function App() {
   );
 }
 
-const styles = {
-  transactionStyle: {
-    padding: "5px",
-    margin: "5px",
-    border: "1px solid lightgray",
-    borderRadius: "5px",
-  },
-  buttonEditar: {
-    margin: "4px",
-  },
-};
