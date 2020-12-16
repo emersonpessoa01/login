@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import MaintenanceScreen from "./components/MaintenanceScreen";
 // import ListScreen from "./components/ListScreen";
 // import MaintenanceScreen from "./components/MaintenanceScreen";
 
@@ -114,10 +115,6 @@ export default function App() {
     
   };
 
-  
-  
-
-
   const handleFilterChange = (event) => {
     const text = event.target.value.trim();
     setFilteredText(text.toLowerCase());
@@ -197,9 +194,7 @@ export default function App() {
         )}
       </>
       ) : (
-        <div>
-      Tela de manutenção
-    </div>
+        <MaintenanceScreen transaction={selectedTransaction} />
       )}
     </div>
   );
@@ -211,8 +206,10 @@ const styles = {
     margin: "5px",
     border: "1px solid lightgray",
     borderRadius: "5px",
+    shadowColor:"3px"
   },
   buttonEditar: {
     margin: "4px",
+    shadowColor:"3px"
   },
 };
