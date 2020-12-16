@@ -106,7 +106,7 @@ export default function App() {
     return formatter.format(number);
   };
 
-  const { transactionStyle, buttonStyle } = styles;
+  const { transactionStyle, buttonEditar} = styles;
 
   return (
     <div className="container">
@@ -140,10 +140,12 @@ export default function App() {
                   key={_id}
                   style={{ ...transactionStyle, backgroundColor: currentColor }}
                 >
-                  <span style={buttonStyle}>
+                  <span style={buttonEditar}>
                     <button className="waves-effect waves-light btn">
                       Editar
                     </button>
+                    </span>
+                    <span>
                     <button
                       className="waves-effect waves-light btn red darken-4"
                       onClick={handleDeleteTransaction}
@@ -152,7 +154,7 @@ export default function App() {
                       X
                     </button>
                   </span>
-                  <span>
+                  <span style={{ margin:7}}>
                     {yearMonthDay}-<strong>{category}</strong>-{description}-
                     {numberFormatter(value)}
                   </span>
@@ -175,7 +177,7 @@ const styles = {
     border: "1px solid lightgray",
     borderRadius: "5px",
   },
-  buttonStyle: {
+  buttonEditar: {
     margin: "10px",
   },
 };
