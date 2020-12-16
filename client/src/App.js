@@ -69,7 +69,7 @@ export default function App() {
     if (filteredText.trim() !== "") {
       newFilteredTransactions = newFilteredTransactions.filter(
         (transaction) => {
-          return transaction.description.toLowerCase().includes(filteredText);
+          return transaction.category.toLowerCase().includes(filteredText);
         }
       );
     }
@@ -106,6 +106,8 @@ export default function App() {
     return formatter.format(number);
   };
 
+
+
   const { transactionStyle, buttonStyle } = styles;
 
   return (
@@ -125,7 +127,8 @@ export default function App() {
 
           <input
             type="text"
-            placeholder="Filtro..."
+            autoFocus={true}
+            placeholder="Escreva a categoria..."
             value={filteredText}
             onChange={handleFilterChange}
           />
