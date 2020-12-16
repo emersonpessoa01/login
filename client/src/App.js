@@ -41,7 +41,7 @@ const LIST_SCREEN = 0;
 const MAINTENANCE_SCREEN = 1;
 
 const EARNING_COLOR = "#0094ff";
-const EXPENSE_COLOR = "#E4405F";
+const EXPENSE_COLOR = "#9897FF";
 
 export default function App() {
   const [transactions, setTransactions] = React.useState([]);
@@ -106,8 +106,6 @@ export default function App() {
     return formatter.format(number);
   };
 
-
-
   const { transactionStyle, buttonStyle } = styles;
 
   return (
@@ -155,8 +153,8 @@ export default function App() {
                     </button>
                   </span>
                   <span>
-                    {yearMonthDay} - <strong>{category}</strong> - {description}{" "}
-                    - {numberFormatter(value)}
+                    {yearMonthDay}-<strong>{category}</strong>-{description}-
+                    {numberFormatter(value)}
                   </span>
                 </div>
               );
