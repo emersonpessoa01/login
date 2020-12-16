@@ -46,21 +46,21 @@ const EXPENSE_COLOR = "#E4405F";
 export default function App() {
   const [transactions, setTransactions] = React.useState([]);
   const [filteredTransactions, setFilteredTransactions] = React.useState([]);
-  const [currentPeriods, setCurrentPeriods] = React.useState(PERIODS[0]);
+  const [currentPeriod, setCurrentPeriod] = React.useState(PERIODS[0]);
   const [currentScreen, setCurrentScreen] = React.useState(LIST_SCREEN);
   const [filteredText, setFilteredText] = React.useState("");
 
   React.useEffect(() => {
     const fetchTransactions = async () => {
       // const axiosObject = await api.get("/transaction?period=2019-07");//axiosObject - demonstra toda estrutura do objeto
-      const { data } = await api.get(`/transaction?period=${currentPeriods}`); //pegando somente o que interessa do vetor de objeto
+      const { data } = await api.get(`/transaction?period=${currentPeriod}`); //pegando somente o que interessa do vetor de objeto
       // console.log(axiosObject);
       console.log(data);
 
       setTransactions(data.transactions);
     };
     fetchTransactions();
-  }, [currentPeriods]);
+  }, [currentPeriod]);
 
   React.useEffect(() => {
     let newFilteredTransactions = [...transactions];
@@ -94,6 +94,10 @@ export default function App() {
     setFilteredText(text.toLowerCase());
   };
 
+  const handlePeriodChange = (event) => {
+    setCurrentPeriod(event.target.value);
+  };
+
   const formatter = Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -111,8 +115,8 @@ export default function App() {
         <>
           <select
             className="browser-default"
-            value={currentPeriods}
-            onChange={(evt) => setCurrentPeriods(evt.target.value)}
+            value={currentPeriod}
+            onChange={handlePeriodChange}
           >
             {PERIODS.map((period) => {
               return <option key={period}>{period}</option>;
@@ -136,14 +140,14 @@ export default function App() {
                   style={{ ...transactionStyle, backgroundColor: currentColor }}
                 >
                   <span style={buttonStyle}>
+                    <button className="waves-effect waves-light btn">
+                      Editar
+                    </button>
                     <button
-                      className="waves-effect waves-light btn"
+                      className="waves-effect waves-light btn red darken-4"
                       onClick={handleDeleteTransaction}
                       id={_id}
                     >
-                      Editar
-                    </button>
-                    <button className="waves-effect waves-light btn red darken-4-">
                       X
                     </button>
                   </span>
