@@ -134,6 +134,30 @@ export default function App() {
     setSelectedTransaction(null);
   };
 
+  const handleSave = (newTransaction) => {
+    console.log(newTransaction);
+    const { _id } = newTransaction;
+
+    const editedTransaction = {
+      ...newTransaction,
+      year: Number(newTransaction.yearMonthDay.substring(0, 4)),
+      month: Number(newTransaction.yearMonthDay.substring(5, 7)),
+      day: Number(newTransaction.yearMonthDay.substring(8, 10)),
+    };
+
+    api.patch(`${RESOURCE}/${_id}`, editedTransaction);
+
+    //Refletir em tela após a edição
+    const newTransactions = [...transactions];
+    const index = newTransactions.findIndex((transaction) => {
+      return transaction._id === editedTransaction._id;
+    });
+    newTransactions[index] = editedTransaction;
+
+    setTransactions(newTransactions);
+    setSelectedTransaction(null);
+  };
+
   const { transactionStyle } = styles;
 
   return (
@@ -198,6 +222,7 @@ export default function App() {
         <MaintenanceScreen
           transaction={selectedTransaction}
           onCancel={handleCancel}
+          onSave={handleSave}
         />
       )}
     </div>

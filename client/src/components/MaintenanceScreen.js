@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MaintenanceScreen({ transaction, onCancel }) {
+export default function MaintenanceScreen({ transaction, onCancel, onSave }) {
   const [description, setDescription] = React.useState("");
   const [value, setValue] = React.useState(0);
   const [category, setCategory] = React.useState("");
@@ -33,7 +33,7 @@ export default function MaintenanceScreen({ transaction, onCancel }) {
 
   const handleCategoryChange = (event) => {
     const category = event.target.value.trim();
-    setDescription(category);
+    setCategory(category);
   };
 
   const handleDateChange = (event) => {
@@ -46,13 +46,26 @@ export default function MaintenanceScreen({ transaction, onCancel }) {
     setType(type);
   };
 
-  const handleCancelClick=()=>{
+  const handleCancelClick = () => {
     onCancel();
-  }
+  };
+
+  const handleSaveClick = () => {
+    const newTransaction = {
+      _id: transaction._id,
+      description,
+      value,
+      type, 
+      yearMonthDay: date,
+      category,
+    };
+
+    onSave(newTransaction);
+  };
 
   return (
     <div>
-      <div style={{ marginBottom: "0px" }}>
+      <div style={{ marginBottom: "20px" }}>
         <span>
           <label>
             <input
@@ -127,7 +140,12 @@ export default function MaintenanceScreen({ transaction, onCancel }) {
           Data:
         </label>
       </div>
-      <button className="waves-effect waves-light btn">Salvar</button>
+      <button
+        className="waves-effect waves-light btn"
+        onClick={handleSaveClick}
+      >
+        Salvar
+      </button>
       <button
         className="waves-effect waves-light btn red darken-7"
         style={{ marginLeft: "10px" }}
