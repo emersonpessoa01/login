@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MaintenanceScreen({ transaction }) {
+export default function MaintenanceScreen({ transaction, onCancel }) {
   const [description, setDescription] = React.useState("");
   const [value, setValue] = React.useState(0);
   const [category, setCategory] = React.useState("");
@@ -46,9 +46,13 @@ export default function MaintenanceScreen({ transaction }) {
     setType(type);
   };
 
+  const handleCancelClick=()=>{
+    onCancel();
+  }
+
   return (
     <div>
-      <div style={{marginBottom:"0px"}}>
+      <div style={{ marginBottom: "0px" }}>
         <span>
           <label>
             <input
@@ -62,7 +66,7 @@ export default function MaintenanceScreen({ transaction }) {
           </label>
         </span>
 
-        <span style={{marginLeft:"30px "}}>
+        <span style={{ marginLeft: "30px " }}>
           <label>
             <input
               name="expense_earning"
@@ -124,8 +128,13 @@ export default function MaintenanceScreen({ transaction }) {
         </label>
       </div>
       <button className="waves-effect waves-light btn">Salvar</button>
-      <button className="waves-effect waves-light btn red darken-7" style={{marginLeft:"10px"}}>Cancelar</button>
-
+      <button
+        className="waves-effect waves-light btn red darken-7"
+        style={{ marginLeft: "10px" }}
+        onClick={handleCancelClick}
+      >
+        Cancelar
+      </button>
     </div>
   );
 }

@@ -43,7 +43,6 @@ const PERIODS = [
 const EARNING_COLOR = "#0094ff";
 const EXPENSE_COLOR = "#9897FF";
 
-
 const LIST_SCREEN = 0;
 const MAINTENANCE_SCREEN = 1;
 
@@ -53,7 +52,7 @@ export default function App() {
   const [currentPeriod, setCurrentPeriod] = React.useState(PERIODS[0]);
   const [currentScreen, setCurrentScreen] = React.useState(LIST_SCREEN);
   const [filteredText, setFilteredText] = React.useState("");
-  const [selectedTransaction, setSelectedTransaction] = React.useState(null)
+  const [selectedTransaction, setSelectedTransaction] = React.useState(null);
 
   React.useEffect(() => {
     const fetchTransactions = async () => {
@@ -82,13 +81,13 @@ export default function App() {
   }, [transactions, filteredText]);
 
   React.useEffect(() => {
-    const newScreen = selectedTransaction !== null ? MAINTENANCE_SCREEN : LIST_SCREEN;
+    const newScreen =
+      selectedTransaction === null ? LIST_SCREEN : MAINTENANCE_SCREEN;
 
-    console.log(newScreen )
+    console.log(newScreen);
 
-    setCurrentScreen(newScreen)
-
-  },[selectedTransaction])
+    setCurrentScreen(newScreen);
+  }, [selectedTransaction]);
 
   const handleDeleteTransaction = async (event) => {
     const id = event.target.id;
@@ -106,13 +105,12 @@ export default function App() {
   const handleEditTransaction = async (event) => {
     const id = event.target.id;
     // console.log(id)
-    const newTransactions = transactions.find(transaction=>{
-      return transaction._id === id
-    })
+    const newTransactions = transactions.find((transaction) => {
+      return transaction._id === id;
+    });
 
-    console.log(newTransactions)
-    setSelectedTransaction(newTransactions)
-    
+    console.log(newTransactions);
+    setSelectedTransaction(newTransactions);
   };
 
   const handleFilterChange = (event) => {
@@ -132,69 +130,75 @@ export default function App() {
     return formatter.format(number);
   };
 
-  const { transactionStyle, buttonEditar } = styles;
+  const handleCancel = () => {
+    setSelectedTransaction(null);
+  };
+
+  const { transactionStyle } = styles;
 
   return (
     <div className="container">
       <h1 className="center">Desafio Final do Bootcamp full Stack</h1>
       {currentScreen === LIST_SCREEN ? (
         <>
-        <select
-          className="browser-default"
-          value={currentPeriod}
-          onChange={handlePeriodChange}
-        >
-          {PERIODS.map((period) => {
-            return <option>{period}</option>;
-          })}
-        </select>
-  
-        <input
-          type="text"
-          autoFocus={true}
-          placeholder="Escreva a categoria..."
-          value={filteredText}
-          onChange={handleFilterChange}
-        />
-  
-        {filteredTransactions.map(
-          ({ _id, yearMonthDay, category, description, value, type }) => {
-            const currentColor = type === "+" ? EARNING_COLOR : EXPENSE_COLOR;
-  
-            return (
-              <div
-                key={_id}
-                style={{ ...transactionStyle, backgroundColor: currentColor }}
-              >
-                <span style={buttonEditar}>
+          <select
+            className="browser-default"
+            value={currentPeriod}
+            onChange={handlePeriodChange}
+          >
+            {PERIODS.map((period) => {
+              return <option>{period}</option>;
+            })}
+          </select>
+
+          <input
+            type="text"
+            autoFocus={true}
+            placeholder="Escreva a categoria..."
+            value={filteredText}
+            onChange={handleFilterChange}
+          />
+
+          {filteredTransactions.map(
+            ({ _id, yearMonthDay, category, description, value, type }) => {
+              const currentColor = type === "+" ? EARNING_COLOR : EXPENSE_COLOR;
+
+              return (
+                <div
+                  key={_id}
+                  style={{ ...transactionStyle, backgroundColor: currentColor }}
+                >
                   <button
                     className="waves-effect waves-light btn"
                     onClick={handleEditTransaction}
                     id={_id}
+                    style={{ marginLeft: "4px" }}
                   >
                     Editar
                   </button>
-                </span>
-                <span>
+
                   <button
                     className="waves-effect waves-light btn red darken-7"
                     onClick={handleDeleteTransaction}
                     id={_id}
+                    style={{ marginLeft: "4px" }}
                   >
                     X
                   </button>
-                </span>
-                <span style={{ margin: 7 }}>
-                  {yearMonthDay}-<strong>{category}</strong>-{description}-
-                  {numberFormatter(value)}
-                </span>
-              </div>
-            );
-          }
-        )}
-      </>
+                  <span style={{ margin: 7 }}>
+                    {yearMonthDay}-<strong>{category}</strong>-{description}-
+                    {numberFormatter(value)}
+                  </span>
+                </div>
+              );
+            }
+          )}
+        </>
       ) : (
-        <MaintenanceScreen transaction={selectedTransaction} />
+        <MaintenanceScreen
+          transaction={selectedTransaction}
+          onCancel={handleCancel}
+        />
       )}
     </div>
   );
@@ -206,10 +210,6 @@ const styles = {
     margin: "5px",
     border: "1px solid lightgray",
     borderRadius: "5px",
-    shadowColor:"3px"
-  },
-  buttonEditar: {
-    margin: "4px",
-    shadowColor:"3px"
+    shadowColor: "3px",
   },
 };
