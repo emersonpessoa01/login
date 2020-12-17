@@ -53,6 +53,7 @@ export default function App() {
   const [currentScreen, setCurrentScreen] = React.useState(LIST_SCREEN);
   const [filteredText, setFilteredText] = React.useState("");
   const [selectedTransaction, setSelectedTransaction] = React.useState(null);
+  const [newTransaction, setNewTransaction] = React.useState(false);
 
   React.useEffect(() => {
     const fetchTransactions = async () => {
@@ -82,12 +83,14 @@ export default function App() {
 
   React.useEffect(() => {
     const newScreen =
-      selectedTransaction === null ? LIST_SCREEN : MAINTENANCE_SCREEN;
+      selectedTransaction !== null || newTransaction
+        ? MAINTENANCE_SCREEN
+        : LIST_SCREEN;
 
     console.log(newScreen);
 
     setCurrentScreen(newScreen);
-  }, [selectedTransaction]);
+  }, [selectedTransaction, newTransaction]);
 
   const handleDeleteTransaction = async (event) => {
     const id = event.target.id;
@@ -113,6 +116,11 @@ export default function App() {
     setSelectedTransaction(newTransactions);
   };
 
+  //lançamentos
+  const handleNewTransaction = async () => {
+    setNewTransaction(true);
+  };
+
   const handleFilterChange = (event) => {
     const text = event.target.value.trim();
     setFilteredText(text.toLowerCase());
@@ -131,6 +139,7 @@ export default function App() {
   };
 
   const handleCancel = () => {
+    setNewTransaction(false)
     setSelectedTransaction(null);
   };
 
@@ -181,7 +190,29 @@ export default function App() {
             placeholder="Escreva a categoria..."
             value={filteredText}
             onChange={handleFilterChange}
+            style={{
+              marginTop: "20px",
+              marginBottom: "20px",
+              marginLeft: "8px",
+              marginRight: "20px",
+            }}
           />
+
+          <div
+            style={{
+              marginTop: "20px",
+              marginBottom: "20px",
+              marginLeft: "8px",
+            }}
+          >
+            <button
+              className="waves-effect waves-light btn"
+              style={{ borderRadius: "5px" }}
+              onClick={handleNewTransaction}
+            >
+              Lançamentos
+            </button>
+          </div>
 
           {filteredTransactions.map(
             ({ _id, yearMonthDay, category, description, value, type }) => {

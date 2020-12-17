@@ -1,11 +1,25 @@
 import React from "react";
 
+const INSERTING = 0;
+const EDITING = 1;
+
+const today = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+
+  const today = `${year}-${month}-${day}`;
+  return today;
+};
+
 export default function MaintenanceScreen({ transaction, onCancel, onSave }) {
   const [description, setDescription] = React.useState("");
   const [value, setValue] = React.useState(0);
   const [category, setCategory] = React.useState("");
-  const [date, setDate] = React.useState("");
+  const [date, setDate] = React.useState(today());
   const [type, setType] = React.useState("-");
+  const [mode, setMode] = React.useState(INSERTING);
 
   React.useEffect(() => {
     if (!transaction) {
@@ -19,6 +33,7 @@ export default function MaintenanceScreen({ transaction, onCancel, onSave }) {
     setCategory(category);
     setDate(yearMonthDay);
     setType(type);
+    setMode(EDITING);
   }, [transaction]);
 
   const handleDescriptionChange = (event) => {
@@ -55,7 +70,7 @@ export default function MaintenanceScreen({ transaction, onCancel, onSave }) {
       _id: transaction._id,
       description,
       value,
-      type, 
+      type,
       yearMonthDay: date,
       category,
     };
