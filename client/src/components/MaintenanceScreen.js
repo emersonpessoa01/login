@@ -26,14 +26,6 @@ export default function MaintenanceScreen({ transaction }) {
     setDescription(description);
   };
 
-  const formatter = Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-  const numberFormat = (number) => {
-    return formatter.format(number);
-  };
-
   const handleValueChange = (event) => {
     const value = +event.target.value;
     setValue(value);
@@ -42,6 +34,16 @@ export default function MaintenanceScreen({ transaction }) {
   const handleCategoryChange = (event) => {
     const category = event.target.value.trim();
     setDescription(category);
+  };
+
+  const handleDateChange = (event) => {
+    const date = event.target.value.trim();
+    setDescription(date);
+  };
+
+  const handleTypeChange = (event) => {
+    const type = event.target.value.trim();
+    setDescription(type);
   };
 
   return (
@@ -68,8 +70,9 @@ export default function MaintenanceScreen({ transaction }) {
         <label htmlFor="inputValue" className="active">
           Valor(R$):
         </label>
+      </div>
 
-        <div className="input-field">
+      <div className="input-field">
         <input
           type="text"
           value={category}
@@ -81,6 +84,28 @@ export default function MaintenanceScreen({ transaction }) {
         </label>
       </div>
 
+      <div className="input-field">
+        <input
+          type="date"
+          value={date}
+          onChange={handleDateChange}
+          id="inputDate"
+        />
+        <label htmlFor="inputDate" className="active">
+          Data:
+        </label>
+      </div>
+
+      <div className="input-field">
+        <input
+          type="text"
+          value={type}
+          onChange={handleTypeChange}
+          id="inputType"
+        />
+        <label htmlFor="inputType" className="active">
+          Tipo:
+        </label>
       </div>
     </div>
   );
