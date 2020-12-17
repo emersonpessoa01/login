@@ -37,17 +37,45 @@ export default function MaintenanceScreen({ transaction }) {
   };
 
   const handleDateChange = (event) => {
-    const date = event.target.value.trim();
-    setDescription(date);
+    const date = event.target.value;
+    setDate(date);
   };
 
   const handleTypeChange = (event) => {
-    const type = event.target.value.trim();
-    setDescription(type);
+    const type = event.target.value;
+    setType(type);
   };
 
   return (
     <div>
+      <div style={{marginBottom:"0px"}}>
+        <span>
+          <label>
+            <input
+              name="expense_earning"
+              type="radio"
+              checked={type === "-"}
+              onChange={handleTypeChange}
+              value="-"
+            />
+            <span>Despesa</span>
+          </label>
+        </span>
+
+        <span style={{marginLeft:"30px "}}>
+          <label>
+            <input
+              name="expense_earning"
+              type="radio"
+              checked={type === "+"}
+              onChange={handleTypeChange}
+              value="+"
+            />
+            <span>Receita</span>
+          </label>
+        </span>
+      </div>
+
       <div className="input-field">
         <input
           type="text"
@@ -95,18 +123,9 @@ export default function MaintenanceScreen({ transaction }) {
           Data:
         </label>
       </div>
+      <button className="waves-effect waves-light btn">Salvar</button>
+      <button className="waves-effect waves-light btn red darken-7" style={{marginLeft:"10px"}}>Cancelar</button>
 
-      <div className="input-field">
-        <input
-          type="text"
-          value={type}
-          onChange={handleTypeChange}
-          id="inputType"
-        />
-        <label htmlFor="inputType" className="active">
-          Tipo:
-        </label>
-      </div>
     </div>
   );
 }

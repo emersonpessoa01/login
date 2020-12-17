@@ -177,7 +177,7 @@ export default function App() {
                 </span>
                 <span>
                   <button
-                    className="waves-effect waves-light btn red darken-4"
+                    className="waves-effect waves-light btn red darken-7"
                     onClick={handleDeleteTransaction}
                     id={_id}
                   >
