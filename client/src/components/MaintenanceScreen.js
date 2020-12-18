@@ -14,9 +14,9 @@ const today = () => {
 };
 
 export default function MaintenanceScreen({ transaction, onCancel, onSave }) {
-  const [description, setDescription] = React.useState("");
-  const [value, setValue] = React.useState(0);
-  const [category, setCategory] = React.useState("");
+  const [description, setDescription] = React.useState("Nova descrição");
+  const [value, setValue] = React.useState(100);
+  const [category, setCategory] = React.useState("Nova Categoria");
   const [date, setDate] = React.useState(today());
   const [type, setType] = React.useState("-");
   const [mode, setMode] = React.useState(INSERTING);
@@ -67,7 +67,7 @@ export default function MaintenanceScreen({ transaction, onCancel, onSave }) {
 
   const handleSaveClick = () => {
     const newTransaction = {
-      _id: transaction._id,
+      _id: !!transaction ? transaction._id : null,
       description,
       value,
       type,
@@ -110,6 +110,7 @@ export default function MaintenanceScreen({ transaction, onCancel, onSave }) {
 
       <div className="input-field">
         <input
+          autoFocus={true}
           type="text"
           value={description}
           onChange={handleDescriptionChange}
