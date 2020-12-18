@@ -37,7 +37,7 @@ export default function App() {
           className="input-field "
           onChange={handlePeriodChange}
           type="month"
-          key="MesAno"
+          key="Yearmonth"
           value={currentPeriod}
         />
       </form>
