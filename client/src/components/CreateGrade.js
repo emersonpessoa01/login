@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function CreateGrade({ grades, onPersist, id, filter }) {
   const handleActionClick = () => {
@@ -20,7 +20,7 @@ export default function CreateGrade({ grades, onPersist, id, filter }) {
               className="waves-effect waves-light  btn"
               type="button"
               onClick={handleActionClick}
-              value="+ Novo Lançamento"
+              value="Lançamento"
             />
 
             <div className="file-path-wrapper">
