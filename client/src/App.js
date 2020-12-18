@@ -47,7 +47,7 @@ export default function App() {
       {transactions.map(
         ({ _id, yearMonthDay, category, description, value }) => {
           return (
-            <div>
+            <div key={_id}>
               <span style={{ margin: 7 }} key={_id}>
                 {yearMonthDay}-<strong>{category}</strong>-{description}-{value}
               </span>
