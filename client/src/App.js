@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FormSearch from "./components/FormSearch"
+import FormSearch from "./FormSearch"
 import CreateGrade from "./components/CreateGrade"
 import CountBalance from "./components/CountBalance"
 import Spinner from "./components/Spinner"
@@ -109,8 +109,8 @@ export default function App() {
   return (
     <div className="container" style={styles.containerBody}>
       <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
-        <h2> Bootcamp Desenvolvedor Full Stacks - Desafio Final</h2>
-        <h4>Controle Financeiro Pessoal</h4>
+        <h2> Bootcamp Full Stack - Desafio Final</h2>
+        <h4>Controle Financeiro</h4>
       </div>
       <hr />
       {!isModalOpen && (
