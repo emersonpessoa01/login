@@ -1,6 +1,14 @@
 import React from 'react';
+import axios from "axios";
 
-export default function FomPesquisa({
+const api = axios.create({
+  baseURL: "api",
+  headers: {
+    "Content-type": "application/json",
+  },
+});
+
+export default function FormSeach({
   yearMonth,
   actionYearMonth,
   onPersist,
@@ -9,9 +17,7 @@ export default function FomPesquisa({
   const handleInputChange = async (event) => {
     actionYearMonth(event.target.value);
     clearGrades([]);
-    const data =
-      'https://gabriel-controlhe-financeiro.herokuapp.com/api/transaction?period=' +
-      yearMonth;
+    const { data } = await api.get(`/transaction?period=${yearMonth}`); //pegando somente o que interessa do vetor de objeto
 
     const res = await fetch(data);
     let dados = await res.json();
