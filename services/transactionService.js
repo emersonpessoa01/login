@@ -17,7 +17,7 @@ const findAll = async (req, res) => {
       const transactions = await transactionModel.find({});
       res.send(transactions.filter((m) => m.yearMonth === period));
     } else {
-      res.send("Necessário informar parametro")
+      res.send("E necessario informar o parametro period, cujo o valor deve estar no formato yyyy-mm")
     }
   } catch (error) {
     res.status(500).send(err);
