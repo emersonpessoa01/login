@@ -7,6 +7,7 @@ import Spinner from "./components/Spinner"
 import GradesControl from "./components/GradesControl"
 import ModalGrade from "./components/ModalGrade"
 
+//conectando ao backend
 const api = axios.create({
   baseURL: "api",
   headers: {
