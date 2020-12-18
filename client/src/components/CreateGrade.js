@@ -20,7 +20,7 @@ export default function CreateGrade({ grades, onPersist, id, filter }) {
               className="waves-effect waves-light  btn"
               type="button"
               onClick={handleActionClick}
-              value="Lançamento"
+              value="Lançamentos"
             />
 
             <div className="file-path-wrapper">

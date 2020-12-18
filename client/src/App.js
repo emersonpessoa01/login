@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import * as apiService from "./api/ApiService"
 import axios from "axios";
-import FormSearch from "./FormSearch"
-import CreateGrade from "./components/CreateGrade"
-import CountBalance from "./components/CountBalance"
-import Spinner from "./components/Spinner"
-import GradesControl from "./components/GradesControl"
-import ModalGrade from "./components/ModalGrade"
+import FormSearch from "./FormSearch";
+import CreateGrade from "./components/CreateGrade";
+import CountBalance from "./components/CountBalance";
+import Spinner from "./components/Spinner";
+import GradesControl from "./components/GradesControl";
+import ModalGrade from "./components/ModalGrade";
 
 //conectando ao backend
 const api = axios.create({
@@ -44,8 +45,13 @@ export default function App() {
     setAllGrades([]);
   };
 
+
+  //apiservice
+
+  
+
   const handleDelete = async (gradeToDelete) => {
-    const isDeleted = await api.deleteGrade(gradeToDelete);
+    const isDeleted = await apiService.deleteGrade(gradeToDelete);
 
     if (isDeleted) {
       const deletedGradeIndex = allGrades.findIndex(
@@ -77,14 +83,14 @@ export default function App() {
         (grade) => grade._id === id
       );
       newGrades.splice(deletedGradeIndex, 1);
-      await api.updateGrade(gradeToPersist);
+      await apiService.updateGrade(gradeToPersist);
 
       newGrades.push(formData);
     } else {
       gradeToPersist = formData;
       console.log(formData);
 
-      const valueInsert = await api.insertGrade(gradeToPersist);
+      const valueInsert = await apiService.insertGrade(gradeToPersist);
       newGrades.push(valueInsert);
     }
     setAllGrades(newGrades);
@@ -108,17 +114,18 @@ export default function App() {
 
   return (
     <div className="container" style={styles.containerBody}>
-      <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
+      <div style={{ textAlign: "center", fontWeight: "bold" }}>
         <h2> Bootcamp Full Stack - Desafio Final</h2>
         <h4>Controle Financeiro</h4>
       </div>
       <hr />
       {!isModalOpen && (
         <FormSearch
-        yearMonth={yearMonth}
-        onPersist={handleActionAllGrades}
-        actionYearMonth={handleActionYearMonth}
-        clearGrades={handleClearGrades} />
+          yearMonth={yearMonth}
+          onPersist={handleActionAllGrades}
+          actionYearMonth={handleActionYearMonth}
+          clearGrades={handleClearGrades}
+        />
       )}
       <CountBalance grades={allGrades} />
       {!isModalOpen && (
@@ -150,7 +157,7 @@ export default function App() {
 
 const styles = {
   containerBody: {
-    backgroundColor: 'white',
-    padding: '15px',
+    backgroundColor: "white",
+    padding: "15px",
   },
 };

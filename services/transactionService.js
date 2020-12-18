@@ -11,34 +11,16 @@ const ObjectId = mongoose.Types.ObjectId;
 // }
 
 const findAll = async (req, res) => {
-  const { query } = req;
+  const { period } = req.query;
   try {
-    if (!query.period) {
-      //apresenta a falha de cara no console
-      throw new Error(
-        `É necessário informar o parametro "period", cujo valor deve está no formato yyyy-mm`
-      );
+    if (period !== null) {
+      const transactions = await transactionModel.find({});
+      res.send(transactions.filter((m) => m.yearMonth === period));
     } else {
-      const { period } = query;
-      if (period.length === 7) {
-        //itera com o mongoDB
-        const filteredTransactions = await transactionModel.find({
-          yearMonth: period,
-        });
-
-        res.send({
-          length: filteredTransactions.length,
-          transactions: filteredTransactions,
-        });
-      } else {
-        throw new Error("Período inválido. Use o formato yyyy-mm");
-        // res.status(400).send({
-        //   message: "Período inválido. Use o formato yyyy-mm"})
-      }
+      res.send("Necessário informar parametro")
     }
-  } catch ({ message }) {
-    console.log(message);
-    res.status(400).send({ error: message });
+  } catch (error) {
+    res.status(500).send(err);
   }
 };
 
@@ -62,17 +44,17 @@ const findOne = async (req, res) => {
 
 const create = async (req, res) => {
   const transaction = new transactionModel(req.body);
-  
+
   try {
     if (JSON.stringify(req.body) === "{}") {
       res.status(400).send({
-        error: 'Inválido.Conteúdo vazio'
+        error: "Inválido.Conteúdo vazio",
       });
     }
     await transaction.save();
     res.send({
       status: "ok",
-      transaction
+      transaction,
     });
   } catch (err) {
     res.status(500).send(err);
@@ -104,7 +86,7 @@ const update = async (req, res) => {
     }
 
     res.status(200).send({
-      status:"Atualizado com sucesso",
+      status: "Atualizado com sucesso",
       transaction,
     });
   } catch (error) {
@@ -125,7 +107,7 @@ const remove = async (req, res) => {
     }
     res.status(200).send({
       message: `Lançamento de id:"${id}" excluído com sucesso`,
-      transaction
+      transaction,
     });
   } catch (err) {
     res.status(500).send(err);
