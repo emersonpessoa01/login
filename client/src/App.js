@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FormSearch from "./components/FormSearch"
+import CreateGrade from './components/CreateGrade'
+import CountBalance from './components/CountBalance'
+import Spinner from './components/Spinner'
+import GradesControl from './components/GradesControl'
+import ModalGrade from './components/ModalGrade'
 
 const api = axios.create({
   baseURL: "api",
@@ -20,7 +26,7 @@ export default function App() {
       const { data } = await api.get(`/transaction?period=${yearMonth}`); //pegando somente o que interessa do vetor de objeto
       // console.log(axiosObject);
       console.log(data);
-      setAllGrades(data);
+      setAllGrades(data.transactions);
     };
     fetchTransactions();
   }, [yearMonth]);

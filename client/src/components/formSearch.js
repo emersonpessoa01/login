@@ -8,7 +8,7 @@ const api = axios.create({
   },
 });
 
-export default function FormSeach({
+export default function FormSearch({
   yearMonth,
   actionYearMonth,
   onPersist,
