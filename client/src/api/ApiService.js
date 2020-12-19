@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const API_URL =
+// /api/transaction?period=
+// /api/transaction
   'https://api-transaction-chanceller.herokuapp.com/api/transaction?period=';
 const API_URL_Trasaction =
   'https://api-transaction-chanceller.herokuapp.com/api/transaction';
