@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FormSearch from "./components/FormSearch"
 import CreateGrade from './components/CreateGrade'
-import CountBalance from './components/CountBalance'
 import Spinner from './components/Spinner'
 import GradesControl from './components/GradesControl'
 import ModalGrade from './components/ModalGrade'
+import CountBalance from "./components/CountBalance";
+import FormSearch from "./components/formSearch";
 
 const api = axios.create({
   baseURL: "api",
