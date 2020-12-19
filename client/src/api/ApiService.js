@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const API_URL =
-  'https://gabriel-controlhe-financeiro.herokuapp.com/api/transaction?period=';
+  'https://api-transaction-chanceller.herokuapp.com/api/transaction?period=';
 const API_URL_Trasaction =
-  'https://gabriel-controlhe-financeiro.herokuapp.com/api/transaction';
+  'https://api-transaction-chanceller.herokuapp.com/api/transaction';
   
 async function getAllGrades(yearMonth) {
   const res = await axios.get(API_URL + yearMonth);
