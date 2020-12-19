@@ -1,34 +1,25 @@
-import React, { useState } from "react";
-import axios from "axios";
-import CreateGrade from './components/CreateGrade'
-import Spinner from './components/Spinner'
-import GradesControl from './components/GradesControl'
-import ModalGrade from './components/ModalGrade'
-import FormSearch from "./components/formSearch";
-import CountBalancer from "./components/CountBalancer"
-
-const api = axios.create({
-  baseURL: "api",
-  headers: {
-    "Content-type": "application/json",
-  },
-});
+import React, { useState, useEffect } from 'react';
+import * as api from './api/ApiServices';
+import Spinner from './components/Spinnner';
+import GradesControl from './components/GradesControl';
+import FormPesquisa from './components/FormPesquisa';
+import ConuntSaldo from './components/ConuntSaldo';
+import ModalGrade from './components/ModalGrade';
+import CreateGrade from './components/CreateGrade';
 
 export default function App() {
-  const [allGrades, setAllGrades] = React.useState([]);
-  const [yearMonth, setYearMonth] = React.useState("2019-01");
+  const [allGrades, setAllGrades] = useState([]);
+  const [yearMonth, setYearMonth] = useState('2019-01');
   const [selectedGrade, setSelectedGrade] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  React.useEffect(() => {
-    const fetchTransactions = async () => {
-      // const axiosObject = await api.get("/transaction?period=2019-07");//axiosObject - demonstra toda estrutura do objeto
-      const { data } = await api.get(`/transaction?period=${yearMonth}`); //pegando somente o que interessa do vetor de objeto
-      // console.log(axiosObject);
-      console.log(data);
-      setAllGrades(data.transactions);
+  useEffect(() => {
+    const getGrades = async () => {
+      const grades = await api.getAllGrades(yearMonth);
+      setAllGrades(grades);
     };
-    fetchTransactions();
+
+    getGrades();
   }, [yearMonth]);
 
   const handleActionAllGrades = (data) => {
@@ -42,11 +33,6 @@ export default function App() {
   const handleClearGrades = () => {
     setAllGrades([]);
   };
-
-
-  //apiservice
-
-  
 
   const handleDelete = async (gradeToDelete) => {
     const isDeleted = await api.deleteGrade(gradeToDelete);
@@ -112,20 +98,20 @@ export default function App() {
 
   return (
     <div className="container" style={styles.containerBody}>
-      <div style={{ textAlign: "center", fontWeight: "bold" }}>
-        <h2> Bootcamp Full Stack - Desafio Final</h2>
-        <h4>Controle Financeiro</h4>
+      <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
+        <h2> Bootcamp Desenvolvedor Full Stacks - Desafio Final</h2>
+        <h4>Controle Financeiro Pessoal</h4>
       </div>
       <hr />
       {!isModalOpen && (
-        <FormSearch
+        <FormPesquisa
           yearMonth={yearMonth}
           onPersist={handleActionAllGrades}
           actionYearMonth={handleActionYearMonth}
           clearGrades={handleClearGrades}
         />
       )}
-      <CountBalance grades={allGrades} />
+      <ConuntSaldo grades={allGrades} />
       {!isModalOpen && (
         <CreateGrade
           onPersist={handlePersist}
@@ -155,7 +141,7 @@ export default function App() {
 
 const styles = {
   containerBody: {
-    backgroundColor: "white",
-    padding: "15px",
+    backgroundColor: 'white',
+    padding: '15px',
   },
 };

@@ -11,36 +11,19 @@ const ObjectId = mongoose.Types.ObjectId;
 // }
 
 const findAll = async (req, res) => {
-  const { query } = req;
+  const { period } = req.query;
   try {
-    if (!query.period) {
-      //apresenta a falha de cara no console
-      throw new Error(
-        `É necessário informar o parametro "period", cujo valor deve está no formato yyyy-mm`
-      );
-    } else {
-      const { period } = query;
-      if (period.length === 7) {
-        //itera com o mongoDB
-        const filteredTransactions = await transactionModel.find({
-          yearMonth: period,
-        });
+    if (period != null) {
+      const trasaction = await TransactionModel.find({});
 
-        res.send({
-          length: filteredTransactions.length,
-          transactions: filteredTransactions,
-        });
-      } else {
-        const transaction = await transactionModel.find({});
-        res.send(transaction.filter((m) => m.yearMonth === period));
-        // throw new Error("Período inválido. Use o formato yyyy-mm");
-        // res.status(400).send({
-        //   message: "Período inválido. Use o formato yyyy-mm"})
-      }
+      res.send(trasaction.filter((m) => m.yearMonth === period));
+    } else {
+      res.send(
+        ' E necessario informar o parametro "period", cujo o valor deve estar no formato yyyy-mm'
+      );
     }
-  } catch ({ message }) {
-    console.log(message);
-    res.status(400).send({ error: message });
+  } catch (err) {
+    res.status(500).send(err);
   }
 };
 
