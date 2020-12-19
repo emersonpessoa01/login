@@ -4,7 +4,6 @@ import CreateGrade from './components/CreateGrade'
 import Spinner from './components/Spinner'
 import GradesControl from './components/GradesControl'
 import ModalGrade from './components/ModalGrade'
-import CountBalance from "./components/CountBalance";
 import FormSearch from "./components/formSearch";
 
 const api = axios.create({
