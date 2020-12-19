@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import * as apiService from "./api/ApiService"
 import axios from "axios";
-import FormSearch from "./FormSearch"
-import CreateGrade from "./components/CreateGrade"
-import CountBalance from "./components/CountBalance"
-import Spinner from "./components/Spinner"
-import GradesControl from "./components/GradesControl"
-import ModalGrade from "./components/ModalGrade"
 
 const api = axios.create({
   baseURL: "api",
@@ -50,7 +43,7 @@ export default function App() {
   
 
   const handleDelete = async (gradeToDelete) => {
-    const isDeleted = await apiService.deleteGrade(gradeToDelete);
+    const isDeleted = await api.deleteGrade(gradeToDelete);
 
     if (isDeleted) {
       const deletedGradeIndex = allGrades.findIndex(
@@ -82,14 +75,14 @@ export default function App() {
         (grade) => grade._id === id
       );
       newGrades.splice(deletedGradeIndex, 1);
-      await apiService.updateGrade(gradeToPersist);
+      await api.updateGrade(gradeToPersist);
 
       newGrades.push(formData);
     } else {
       gradeToPersist = formData;
       console.log(formData);
 
-      const valueInsert = await apiService.insertGrade(gradeToPersist);
+      const valueInsert = await api.insertGrade(gradeToPersist);
       newGrades.push(valueInsert);
     }
     setAllGrades(newGrades);
