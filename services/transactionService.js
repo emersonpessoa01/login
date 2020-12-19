@@ -30,8 +30,11 @@ const findAll = async (req, res) => {
           length: filteredTransactions.length,
           transactions: filteredTransactions,
         });
+       
       } else {
-        throw new Error("Período inválido. Use o formato yyyy-mm");
+          const transaction = await transactionModel.find({})
+          res.send(transaction.filter(m=>m.yearMonth === period))
+        // throw new Error("Período inválido. Use o formato yyyy-mm");
         // res.status(400).send({
         //   message: "Período inválido. Use o formato yyyy-mm"})
       }
