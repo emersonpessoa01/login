@@ -20,7 +20,7 @@ export default function App() {
       const { data } = await api.get(`/transaction?period=${yearMonth}`); //pegando somente o que interessa do vetor de objeto
       // console.log(axiosObject);
       console.log(data);
-      setAllGrades(data);
+      setAllGrades(data.transactions);
     };
     fetchTransactions();
   }, [yearMonth]);
