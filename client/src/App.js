@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import * as apiService from "./api/ApiService"
 import axios from "axios";
-import FormSearch from "./FormSearch";
-import CreateGrade from "./components/CreateGrade";
-import CountBalance from "./components/CountBalance";
-import Spinner from "./components/Spinner";
-import GradesControl from "./components/GradesControl";
-import ModalGrade from "./components/ModalGrade";
+import FormSearch from "./FormSearch"
+import CreateGrade from "./components/CreateGrade"
+import CountBalance from "./components/CountBalance"
+import Spinner from "./components/Spinner"
+import GradesControl from "./components/GradesControl"
+import ModalGrade from "./components/ModalGrade"
 
-//conectando ao backend
 const api = axios.create({
   baseURL: "api",
   headers: {
