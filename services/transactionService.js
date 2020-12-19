@@ -31,7 +31,9 @@ const findAll = async (req, res) => {
           transactions: filteredTransactions,
         });
       } else {
-        throw new Error("Período inválido. Use o formato yyyy-mm");
+        const transaction = await transactionModel.find({});
+        res.send(transaction.filter((m) => m.yearMonth === period));
+        // throw new Error("Período inválido. Use o formato yyyy-mm");
         // res.status(400).send({
         //   message: "Período inválido. Use o formato yyyy-mm"})
       }
@@ -62,17 +64,17 @@ const findOne = async (req, res) => {
 
 const create = async (req, res) => {
   const transaction = new transactionModel(req.body);
-  
+
   try {
     if (JSON.stringify(req.body) === "{}") {
       res.status(400).send({
-        error: 'Inválido.Conteúdo vazio'
+        error: "Inválido.Conteúdo vazio",
       });
     }
     await transaction.save();
     res.send({
       status: "ok",
-      transaction
+      transaction,
     });
   } catch (err) {
     res.status(500).send(err);
@@ -104,7 +106,7 @@ const update = async (req, res) => {
     }
 
     res.status(200).send({
-      status:"Atualizado com sucesso",
+      status: "Atualizado com sucesso",
       transaction,
     });
   } catch (error) {
@@ -125,7 +127,7 @@ const remove = async (req, res) => {
     }
     res.status(200).send({
       message: `Lançamento de id:"${id}" excluído com sucesso`,
-      transaction
+      transaction,
     });
   } catch (err) {
     res.status(500).send(err);
