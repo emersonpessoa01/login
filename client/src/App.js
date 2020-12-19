@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FormSearch from "./components/FormSearch"
+import FormSearch from "./components/formSearch"
 import CreateGrade from "./components/CreateGrade"
 import CountBalance from "./components/CountBalance"
 import Spinner from "./components/Spinner"
