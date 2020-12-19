@@ -1,11 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FormSearch from "./components/formSearch"
-import CreateGrade from "./components/CreateGrade"
-import CountBalance from "./components/CountBalance"
-import Spinner from "./components/Spinner"
-import GradesControl from "./components/GradesControl"
-import ModalGrade from "./components/ModalGrade"
 
 const api = axios.create({
   baseURL: "api",
@@ -26,7 +20,7 @@ export default function App() {
       const { data } = await api.get(`/transaction?period=${yearMonth}`); //pegando somente o que interessa do vetor de objeto
       // console.log(axiosObject);
       console.log(data);
-      setAllGrades(data.transactions);
+      setAllGrades(data);
     };
     fetchTransactions();
   }, [yearMonth]);
@@ -42,6 +36,11 @@ export default function App() {
   const handleClearGrades = () => {
     setAllGrades([]);
   };
+
+
+  //apiservice
+
+  
 
   const handleDelete = async (gradeToDelete) => {
     const isDeleted = await api.deleteGrade(gradeToDelete);
@@ -107,17 +106,18 @@ export default function App() {
 
   return (
     <div className="container" style={styles.containerBody}>
-      <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
-        <h2> Bootcamp Desenvolvedor Full Stacks - Desafio Final</h2>
-        <h4>Controle Financeiro Pessoal</h4>
+      <div style={{ textAlign: "center", fontWeight: "bold" }}>
+        <h2> Bootcamp Full Stack - Desafio Final</h2>
+        <h4>Controle Financeiro</h4>
       </div>
       <hr />
       {!isModalOpen && (
         <FormSearch
-        yearMonth={yearMonth}
-        onPersist={handleActionAllGrades}
-        actionYearMonth={handleActionYearMonth}
-        clearGrades={handleClearGrades} />
+          yearMonth={yearMonth}
+          onPersist={handleActionAllGrades}
+          actionYearMonth={handleActionYearMonth}
+          clearGrades={handleClearGrades}
+        />
       )}
       <CountBalance grades={allGrades} />
       {!isModalOpen && (
@@ -149,7 +149,7 @@ export default function App() {
 
 const styles = {
   containerBody: {
-    backgroundColor: 'white',
-    padding: '15px',
+    backgroundColor: "white",
+    padding: "15px",
   },
 };
