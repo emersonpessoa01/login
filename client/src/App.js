@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FormSearch from "./components/FormSearch"
 import CreateGrade from './components/CreateGrade'
 import Spinner from './components/Spinner'
 import GradesControl from './components/GradesControl'
 import ModalGrade from './components/ModalGrade'
-import CountBalance from './components/CountBalance'
+import CountBalance from "./components/CountBalance";
+import FormSearch from "./components/formSearch";
 
 const api = axios.create({
   baseURL: "api",
@@ -125,7 +125,7 @@ export default function App() {
           clearGrades={handleClearGrades}
         />
       )}
-      <CountBalance  grades={allGrades} />
+      <CountBalance grades={allGrades} />
       {!isModalOpen && (
         <CreateGrade
           onPersist={handlePersist}
