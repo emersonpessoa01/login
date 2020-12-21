@@ -1,147 +1,140 @@
-import React, { useState, useEffect } from 'react';
-import * as api from './api/ApiServices';
-import Spinner from './components/Spinnner';
-import GradesControl from './components/GradesControl';
-import FormPesquisa from './components/FormPesquisa';
-import ConuntSaldo from './components/ConuntSaldo';
-import ModalGrade from './components/ModalGrade';
-import CreateGrade from './components/CreateGrade';
+import React, { useEffect, useState } from 'react';
+import * as api from './api/apiService';
+import Navigate from './components/Navigate';
+import Resumo from './components/Resumo';
+import Detalhes from './components/Detalhes';
+import Filtro from './components/Filtro';
+import Spinner from './components/Spinner';
+import ModalForm from './components/ModalForm';
+import Novo from './components/Novo';
+import ModalConfirmDelete from './components/ModalConfirmDelete';
 
 export default function App() {
-  const [allGrades, setAllGrades] = useState([]);
-  const [yearMonth, setYearMonth] = useState('2019-01');
-  const [selectedGrade, setSelectedGrade] = useState({});
+
+  const dt = new Date();
+
+  const yearMonthCurrent = `${dt.getFullYear()}-${("0" + (dt.getMonth() + 1)).slice(-2)}`;
+
+  const [period, setPeriod] = useState(yearMonthCurrent);
+  const [yearMonthSelected, setYearMonthSelected] = useState([]);
+  const [yearMonthFiltred, setYearMonthFiltred] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+  const [lancamento, setLancamento] = useState(null);
 
   useEffect(() => {
-    const getGrades = async () => {
-      const grades = await api.getAllGrades(yearMonth);
-      setAllGrades(grades);
-    };
-
-    getGrades();
-  }, [yearMonth]);
-
-  const handleActionAllGrades = (data) => {
-    setAllGrades(data);
-  };
-
-  const handleActionYearMonth = (data) => {
-    setYearMonth(data);
-  };
-
-  const handleClearGrades = () => {
-    setAllGrades([]);
-  };
-
-  const handleDelete = async (gradeToDelete) => {
-    const isDeleted = await api.deleteGrade(gradeToDelete);
-
-    if (isDeleted) {
-      const deletedGradeIndex = allGrades.findIndex(
-        (grade) => grade === gradeToDelete
-      );
-      const newGrades = Object.assign([], allGrades);
-      newGrades.splice(deletedGradeIndex, 1);
-      setAllGrades(newGrades);
+    setYearMonthFiltred([]);
+    const fetchYearMonth = async () => {
+      const data = await api.getAll(period);
+      setYearMonthSelected(data);
+      setYearMonthFiltred(data);
     }
-  };
 
-  const handlePersist = (grades) => {
-    setSelectedGrade(grades);
+    if (period != null)
+      fetchYearMonth();
 
+  }, [period]);
+
+  const handleYearMont = (selected) => {
+    setPeriod(selected);
+  }
+
+  const handleFilter = (filtered) => {
+    setYearMonthFiltred(filtered);
+  }
+
+  const handlePersist = (selecionado) => {
+    setLancamento(selecionado);
     setIsModalOpen(true);
-  };
+  }
 
-  const handlePersistData = async (formData) => {
-    const { id } = formData;
-    const newGrades = Object.assign([], allGrades);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  }
 
-    let gradeToPersist = null;
+  const handlePersistData = async (lancamentoPersist, isEdit) => {
 
-    if (id !== undefined) {
-      gradeToPersist = newGrades.find(({ _id }) => _id === id);
-      gradeToPersist = formData;
+    try {
+      if (!isEdit) {
+        await api.insert(lancamentoPersist);
+      }else{
+        await api.update(lancamentoPersist);
+      }
 
-      const deletedGradeIndex = newGrades.findIndex(
-        (grade) => grade._id === id
-      );
-      newGrades.splice(deletedGradeIndex, 1);
-      await api.updateGrade(gradeToPersist);
-
-      newGrades.push(formData);
-    } else {
-      gradeToPersist = formData;
-      console.log(formData);
-
-      const valueInsert = await api.insertGrade(gradeToPersist);
-      newGrades.push(valueInsert);
+      handleCloseModal();
+      refresh();
+    } catch{
+      console.log("Falha ao gravar");
     }
-    setAllGrades(newGrades);
-    setIsModalOpen(false);
-  };
+  }
 
-  const handleClose = () => {
-    setIsModalOpen(false);
-  };
+  const refresh = () => {
+    const p = period;
 
-  const handleFilter = (filter) => {
-    const filterLowerCase = filter.toLowerCase();
+    setPeriod(null);
+    setPeriod(p);
+  }
 
-    const filtereLaçamenteos = allGrades.filter(({ description }) => {
-      const newDescription = description.toLowerCase();
-      return newDescription.includes(filterLowerCase);
-    });
+  const handleSelectedDelete = (lancamentoDelete) => {
+    setLancamento(lancamentoDelete);
+    
+    setIsModalDeleteOpen(true);
+  }
 
-    setAllGrades(filtereLaçamenteos);
-  };
+  const handleSelectedEdit = (lancamentoEdit) =>{
+    setLancamento(lancamentoEdit);
+    setIsModalOpen(true);
+  }
+
+  const handlePersistDelete = async (deletar) => {
+    setIsModalDeleteOpen(false);
+
+    if (deletar) {
+      try {        
+        await api.remove(lancamento._id);
+        refresh();
+      } catch{
+        console.log("Erro ao deletar");
+      }
+    }
+  }
 
   return (
-    <div className="container" style={styles.containerBody}>
-      <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
-        <h2> Bootcamp Desenvolvedor Full Stacks - Desafio Final</h2>
-        <h4>Controle Financeiro Pessoal</h4>
+    <div>
+      <div className="container">
+        <div style={styles.centeredTitle}>Desafio Final do Bootcamp Full Stack</div>
+        <Navigate onChangeYearMont={handleYearMont} defaultPeriod={period}></Navigate>
+        {yearMonthFiltred.length !== 0 && <Resumo yearMonths={yearMonthFiltred}></Resumo>}
+        {yearMonthFiltred.length === 0 && <Spinner />}
       </div>
-      <hr />
-      {!isModalOpen && (
-        <FormPesquisa
-          yearMonth={yearMonth}
-          onPersist={handleActionAllGrades}
-          actionYearMonth={handleActionYearMonth}
-          clearGrades={handleClearGrades}
-        />
-      )}
-      <ConuntSaldo grades={allGrades} />
-      {!isModalOpen && (
-        <CreateGrade
-          onPersist={handlePersist}
-          grades={allGrades}
-          filter={handleFilter}
-        />
-      )}
-
-      {allGrades.length === 0 && <Spinner />}
-      {allGrades.length > 0 && (
-        <GradesControl
-          grades={allGrades}
-          onDelete={handleDelete}
-          onPersist={handlePersist}
-        />
-      )}
-      {isModalOpen && (
-        <ModalGrade
+      {yearMonthFiltred.length !== 0 && <div className="container" style={{ paddingTop: '10px' }}>
+        <div className="row">
+          <Novo onPersist={handlePersist}></Novo>
+          <Filtro yearMonths={yearMonthSelected} onFilter={handleFilter}></Filtro>
+        </div>
+      </div>}
+      {yearMonthFiltred.length !== 0 &&
+        <Detalhes
+          yearMonths={yearMonthFiltred}
+          onEdit={handleSelectedEdit}
+          onDelete={handleSelectedDelete}></Detalhes>}
+      {isModalOpen &&
+        <ModalForm
+          onCloseModal={handleCloseModal}
           onSave={handlePersistData}
-          onClose={handleClose}
-          selectedGrade={selectedGrade}
-        />
-      )}
+          lancamento={lancamento}></ModalForm>}
+      {isModalDeleteOpen &&
+        <ModalConfirmDelete
+          onDelete={handlePersistDelete}></ModalConfirmDelete>}
     </div>
   );
 }
 
 const styles = {
-  containerBody: {
-    backgroundColor: 'white',
-    padding: '15px',
-  },
-};
+  centeredTitle: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: '1.4em',
+    paddingTop: '20px'
+  }
+}

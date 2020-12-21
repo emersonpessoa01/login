@@ -1,10 +1,14 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import { router } from "./routes/routes.js";
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const routes = require('./routes/routes');
+const path = require('path');
+const dotenv = require('dotenv');
 
-import path from "path";
-import dotenv from "dotenv";
+/**
+ * Faz a leitura do arquivo
+ * ".env" por padrão
+ */
 dotenv.config();
 
 const app = express();
@@ -12,24 +16,25 @@ app.use(cors());
 app.use(express.json());
 
 /**
- * Vinculando o React a api
+ * Vinculando o React ao app
  */
 app.use(express.static(path.join("client/build")));
+
 
 /**
  * Rota raiz
  */
-app.get("/api/", (_, res) => {
-  res.send({
+app.get('/api/', (_, response) => {
+  response.send({
     message:
-      "Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações",
+      'Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações',
   });
 });
 
 /**
  * Rotas principais do app
  */
-app.use("/api/transaction", router);
+app.use('/api/transaction', routes);
 
 /**
  * Conexão ao Banco de Dados

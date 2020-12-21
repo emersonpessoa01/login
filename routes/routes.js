@@ -1,18 +1,11 @@
-//roteador
-import express from "express"
+const express = require('express');
 const transactionRouter = express.Router();
-import {
-  findAll,
-  create,
-  remove,
-  update,
-  findOne,
-} from "../services/transactionService.js"
+const service = require('../services/transactionService.js');
 
-transactionRouter.get('/', findAll);
-transactionRouter.get('/:id', findOne);
-transactionRouter.post('/', create);
-transactionRouter.patch('/:id', update);
-transactionRouter.delete('/:id', remove);
+transactionRouter.get('/', service.findPeriod);
+transactionRouter.get('/periods/', service.getPeriods);
+transactionRouter.post('/', service.insert);
+transactionRouter.delete('/:id', service.delete);
+transactionRouter.put('/', service.update);
 
-export {transactionRouter as router};
+module.exports = transactionRouter;

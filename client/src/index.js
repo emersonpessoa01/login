@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+/**
+ * Importação do Materialize CSS
+ */
 import 'materialize-css/dist/css/materialize.min.css';
 
+import './index.css';
+
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>

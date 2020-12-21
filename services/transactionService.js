@@ -1,120 +1,107 @@
-//controller - responsável pelo tratamento e persistência de dados
-import mongoose from "mongoose";
-import { transactionModel } from "../models/transactionModel.js";
-
+const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 
-//integração do backend com o mongoDB
-// const getTransactions=async(period)=>{
-//   const transactions = await transactionModel.find({yearMonth: period});
-//   return transactions
-// }
+// Aqui havia um erro difícil de pegar. Importei como "transactionModel",
+// com "t" minúsculo. No Windows, isso não faz diferença. Mas como no Heroku
+// o servidor é Linux, isso faz diferença. Gastei umas boas horas tentando
+// descobrir esse erro :-/
+const TransactionModel = require("../models/TransactionModel");
 
-const findAll = async (req, res) => {
+exports.findPeriod = async (req, res) => {
   const { period } = req.query;
-  try {
-    if (period != null) {
-      const trasaction = await TransactionModel.find({});
 
-      res.send(trasaction.filter((m) => m.yearMonth === period));
-    } else {
-      res.send(
-        ' E necessario informar o parametro "period", cujo o valor deve estar no formato yyyy-mm'
-      );
-    }
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
-
-const findOne = async (req, res) => {
-  const id = req.params.id;
-
-  try {
-    const data = await transactionModel.findById({ _id: id });
-
-    if (data.length < 1) {
-      res
-        .status(404)
-        .send({ message: `Nenhum objeto encontrado com o id: ${id}` });
-    } else {
-      res.send(data);
-    }
-  } catch (error) {
-    res.status(500).send({ message: `Erro ao buscar o Documento id: ${id}` });
-  }
-};
-
-const create = async (req, res) => {
-  const transaction = new transactionModel(req.body);
-
-  try {
-    if (JSON.stringify(req.body) === "{}") {
-      res.status(400).send({
-        error: "Inválido.Conteúdo vazio",
+  if (!period) {
+    res
+      .status(400)
+      .send({
+        error:
+          'É necessário informar o parâmetro "period", cujo valor deve estar no formato yyyy-mm',
       });
-    }
-    await transaction.save();
-    res.send({
-      status: "ok",
-      transaction,
-    });
+  }
+
+  try {
+    const data = await TransactionModel.find({});
+    res.send(data.filter(m => m.yearMonth === period));
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send({ error: err });
   }
 };
 
-const update = async (req, res) => {
-  if (!req.body) {
-    return res.status(404).send({
-      message: "Dados para atualizacao vazio",
-    });
+exports.getPeriods = async (_, res) => {
+  try {
+    const data = await TransactionModel.find().distinct("yearMonth");
+    res.send(data);
+  } catch (err) {
+    res.status(500).send({ error: err });
   }
+};
 
+exports.insert = async (req, res) => {
+  try {
+    const {
+      description,
+      value,
+      category,
+      year,
+      month,
+      day,
+      yearMonth,
+      yearMonthDay,
+      type,
+    } = req.body;
+
+    var model = new TransactionModel({
+      description,
+      value,
+      category,
+      year,
+      month,
+      day,
+      yearMonth,
+      yearMonthDay,
+      type,
+    });
+
+    var data = await model.save();
+    return res.send(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Erro ao inserir");
+  }
+};
+
+exports.delete = async (req, res) => {
   const id = req.params.id;
 
+  if (!id) {
+    res.status(400).send({ error: "Não foi encontrado o item" });
+  }
+
   try {
-    const transaction = await transactionModel.findByIdAndUpdate(
+    const data = await TransactionModel.findOneAndRemove({ _id: id });
+
+    if (!data) res.status(400).send({ error: "Não foi encontrado o item" });
+
+    res.send("ok");
+  } catch (err) {
+    res.status(500).send({ error: err });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const id = req.body._id;
+
+    const data = await TransactionModel.findOneAndUpdate(
       { _id: id },
       req.body,
-      {
-        new: true,
-      }
+      { new: true }
     );
 
-    if (!transaction) {
-      res
-        .status(404)
-        .send({ message: "Nenhuma transaction encontrado para atualizar" });
-    }
+    if (!data) res.status(400).send("Documento não encontrado");
 
-    res.status(200).send({
-      status: "Atualizado com sucesso",
-      transaction,
-    });
-  } catch (error) {
-    res
-      .status(500)
-      .send({ message: `Erro ao atualizar transaction de id: ${id}` });
+    res.send(data);
+  } catch {
+    res.status(500).send({ error: err });
   }
 };
-
-const remove = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const transaction = await transactionModel.findOneAndDelete({ _id: id });
-    console.log(transaction);
-
-    if (!transaction) {
-      res.status(404).send("Documento não encontrado");
-    }
-    res.status(200).send({
-      message: `Lançamento de id:"${id}" excluído com sucesso`,
-      transaction,
-    });
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
-
-export { findAll, findOne, create, remove, update };
