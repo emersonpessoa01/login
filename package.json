@@ -15,7 +15,7 @@
   },
   "scripts": {
     "server": "nodemon index.js",
-    "start": "nodemon --experimental-modules index.js",
+    "start": "nodemon index.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "nodemonConfig": {

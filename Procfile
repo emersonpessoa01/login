@@ -1,1 +1,1 @@
-web: nodemon --experimental-modules index.js
+web: nodemon index.js
