@@ -1,33 +1,34 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+// const ObjectId = mongoose.Types.ObjectId;
+import mongoose from "mongoose";
 const ObjectId = mongoose.Types.ObjectId;
 
 // Aqui havia um erro difícil de pegar. Importei como "transactionModel",
 // com "t" minúsculo. No Windows, isso não faz diferença. Mas como no Heroku
 // o servidor é Linux, isso faz diferença. Gastei umas boas horas tentando
 // descobrir esse erro :-/
-const transactionModel = require("../models/transactionModel.js");
+// const transactionModel = require("../models/transactionModel.js");
+import {transactionModel} from "../models/transactionModel.js";
 
-exports.findPeriod = async (req, res) => {
+const findPeriod = async (req, res) => {
   const { period } = req.query;
 
   if (!period) {
-    res
-      .status(400)
-      .send({
-        error:
-          'É necessário informar o parâmetro "period", cujo valor deve estar no formato yyyy-mm',
-      });
+    res.status(400).send({
+      error:
+        'É necessário informar o parâmetro "period", cujo valor deve estar no formato yyyy-mm',
+    });
   }
 
   try {
     const data = await transactionModel.find({});
-    res.send(data.filter(m => m.yearMonth === period));
+    res.send(data.filter((m) => m.yearMonth === period));
   } catch (err) {
     res.status(500).send({ error: err });
   }
 };
 
-exports.getPeriods = async (_, res) => {
+const getPeriods = async (_, res) => {
   try {
     const data = await transactionModel.find().distinct("yearMonth");
     res.send(data);
@@ -36,7 +37,7 @@ exports.getPeriods = async (_, res) => {
   }
 };
 
-exports.insert = async (req, res) => {
+const inserting = async (req, res) => {
   try {
     const {
       description,
@@ -70,7 +71,7 @@ exports.insert = async (req, res) => {
   }
 };
 
-exports.delete = async (req, res) => {
+const removing = async (req, res) => {
   const id = req.params.id;
 
   if (!id) {
@@ -88,7 +89,7 @@ exports.delete = async (req, res) => {
   }
 };
 
-exports.update = async (req, res) => {
+const updated = async (req, res) => {
   try {
     const id = req.body._id;
 
@@ -105,3 +106,5 @@ exports.update = async (req, res) => {
     res.status(500).send({ error: err });
   }
 };
+
+export { findPeriod, getPeriods, inserting, removing, updated };
