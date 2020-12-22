@@ -46,7 +46,7 @@ export default function Resumo(props) {
         </div>
         <div className="col s3" style={{ textAlign: "center" }}>
           Despesas:{" "}
-          <span style={{ color: "#FF2D65" }}>
+          <span style={{ color: "#B285D1" }}>
             R$ {ObterDespesas()}
           </span>
         </div>
@@ -56,7 +56,7 @@ export default function Resumo(props) {
             style={{
               color: !ObterSaldo().startsWith("-")
                 ? "#001080"
-                : "#FF2D65",
+                : "#B285f9",
             }}
           >
             R$ {ObterSaldo()}

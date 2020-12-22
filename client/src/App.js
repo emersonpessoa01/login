@@ -103,7 +103,7 @@ export default function App() {
     <div>
       <div className="container">
         <div style={styles.centeredTitle}>
-          Desafio Final do Bootcamp Full Stack
+          Desafio Final - Bootcamp Full Stack
         </div>
         <Navigate
           onChangeYearMont={handleYearMont}
@@ -152,5 +152,7 @@ const styles = {
     fontWeight: "bold",
     fontSize: "1.4em",
     paddingTop: "20px",
+    color: "#171395",
+    fontFamily: "Righteous"
   },
 };
