@@ -1,4 +1,4 @@
-### Controle-financeiro em construção
+### Controle-financeiro
 - Backend vinculado ao Frontend(client)<br>
 - npm start para iniciar api<br>
 - Rota raiz: localhost:3001/api<br>
