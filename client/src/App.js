@@ -10,29 +10,30 @@ import Novo from "./components/Novo";
 import ModalConfirmDelete from "./components/ModalConfirmDelete";
 
 export default function App() {
-  const dt = new Date();
+  const date = new Date();
 
-  const yearMonthCurrent = `${dt.getFullYear()}-${(
+  const yearMonthCurrent = `${date.getFullYear()}-${(
     "0" +
-    (dt.getMonth() + 1)
+    (date.getMonth() + 1)
   ).slice(-2)}`;
 
   const [period, setPeriod] = useState(yearMonthCurrent);
+  const [yearMonthFiltered, setYearMonthFiltered] = useState([]);
   const [yearMonthSelected, setYearMonthSelected] = useState([]);
-  const [yearMonthFiltred, setYearMonthFiltred] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-  const [lancamento, setLancamento] = useState(null);
+  const [launch, setLaunch] = useState(null);
 
   useEffect(() => {
-    setYearMonthFiltred([]);
-    const fetchYearMonth = async () => {
+    setYearMonthFiltered([]);
+    const getYearMonth = async () => {
       const data = await api.getAll(period);
+      setYearMonthFiltered(data);
       setYearMonthSelected(data);
-      setYearMonthFiltred(data);
+      console.log(data);
     };
 
-    if (period != null) fetchYearMonth();
+    if (period != null) getYearMonth();
   }, [period]);
 
   const handleYearMont = (selected) => {
@@ -40,11 +41,11 @@ export default function App() {
   };
 
   const handleFilter = (filtered) => {
-    setYearMonthFiltred(filtered);
+    setYearMonthFiltered(filtered);
   };
 
   const handlePersist = (selecionado) => {
-    setLancamento(selecionado);
+    setLaunch(selecionado);
     setIsModalOpen(true);
   };
 
@@ -75,15 +76,13 @@ export default function App() {
   };
 
   const handleSelectedDelete = (lancamentoDelete) => {
-    setLancamento(lancamentoDelete);
+    setLaunch(lancamentoDelete);
 
     setIsModalDeleteOpen(true);
   };
 
-  
-
   const handleSelectedEdit = (lancamentoEdit) => {
-    setLancamento(lancamentoEdit);
+    setLaunch(lancamentoEdit);
     setIsModalOpen(true);
   };
 
@@ -92,7 +91,7 @@ export default function App() {
 
     if (deletar) {
       try {
-        await api.remove(lancamento._id);
+        await api.remove(launch._id);
         refresh();
       } catch {
         console.log("Erro ao deletar");
@@ -110,12 +109,12 @@ export default function App() {
           onChangeYearMont={handleYearMont}
           defaultPeriod={period}
         ></Navigate>
-        {yearMonthFiltred.length !== 0 && (
-          <Resumo yearMonths={yearMonthFiltred}></Resumo>
+        {yearMonthFiltered.length !== 0 && (
+          <Resumo yearMonths={yearMonthFiltered}></Resumo>
         )}
-        {yearMonthFiltred.length === 0 && <Spinner />}
+        {yearMonthFiltered.length === 0 && <Spinner />}
       </div>
-      {yearMonthFiltred.length !== 0 && (
+      {yearMonthFiltered.length !== 0 && (
         <div className="container" style={{ paddingTop: "10px" }}>
           <div className="row">
             <Novo onPersist={handlePersist}></Novo>
@@ -126,9 +125,9 @@ export default function App() {
           </div>
         </div>
       )}
-      {yearMonthFiltred.length !== 0 && (
+      {yearMonthFiltered.length !== 0 && (
         <Detalhes
-          yearMonths={yearMonthFiltred}
+          yearMonths={yearMonthFiltered}
           onEdit={handleSelectedEdit}
           onDelete={handleSelectedDelete}
         ></Detalhes>
@@ -137,7 +136,7 @@ export default function App() {
         <ModalForm
           onCloseModal={handleCloseModal}
           onSave={handlePersistData}
-          lancamento={lancamento}
+          lancamento={launch}
         ></ModalForm>
       )}
       {isModalDeleteOpen && (

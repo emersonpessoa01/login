@@ -40,13 +40,13 @@ export default function Resumo(props) {
         </div>
         <div className="col s3" style={{ textAlign: "center" }}>
           Receitas:{" "}
-          <span style={{ color: "rgb(70, 160, 151)" }}>
+          <span style={{ color: "#008080" }}>
             R$ {ObterReceitas()}
           </span>
         </div>
         <div className="col s3" style={{ textAlign: "center" }}>
           Despesas:{" "}
-          <span style={{ color: "rgb(187, 61, 47)" }}>
+          <span style={{ color: "#FF2D65" }}>
             R$ {ObterDespesas()}
           </span>
         </div>
@@ -55,8 +55,8 @@ export default function Resumo(props) {
           <span
             style={{
               color: !ObterSaldo().startsWith("-")
-                ? "rgb(70, 160, 151)"
-                : "rgb(187, 61, 47)",
+                ? "#001080"
+                : "#FF2D65",
             }}
           >
             R$ {ObterSaldo()}
