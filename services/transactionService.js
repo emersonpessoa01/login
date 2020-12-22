@@ -5,7 +5,7 @@ const ObjectId = mongoose.Types.ObjectId;
 // com "t" minúsculo. No Windows, isso não faz diferença. Mas como no Heroku
 // o servidor é Linux, isso faz diferença. Gastei umas boas horas tentando
 // descobrir esse erro :-/
-const TransactionModel = require("../models/TransactionModel.js");
+const transactionModel = require("../models/transactionModel.js");
 
 exports.findPeriod = async (req, res) => {
   const { period } = req.query;
@@ -20,7 +20,7 @@ exports.findPeriod = async (req, res) => {
   }
 
   try {
-    const data = await TransactionModel.find({});
+    const data = await transactionModel.find({});
     res.send(data.filter(m => m.yearMonth === period));
   } catch (err) {
     res.status(500).send({ error: err });
@@ -29,7 +29,7 @@ exports.findPeriod = async (req, res) => {
 
 exports.getPeriods = async (_, res) => {
   try {
-    const data = await TransactionModel.find().distinct("yearMonth");
+    const data = await transactionModel.find().distinct("yearMonth");
     res.send(data);
   } catch (err) {
     res.status(500).send({ error: err });
@@ -50,7 +50,7 @@ exports.insert = async (req, res) => {
       type,
     } = req.body;
 
-    var model = new TransactionModel({
+    var model = new transactionModel({
       description,
       value,
       category,
@@ -78,7 +78,7 @@ exports.delete = async (req, res) => {
   }
 
   try {
-    const data = await TransactionModel.findOneAndRemove({ _id: id });
+    const data = await transactionModel.findOneAndRemove({ _id: id });
 
     if (!data) res.status(400).send({ error: "Não foi encontrado o item" });
 
@@ -92,7 +92,7 @@ exports.update = async (req, res) => {
   try {
     const id = req.body._id;
 
-    const data = await TransactionModel.findOneAndUpdate(
+    const data = await transactionModel.findOneAndUpdate(
       { _id: id },
       req.body,
       { new: true }
