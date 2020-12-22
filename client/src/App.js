@@ -80,6 +80,8 @@ export default function App() {
     setIsModalDeleteOpen(true);
   };
 
+  
+
   const handleSelectedEdit = (lancamentoEdit) => {
     setLancamento(lancamentoEdit);
     setIsModalOpen(true);
