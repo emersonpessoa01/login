@@ -1,16 +1,14 @@
 import React from "react";
 
-export default function Periods(props) {
-  const { periods, defaultPeriod } = props;
-
-  const onChangePeriod = (event) => {
-    props.onChangePeriod(event.target.value);
+export default function Periods({ onChangePeriod, periods, defaultPeriod }) {
+  const handleChangePeriod = (event) => {
+    onChangePeriod(event.target.value);
   };
 
-  const getDataFormatada = (item) => {
-    var mes = +item.split("-")[1] - 1;
+  const getDataFormated = (item) => {
+    var month = +item.split("-")[1] - 1;
 
-    const mesNome = [
+    const monthName = [
       "Janeiro",
       "Fevereiro",
       "Março",
@@ -25,7 +23,7 @@ export default function Periods(props) {
       "Dezembro",
     ];
 
-    return `${mesNome[mes]} / ${item.split("-")[0]}`;
+    return `${monthName[month]} / ${item.split("-")[0]}`;
   };
 
   return (
@@ -33,13 +31,13 @@ export default function Periods(props) {
       <select
         className="browser-default"
         value={defaultPeriod}
-        onChange={onChangePeriod}
+        onChange={handleChangePeriod}
       >
         {periods.length > 0 &&
           periods.map((item) => {
             return (
               <option key={item} value={item}>
-                {getDataFormatada(item)}
+                {getDataFormated(item)}
               </option>
             );
           })}
