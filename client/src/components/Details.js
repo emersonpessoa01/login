@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Detalhes({ yearMonths, onDelete, onEdit }) {
+export default function details({ yearMonths, onDelete, onEdit }) {
   const handleEdit = (item) => {
     onEdit(item);
   };
@@ -14,7 +14,7 @@ export default function Detalhes({ yearMonths, onDelete, onEdit }) {
       {yearMonths.map((item) => {
         return (
           <div
-            key={"div_" + item._id}
+            key={`div_${item._id}`}
             className="row"
             style={{
               backgroundColor: item.type === "-" ? "#9897FF " : "#0094FF",
@@ -24,16 +24,19 @@ export default function Detalhes({ yearMonths, onDelete, onEdit }) {
             }}
           >
             <div
-              className="col s1"
+              className="col s1.5"
               style={{ fontSize: "1.2em", fontWeight: "bold", padding: "15px" }}
             >
-              {item.day}
+              {item.day.toString().padStart(2, "0")}/
+              {item.month.toString().padStart(2, "0")}
             </div>
             <div className="col s8">
               <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
-                {item.category}
+                Categoria: {item.category}
               </div>
-              <div style={{ fontSize: "0.8em" }}>{item.description}</div>
+              <div style={{ fontSize: "0.8em" }}>
+                Descrição: {item.description}
+              </div>
             </div>
             <div
               className="col s2 valign-wrapper"
@@ -44,21 +47,29 @@ export default function Detalhes({ yearMonths, onDelete, onEdit }) {
             </div>
             <div
               className="col s1 right-align valign-wrapper"
-              style={{ display: "flex", textAlign: "right" }}
+              style={{
+                display: "flex",
+                textAlign: "right",
+                flexDirection: "column",
+              }}
             >
               <a
                 className="waves-effect waves-teal btn-flat"
                 onClick={() => handleEdit(item)}
                 alt={item.description}
               >
-                <i className="tiny material-icons">edit</i>
+                <i style={{ color: "#fff" }} className="tiny material-icons">
+                  edit
+                </i>
               </a>
               <a
                 className="waves-effect waves-teal btn-flat"
                 onClick={() => handleDelete(item)}
                 alt={item.description}
               >
-                <i className="tiny material-icons">delete</i>
+                <i style={{ color: "#DD0031" }} className="tiny material-icons">
+                  delete
+                </i>
               </a>
             </div>
           </div>

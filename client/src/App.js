@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as api from "./api/apiService";
 import Navigate from "./components/Navigate";
 import Resume from "./components/Resume";
-import Detalhes from "./components/Detalhes";
+import Details from "./components/Details";
 import Filter from "./components/Filter";
 import Spinner from "./components/Spinner";
 import ModalForm from "./components/ModalForm";
@@ -126,11 +126,11 @@ export default function App() {
         </div>
       )}
       {yearMonthFiltered.length !== 0 && (
-        <Detalhes
+        <Details
           yearMonths={yearMonthFiltered}
           onEdit={handleSelectedEdit}
           onDelete={handleSelectedDelete}
-        ></Detalhes>
+        ></Details>
       )}
       {isModalOpen && (
         <ModalForm
