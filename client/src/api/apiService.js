@@ -1,43 +1,47 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = '/api/transaction';
+const API_URL = "/api/transaction";
+//requisição de períodos específico mapeando todas as transaction e com description
+//e retornando os dados ordenados de forma crescente
+const getAll = async (period) => {
+  const res = await axios.get(`${API_URL}?period=${period}`);
 
-async function getAll(period){
-    const res = await axios.get(API_URL+'?period='+period);
+  const data = res.data.map((transaction) => {
+    const { description } = transaction;
+    return {
+      ...transaction,
+      descriptionLower: description.toLowerCase(),
+    };
+  });
 
-    const data = res.data.map((p)=>{
-        const { description } = p;
-        return {
-            ...p,
-            descriptionLower: description.toLowerCase(),
-        }
-    });    
+  return data.sort((a, b) => a.day - b.day);
+};
 
-    return data.sort((a, b) => a.day - b.day);
-}
+//requisição de todos períodos
+const getAllPeriods = async () => {
+  const res = await axios.get(`${API_URL}/periods`);
 
-async function getAllPeriods(){
-    const res = await axios.get(API_URL+'/periods');
+  return res.data;
+};
 
-    return res.data;
-}
 
-async function insert(lancamento){
-    const res = await axios.post(API_URL, lancamento);
+const insert = async (lancament) => {
+  const res = await axios.post(API_URL, lancament);
 
-    return res.data;
-}
+  return res.data;
+};
 
-async function remove(id){
-    const res = await axios.delete(API_URL+"/"+id);
+const remove = async (id) => {
+  const res = await axios.delete(`${API_URL}/${id}`);
 
-    return res.data;
-}
+  return res.data;
+};
 
-async function update(lancamento){
-    const res = await axios.put(API_URL, lancamento);
+const update = async (lancament) => {
+  const res = await axios.put(API_URL, lancament);
 
-    return res.data;
-}
+  return res.data;
+};
 
-export { getAll, getAllPeriods, insert, remove, update }
+export { getAll, getAllPeriods, insert, remove, update };
+

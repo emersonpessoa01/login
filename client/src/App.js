@@ -44,8 +44,8 @@ export default function App() {
     setYearMonthFiltered(filtered);
   };
 
-  const handlePersist = (selecionado) => {
-    setLaunch(selecionado);
+  const handlePersist = (selected) => {
+    setLaunch(selected);
     setIsModalOpen(true);
   };
 
@@ -53,12 +53,12 @@ export default function App() {
     setIsModalOpen(false);
   };
 
-  const handlePersistData = async (lancamentoPersist, isEdit) => {
+  const handlePersistData = async (launchPersist, isEdit) => {
     try {
       if (!isEdit) {
-        await api.insert(lancamentoPersist);
+        await api.insert(launchPersist);
       } else {
-        await api.update(lancamentoPersist);
+        await api.update(launchPersist);
       }
 
       handleCloseModal();
@@ -68,28 +68,28 @@ export default function App() {
     }
   };
 
-  const refresh = () => {
+  const refresh = (period) => {
     const p = period;
 
     setPeriod(null);
     setPeriod(p);
   };
 
-  const handleSelectedDelete = (lancamentoDelete) => {
-    setLaunch(lancamentoDelete);
+  const handleSelectedDelete = (launchDelete) => {
+    setLaunch(launchDelete);
 
     setIsModalDeleteOpen(true);
   };
 
-  const handleSelectedEdit = (lancamentoEdit) => {
-    setLaunch(lancamentoEdit);
+  const handleSelectedEdit = (launchEdit) => {
+    setLaunch(launchEdit);
     setIsModalOpen(true);
   };
 
-  const handlePersistDelete = async (deletar) => {
+  const handlePersistDelete = async (deleted) => {
     setIsModalDeleteOpen(false);
 
-    if (deletar) {
+    if (deleted) {
       try {
         await api.remove(launch._id);
         refresh();
@@ -106,8 +106,8 @@ export default function App() {
           Desafio Final - Bootcamp Full Stack
         </div>
         <Navigate
-          onChangeYearMont={handleYearMont}
           defaultPeriod={period}
+          onChangeYearMont={handleYearMont}
         ></Navigate>
         {yearMonthFiltered.length !== 0 && (
           <Resumo yearMonths={yearMonthFiltered}></Resumo>
