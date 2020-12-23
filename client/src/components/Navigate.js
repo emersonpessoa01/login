@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getAllPeriods } from "../api/apiService";
 import Periods from "./Periods";
 
-export default function Navigate(props) {
+export default function Navigate({ defaultPeriod, onChangeYearMont }) {
   const [periods, setPeriods] = useState([]);
-  const [periodSelected, setPeriodSelected] = useState(props.defaultPeriod);
+  const [periodSelected, setPeriodSelected] = useState(defaultPeriod); //é uma props
   const [firstButtonDisable, setFirstButtonDisable] = useState(false);
   const [lastButtonDisable, setLastButtonDisable] = useState(false);
 
@@ -18,40 +18,41 @@ export default function Navigate(props) {
   }, []);
 
   const handlePeriodChange = (selected) => {
-    const idx = periods.indexOf(selected);
+    const index = periods.indexOf(selected);
 
     setPeriodSelected(selected);
 
-    setFirstButtonDisable(idx === 0);
+    setFirstButtonDisable(index === 0);
 
-    setLastButtonDisable(idx >= periods.length - 1);
+    setLastButtonDisable(index >= periods.length - 1);
 
-    props.onChangeYearMont(selected);
+    onChangeYearMont(selected); //é uma props
   };
 
   const handleFirstClick = () => {
-    const idx = periods.indexOf(periodSelected);
+    const index = periods.indexOf(periodSelected);
 
-    select(idx - 1);
+    select(index - 1);//volta um index
   };
 
   const handleLastClick = () => {
-    const idx = periods.indexOf(periodSelected);
+    const index = periods.indexOf(periodSelected);
 
-    select(idx + 1);
+    select(index + 1);//avança um index
   };
 
-  const select = (idx) => {
-    const period = periods[idx];
+  const select = (index) => {
+    const period = periods[index];
     handlePeriodChange(period);
   };
 
+  const {centered} = styles
   return (
     <div className="container">
-      <div className="row" style={styles.centered}>
-        Controle Financeiro Pessoal
+      <div className="row" style={centered}>
+        Controle Financeiro
       </div>
-      <div style={styles.centered}>
+      <div style={centered}>
         <div className="col">
           <button
             className="btn waves-effect waves-light"
@@ -86,5 +87,7 @@ const styles = {
     padding: "20px",
     display: "flex",
     justifyContent: "center",
+    fontFamily: "Montserrat",
+    fontWeight:'bold'
   },
 };
