@@ -6,7 +6,7 @@ import Detalhes from "./components/Detalhes";
 import Filtro from "./components/Filtro";
 import Spinner from "./components/Spinner";
 import ModalForm from "./components/ModalForm";
-import Novo from "./components/Novo";
+import New from "./components/New";
 import ModalConfirmDelete from "./components/ModalConfirmDelete";
 
 export default function App() {
@@ -117,7 +117,7 @@ export default function App() {
       {yearMonthFiltered.length !== 0 && (
         <div className="container" style={{ paddingTop: "10px" }}>
           <div className="row">
-            <Novo onPersist={handlePersist}></Novo>
+            <New onPersist={handlePersist}></New>
             <Filtro
               yearMonths={yearMonthSelected}
               onFilter={handleFilter}

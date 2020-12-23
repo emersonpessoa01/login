@@ -1,7 +1,7 @@
 import React from "react";
 
-export default function Novo({ onPersist }) {
-  const handleNovoLancamento = () => {
+export default function New({ onPersist }) {
+  const handleNewLaunch = () => {
     onPersist(null);
   };
 
@@ -9,9 +9,9 @@ export default function Novo({ onPersist }) {
     <div className="col s3">
       <button
         className="btn waves-effect waves-light"
-        onClick={handleNovoLancamento}
+        onClick={handleNewLaunch}
       >
-        + NOVO LANÇAMENTO
+        NOVO LANÇAMENTO
       </button>
     </div>
   );
