@@ -1,8 +1,9 @@
 import React from "react";
 
 export default function Spinner() {
+  const { flexRow, span } = styles;
   return (
-    <div style={styles.flexRow}>
+    <div style={flexRow}>
       <div className="preloader-wrapper small active">
         <div className="spinner-layer spinner-blue-only">
           <div className="circle-clipper left">
@@ -16,7 +17,7 @@ export default function Spinner() {
           </div>
         </div>
       </div>
-      <span style={styles.span}>Aguarde...</span>
+      <span style={span}>Aguarde...</span>
     </div>
   );
 }

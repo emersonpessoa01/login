@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as api from "./api/apiService";
 import Navigate from "./components/Navigate";
-import Resumo from "./components/Resume";
+import Resume from "./components/Resume";
 import Detalhes from "./components/Detalhes";
 import Filtro from "./components/Filtro";
 import Spinner from "./components/Spinner";
@@ -110,7 +110,7 @@ export default function App() {
           onChangeYearMont={handleYearMont}
         ></Navigate>
         {yearMonthFiltered.length !== 0 && (
-          <Resumo yearMonths={yearMonthFiltered}></Resumo>
+          <Resume yearMonths={yearMonthFiltered}></Resume>
         )}
         {yearMonthFiltered.length === 0 && <Spinner />}
       </div>
