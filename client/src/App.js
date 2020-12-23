@@ -3,7 +3,7 @@ import * as api from "./api/apiService";
 import Navigate from "./components/Navigate";
 import Resume from "./components/Resume";
 import Detalhes from "./components/Detalhes";
-import Filtro from "./components/Filtro";
+import Filter from "./components/Filter";
 import Spinner from "./components/Spinner";
 import ModalForm from "./components/ModalForm";
 import New from "./components/New";
@@ -118,10 +118,10 @@ export default function App() {
         <div className="container" style={{ paddingTop: "10px" }}>
           <div className="row">
             <New onPersist={handlePersist}></New>
-            <Filtro
+            <Filter 
               yearMonths={yearMonthSelected}
               onFilter={handleFilter}
-            ></Filtro>
+            ></Filter>
           </div>
         </div>
       )}

@@ -7,10 +7,10 @@ const getAll = async (period) => {
   const res = await axios.get(`${API_URL}?period=${period}`);
 
   const data = res.data.map((transaction) => {
-    const { description } = transaction;
+    const { category } = transaction;
     return {
       ...transaction,
-      descriptionLower: description.toLowerCase(),
+      categoryLower: category.toLowerCase(),
     };
   });
 
@@ -23,7 +23,6 @@ const getAllPeriods = async () => {
 
   return res.data;
 };
-
 
 const insert = async (lancament) => {
   const res = await axios.post(API_URL, lancament);
@@ -44,4 +43,3 @@ const update = async (lancament) => {
 };
 
 export { getAll, getAllPeriods, insert, remove, update };
-
