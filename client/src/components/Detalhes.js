@@ -17,7 +17,7 @@ export default function Detalhes({ yearMonths, onDelete, onEdit }) {
             key={"div_" + item._id}
             className="row"
             style={{
-              backgroundColor: item.type === "-" ? "#B285D1 " : "#008080",
+              backgroundColor: item.type === "-" ? "#9897FF " : "#0094FF",
               border: "1px solid gray",
               borderRadius: "5px",
               display: "flex",
