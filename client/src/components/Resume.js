@@ -1,29 +1,27 @@
 import React from "react";
 
-export default function Resumo(props) {
-  const { yearMonths } = props;
-
-  const ObterReceitas = () => {
-    const receitas = yearMonths.reduce((acc, cur) => {
+export default function Resume({ yearMonths }) {
+  const getRecipe = () => {
+    const recipe = yearMonths.reduce((acc, cur) => {
       if (cur.type === "+") return acc + cur.value;
 
       return acc;
     }, 0);
 
-    return receitas.toLocaleString("pt-br", { minimumFractionDigits: 2 });
+    return recipe.toLocaleString("pt-br", { minimumFractionDigits: 2 });
   };
 
-  const ObterDespesas = () => {
-    const receitas = yearMonths.reduce((acc, cur) => {
+  const getExpense = () => {
+    const expense = yearMonths.reduce((acc, cur) => {
       if (cur.type === "-") return acc + cur.value;
 
       return acc;
     }, 0);
 
-    return receitas.toLocaleString("pt-br", { minimumFractionDigits: 2 });
+    return expense.toLocaleString("pt-br", { minimumFractionDigits: 2 });
   };
 
-  const ObterSaldo = () => {
+  const getBalance = () => {
     const receitas = yearMonths.reduce((acc, cur) => {
       if (cur.type === "+") return acc + cur.value;
       else return acc - cur.value;
@@ -32,35 +30,28 @@ export default function Resumo(props) {
     return receitas.toLocaleString("pt-br", { minimumFractionDigits: 2 });
   };
 
+  const { details } = styles;
   return (
-    <div style={styles.detalhes}>
+    <div style={details}>
       <div className="row">
         <div className="col s3" style={{ textAlign: "left" }}>
           Lançamentos: {yearMonths.length}
         </div>
         <div className="col s3" style={{ textAlign: "center" }}>
-          Receitas:{" "}
-          <span style={{ color: "#171395" }}>
-            R$ {ObterReceitas()}
-          </span>
+          Receitas: <span style={{ color: "#171395" }}>R$ {getRecipe()}</span>
         </div>
         <div className="col s3" style={{ textAlign: "center" }}>
-          Despesas:{" "}
-          {/* <span style={{ color: "#B285D1" }}> */}
-          <span style={{ color: "#9897FF" }}>
-            R$ {ObterDespesas()}
-          </span>
+          Despesas: {/* <span style={{ color: "#B285D1" }}> */}
+          <span style={{ color: "#9897FF" }}>R$ {getExpense()}</span>
         </div>
         <div className="col s3" style={{ textAlign: "right" }}>
           Saldo:{" "}
           <span
             style={{
-              color: !ObterSaldo().startsWith("-")
-                ? "#001080"
-                : "#9897FF",
+              color: !getBalance().startsWith("-") ? "#008080" : "#9897FF",
             }}
           >
-            R$ {ObterSaldo()}
+            R$ {getBalance()}
           </span>
         </div>
       </div>
@@ -69,7 +60,7 @@ export default function Resumo(props) {
 }
 
 const styles = {
-  detalhes: {
+  details: {
     paddingTop: "20px",
     border: "1px solid gray",
     borderRadius: "5px",

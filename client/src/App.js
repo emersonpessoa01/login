@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as api from "./api/apiService";
 import Navigate from "./components/Navigate";
-import Resumo from "./components/Resumo";
+import Resumo from "./components/Resume";
 import Detalhes from "./components/Detalhes";
 import Filtro from "./components/Filtro";
 import Spinner from "./components/Spinner";
