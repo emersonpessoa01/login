@@ -11,7 +11,7 @@ export default function New({ onPersist }) {
         className="btn waves-effect waves-light"
         onClick={handleNewLaunch}
       >
-        NOVO LANÇAMENTO
+        +NOVO
       </button>
     </div>
   );

@@ -10,8 +10,9 @@ export default function Filter({ onFilter, yearMonths }) {
   };
 
   return (
-    <div className="col s9">
+    <div className="col s3">
       <input
+        style={{marginLeft:"15px"}}
         autoFocus
         placeholder="Digite a categoria..."
         id="busca"

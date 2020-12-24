@@ -116,12 +116,9 @@ export default function App() {
       </div>
       {yearMonthFiltered.length !== 0 && (
         <div className="container" style={{ paddingTop: "10px" }}>
-          <div className="row">
-            <New onPersist={handlePersist}></New>
-            <Filter 
-              yearMonths={yearMonthSelected}
-              onFilter={handleFilter}
-            ></Filter>
+          <div style={styles.row}>
+            <New onPersist={handlePersist} />
+            <Filter yearMonths={yearMonthSelected} onFilter={handleFilter} />
           </div>
         </div>
       )}
@@ -130,17 +127,17 @@ export default function App() {
           yearMonths={yearMonthFiltered}
           onEdit={handleSelectedEdit}
           onDelete={handleSelectedDelete}
-        ></Details>
+        />
       )}
       {isModalOpen && (
         <ModalForm
           onCloseModal={handleCloseModal}
           onSave={handlePersistData}
           lancamento={launch}
-        ></ModalForm>
+        />
       )}
       {isModalDeleteOpen && (
-        <ModalConfirmDelete onDelete={handlePersistDelete}></ModalConfirmDelete>
+        <ModalConfirmDelete onDelete={handlePersistDelete} />
       )}
     </div>
   );
@@ -153,6 +150,14 @@ const styles = {
     fontSize: "1.4em",
     paddingTop: "20px",
     color: "#171395",
-    fontFamily: "Righteous"
+    fontFamily: "Righteous",
   },
+  row: {
+    display: "flex",
+    flexDirection: "row",
+    paddingTop: "5px",
+    paddingBottom: "8px",
+
+  }
+
 };
