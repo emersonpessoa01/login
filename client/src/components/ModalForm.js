@@ -4,122 +4,122 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-export default function ModalForm({ onCloseModal, onSave, lancamento }) {
-  const [objectLancamento, setObjectLancamento] = useState(null);
+export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
+  const [objectLaunch, setObjectLaunch] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
-    if (lancamento !== null) {
-      setObjectLancamento(lancamento);
+    if (onLaunch !== null) {
+      setObjectLaunch(onLaunch);
       setIsEdit(true);
       return;
     }
 
-    const dt = new Date();
+    const date = new Date();
 
-    const day = ("0" + dt.getDate()).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
 
-    const month = ("0" + (dt.getMonth() + 1)).slice(-2);
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
 
-    const lanc = {
+    const launch = {
       value: 0,
       category: "",
       description: "",
-      year: dt.getFullYear(),
+      year: date.getFullYear(),
       month: +month,
       day: +day,
-      yearMonth: `${dt.getFullYear()}-${month}`,
-      yearMonthDay: `${dt.getFullYear()}-${month}-${day}`,
+      yearMonth: `${date.getFullYear()}-${month}`,
+      yearMonthDay: `${date.getFullYear()}-${month}-${day}`,
       type: "-",
     };
 
-    setObjectLancamento(lanc);
+    setObjectLaunch(launch);
   }, []);
 
-  const validar = () => {
-    const lanc = objectLancamento;
+  const validate = () => {
+    const getlaunch = objectLaunch;
 
-    const valido =
-      lanc.description !== null &&
-      lanc.description !== "" &&
-      lanc.category !== null &&
-      lanc.category !== "" &&
-      lanc.value > 0;
+    const valid =
+      getlaunch.description !== null &&
+      getlaunch.description !== "" &&
+      getlaunch.category !== null &&
+      getlaunch.category !== "" &&
+      getlaunch.value > 0;
 
-    setIsValid(valido);
+    setIsValid(valid);
   };
 
   const handleClose = () => {
     onCloseModal();
   };
 
-  const handleTipoLancamento = (event) => {
-    const lanc = objectLancamento;
+  const handleTypelaunch = (event) => {
+    const getlaunch = objectLaunch;
 
-    lanc.type = event.target.value;
+    getlaunch.type = event.target.value;
 
-    setObjectLancamento(lanc);
+    setObjectLaunch(getlaunch);
 
-    validar();
+    validate();
   };
 
   const handleDescription = (event) => {
-    const lanc = objectLancamento;
+    const getlaunch = objectLaunch;
 
-    lanc.description = event.target.value;
+    getlaunch.description = event.target.value;
 
-    setObjectLancamento(lanc);
+    setObjectLaunch(getlaunch);
 
-    validar();
+    validate();
   };
 
   const handleCategory = (event) => {
-    const lanc = objectLancamento;
+    const getlaunch = objectLaunch;
 
-    lanc.category = event.target.value;
+    getlaunch.category = event.target.value;
 
-    setObjectLancamento(lanc);
+    setObjectLaunch(getlaunch);
 
-    validar();
+    validate();
   };
 
   const handleValue = (event) => {
-    const lanc = objectLancamento;
+    const getlaunch = objectLaunch;
 
-    lanc.value = +event.target.value;
+    getlaunch.value = +event.target.value;
 
-    setObjectLancamento(lanc);
+    setObjectLaunch(getlaunch);
 
-    validar();
+    validate();
   };
 
   const handleDate = (event) => {
-    const lanc = objectLancamento;
+    const getlaunch = objectLaunch;
 
-    const dt = event.target.value.split("-");
+    const date = event.target.value.split("-");
 
-    console.log(dt);
+    console.log(date);
 
-    lanc.year = +dt[0];
+    getlaunch.year = +date[0];
 
-    lanc.month = +dt[1];
+    getlaunch.month = +date[1];
 
-    lanc.day = +dt[2];
+    getlaunch.day = +date[2];
 
-    lanc.yearMonth = `${dt[0]}-${dt[1]}`;
+    getlaunch.yearMonth = `${date[0]}-${date[1]}`;
 
-    lanc.yearMonthDay = event.target.value;
+    getlaunch.yearMonthDay = event.target.value;
 
-    setObjectLancamento(lanc);
+    setObjectLaunch(getlaunch);
 
-    validar();
+    validate();
   };
 
   const handleClickSave = () => {
     if (!isValid) return;
 
-    onSave(objectLancamento, isEdit);
+    onSave(objectLaunch, isEdit);
   };
 
   return (
@@ -127,7 +127,7 @@ export default function ModalForm({ onCloseModal, onSave, lancamento }) {
       <Modal isOpen={true} style={customStyles}>
         <div style={styles.flexRow}>
           <span style={styles.title}>
-            {lancamento === null ? "Incluir" : "Editar"} Lançamento
+            {onLaunch === null ? "Incluir" : "Editar"} Lançamento
           </span>
           <button
             className="waves-effect waves-lights btn red dark-4"
@@ -144,9 +144,9 @@ export default function ModalForm({ onCloseModal, onSave, lancamento }) {
                 type="radio"
                 disabled={isEdit}
                 defaultChecked={
-                  objectLancamento != null && objectLancamento.type === "-"
+                  objectLaunch != null && objectLaunch.type === "-"
                 }
-                onChange={handleTipoLancamento}
+                onChange={handleTypelaunch}
                 value="-"
               />
               <span>Despesa</span>
@@ -159,9 +159,9 @@ export default function ModalForm({ onCloseModal, onSave, lancamento }) {
                 type="radio"
                 disabled={isEdit}
                 defaultChecked={
-                  objectLancamento != null && objectLancamento.type === "+"
+                  objectLaunch != null && objectLaunch.type === "+"
                 }
-                onChange={handleTipoLancamento}
+                onChange={handleTypelaunch}
                 value="+"
               />
               <span>Receita</span>
@@ -175,7 +175,7 @@ export default function ModalForm({ onCloseModal, onSave, lancamento }) {
               type="text"
               className="validate"
               defaultValue={
-                objectLancamento != null && objectLancamento.description
+                objectLaunch != null && objectLaunch.description
               }
               onChange={handleDescription}
             />
@@ -191,7 +191,7 @@ export default function ModalForm({ onCloseModal, onSave, lancamento }) {
               type="text"
               className="validate"
               defaultValue={
-                objectLancamento != null && objectLancamento.category
+                objectLaunch != null && objectLaunch.category
               }
               onChange={handleCategory}
             />
@@ -207,7 +207,7 @@ export default function ModalForm({ onCloseModal, onSave, lancamento }) {
               step=".01"
               min="0"
               className="validate"
-              defaultValue={objectLancamento != null && objectLancamento.value}
+              defaultValue={objectLaunch != null && objectLaunch.value}
               onChange={handleValue}
             />
             <label htmlFor="value" className="active">
@@ -221,7 +221,7 @@ export default function ModalForm({ onCloseModal, onSave, lancamento }) {
               type="date"
               className="validate"
               defaultValue={
-                objectLancamento != null && objectLancamento.yearMonthDay
+                objectLaunch != null && objectLaunch.yearMonthDay
               }
               onChange={handleDate}
             />

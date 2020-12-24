@@ -133,7 +133,7 @@ export default function App() {
         <ModalForm
           onCloseModal={handleCloseModal}
           onSave={handlePersistData}
-          lancamento={launch}
+          onLaunch={launch}
         />
       )}
       {isModalDeleteOpen && (

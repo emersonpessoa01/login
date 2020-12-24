@@ -25,13 +25,13 @@ export default function details({ yearMonths, onDelete, onEdit }) {
           >
             <div
               className="col s1.5"
-              style={{ fontSize: "1.2em", fontWeight: "bold", padding: "15px" }}
+              style={{ fontSize: "1.2em", fontWeight: "bold", padding: "15px", }}
             >
               {item.day.toString().padStart(2, "0")}/
               {item.month.toString().padStart(2, "0")}
             </div>
             <div className="col s8">
-              <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
+              <div style={{ fontWeight: "bold", fontSize: "1.1em", paddingTop:"7px"}}>
                 Categoria: {item.category}
               </div>
               <div style={{ fontSize: "0.8em" }}>
