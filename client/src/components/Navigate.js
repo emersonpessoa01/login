@@ -47,11 +47,16 @@ export default function Navigate({ defaultPeriod, onChangeYearMonth }) {
   };
 
   const {centered} = styles
+
   return (
     <div className="container">
-      <div className="row" style={centered}>
+      <div className="row"
+       style={centered}>
+
         Controle Financeiro
+
       </div>
+
       <div style={centered}>
         <div className="col">
           <button
@@ -62,11 +67,13 @@ export default function Navigate({ defaultPeriod, onChangeYearMonth }) {
             <i className="material-icons">keyboard_arrow_left</i>
           </button>
         </div>
+        
         <Periods
           periods={periods}
           defaultPeriod={periodSelected}
           onChangePeriod={handlePeriodChange}
-        ></Periods>
+        />
+
         <div className="col">
           <button
             className="btn waves-effect waves-light"
@@ -88,6 +95,6 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     fontFamily: "Montserrat",
-    fontWeight:'bold'
+    fontWeight:"bold"
   },
 };
