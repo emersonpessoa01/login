@@ -98,24 +98,20 @@ export default function App() {
     }
   };
 
+  const { centeredTitle, row } = styles;
   return (
     <div>
       <div className="container">
-        <div style={styles.centeredTitle}>
-          Desafio Final - Bootcamp Full Stack
-        </div>
-        <Navigate
-          defaultPeriod={period}
-          onChangeYearMont={handleYearMont}
-        />
+        <div style={centeredTitle}>Desafio Final - Bootcamp Full Stack</div>
+        <Navigate defaultPeriod={period} onChangeYearMont={handleYearMont} />
         {yearMonthFiltered.length !== 0 && (
-          <Resume yearMonths={yearMonthFiltered}/>
+          <Resume yearMonths={yearMonthFiltered} />
         )}
         {yearMonthFiltered.length === 0 && <Spinner />}
       </div>
       {yearMonthFiltered.length !== 0 && (
         <div className="container" style={{ paddingTop: "10px" }}>
-          <div style={styles.row}>
+          <div style={row}>
             <New onPersist={handlePersist} />
             <Filter yearMonths={yearMonthSelected} onFilter={handleFilter} />
           </div>
