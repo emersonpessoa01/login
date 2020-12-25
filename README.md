@@ -7,4 +7,4 @@
 - Métodos get, post, put e delete.Todos testados.Ok!<br> 
 - Repositório remoto integrado ao app na Heroku<br>
 
-### Preview: [app](https://financial-control-emerson.herokuapp.com/) 
+### Preview: [app](https://financial-control-emerson.herokuapp.com/) e [api](https://api-transaction-chanceller.herokuapp.com/api/transaction?period=2019-01)

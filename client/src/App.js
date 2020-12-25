@@ -104,7 +104,9 @@ export default function App() {
       <div className="container">
         <div style={centeredTitle}>Desafio Final - Bootcamp Full Stack</div>
 
-        <Navigate defaultPeriod={period} onChangeYearMonth={handleYearMonth} />
+        <Navigate 
+        defaultPeriod={period} 
+        onChangeYearMonth={handleYearMonth} />
 
         {yearMonthFiltered.length !== 0 && (
           <Resume yearMonths={yearMonthFiltered} />
@@ -117,7 +119,9 @@ export default function App() {
         <div className="container" style={{ paddingTop: "10px" }}>
           <div style={row}>
             <New onPersist={handlePersist} />
-            <Filter yearMonths={yearMonthSelected} onFilter={handleFilter} />
+            <Filter 
+            yearMonths={yearMonthSelected} 
+            onFilter={handleFilter} />
           </div>
         </div>
       )}
@@ -139,8 +143,8 @@ export default function App() {
       )}
 
       {isModalDeleteOpen && (
-        <ModalConfirmDelete o
-        nDelete={handlePersistDelete} />
+        <ModalConfirmDelete 
+        onDelete={handlePersistDelete} />
       )}
     </div>
   );
