@@ -6,7 +6,7 @@ export default function Periods({ onChangePeriod, periods, defaultPeriod }) {
   };
 
   const getDataFormated = (item) => {
-    var month = +item.split("-")[1] - 1;
+    let month = +item.split("-")[1] - 1;
 
     const monthName = [
       "Janeiro",
