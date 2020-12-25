@@ -104,16 +104,15 @@ export default function App() {
       <div className="container">
         <div style={centeredTitle}>Desafio Final - Bootcamp Full Stack</div>
 
-        <Navigate 
-        defaultPeriod={period} 
-        onChangeYearMonth={handleYearMonth}
-        />
+        <Navigate defaultPeriod={period} onChangeYearMonth={handleYearMonth} />
 
         {yearMonthFiltered.length !== 0 && (
           <Resume yearMonths={yearMonthFiltered} />
         )}
+
         {yearMonthFiltered.length === 0 && <Spinner />}
       </div>
+
       {yearMonthFiltered.length !== 0 && (
         <div className="container" style={{ paddingTop: "10px" }}>
           <div style={row}>
@@ -122,6 +121,7 @@ export default function App() {
           </div>
         </div>
       )}
+
       {yearMonthFiltered.length !== 0 && (
         <Details
           yearMonths={yearMonthFiltered}
@@ -129,6 +129,7 @@ export default function App() {
           onDelete={handleSelectedDelete}
         />
       )}
+
       {isModalOpen && (
         <ModalForm
           onCloseModal={handleCloseModal}
@@ -136,8 +137,10 @@ export default function App() {
           onLaunch={launch}
         />
       )}
+
       {isModalDeleteOpen && (
-        <ModalConfirmDelete onDelete={handlePersistDelete} />
+        <ModalConfirmDelete o
+        nDelete={handlePersistDelete} />
       )}
     </div>
   );
