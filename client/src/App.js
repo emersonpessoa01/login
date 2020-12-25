@@ -69,10 +69,9 @@ export default function App() {
   };
 
   const refresh = (period) => {
-    const p = period;
-
+    // const p = period;
     setPeriod(null);
-    setPeriod(p);
+    setPeriod(period);
   };
 
   const handleSelectedDelete = (launchDelete) => {
@@ -108,9 +107,9 @@ export default function App() {
         <Navigate
           defaultPeriod={period}
           onChangeYearMont={handleYearMont}
-        ></Navigate>
+        />
         {yearMonthFiltered.length !== 0 && (
-          <Resume yearMonths={yearMonthFiltered}></Resume>
+          <Resume yearMonths={yearMonthFiltered}/>
         )}
         {yearMonthFiltered.length === 0 && <Spinner />}
       </div>
@@ -157,7 +156,5 @@ const styles = {
     flexDirection: "row",
     paddingTop: "5px",
     paddingBottom: "8px",
-
-  }
-
+  },
 };
