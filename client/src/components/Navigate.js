@@ -15,7 +15,7 @@ export default function Navigate({ defaultPeriod, onChangeYearMonth }) {
     };
 
     if (periods !== []) fetchPeriods();
-  }, []);
+  }, [periods]);
 
   const handlePeriodChange = (selected) => {
     const index = periods.indexOf(selected);
