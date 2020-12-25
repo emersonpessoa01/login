@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllPeriods } from "../api/apiService";
 import Periods from "./Periods";
 
-export default function Navigate({ defaultPeriod, onChangeYearMont }) {
+export default function Navigate({ defaultPeriod, onChangeYearMonth }) {
   const [periods, setPeriods] = useState([]);
   const [periodSelected, setPeriodSelected] = useState(defaultPeriod); //é uma props
   const [firstButtonDisable, setFirstButtonDisable] = useState(false);
@@ -26,7 +26,7 @@ export default function Navigate({ defaultPeriod, onChangeYearMont }) {
 
     setLastButtonDisable(index >= periods.length - 1);
 
-    onChangeYearMont(selected); //é uma props
+    onChangeYearMonth(selected); //é uma props
   };
 
   const handleFirstClick = () => {

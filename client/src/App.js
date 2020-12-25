@@ -36,7 +36,7 @@ export default function App() {
     if (period != null) getYearMonth();
   }, [period]);
 
-  const handleYearMont = (selected) => {
+  const handleYearMonth = (selected) => {
     setPeriod(selected);
   };
 
@@ -103,7 +103,12 @@ export default function App() {
     <div>
       <div className="container">
         <div style={centeredTitle}>Desafio Final - Bootcamp Full Stack</div>
-        <Navigate defaultPeriod={period} onChangeYearMont={handleYearMont} />
+
+        <Navigate 
+        defaultPeriod={period} 
+        onChangeYearMonth={handleYearMonth}
+        />
+
         {yearMonthFiltered.length !== 0 && (
           <Resume yearMonths={yearMonthFiltered} />
         )}
