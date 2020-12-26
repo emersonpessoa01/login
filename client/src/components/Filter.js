@@ -8,9 +8,10 @@ export default function Filter({ onFilter, yearMonths }) {
       })
     );
   };
-
+  
   return (
     <div className="col s3">
+      
       <input
         style={{marginLeft:"15px"}}
         autoFocus

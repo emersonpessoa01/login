@@ -5,7 +5,7 @@ export default function Spinner() {
   return (
     <div style={flexRow}>
       <div className="preloader-wrapper small active">
-        <div className="spinner-layer spinner-blue-only">
+        <div className="spinner-layer spinner-green-only">
           <div className="circle-clipper left">
             <div className="circle"></div>
           </div>
