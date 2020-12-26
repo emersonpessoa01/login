@@ -57,25 +57,27 @@ export default function Details({ yearMonths, onDelete, onEdit }) {
                 flexDirection: "column",
               }}
             >
-              <a
+              <div
                 className="waves-effect waves-teal btn-flat"
                 onClick={() => handleEdit(item)}
                 alt={item.description}
+                style={{cursor:"pointer"}}
               >
                 <i style={{ color: "#fff" }} className="tiny material-icons">
                   edit
                 </i>
-              </a>
+              </div>
               
-              <a
+              <div
                 className="waves-effect waves-teal btn-flat"
                 onClick={() => handleDelete(item)}
                 alt={item.description}
+                style={{cursor:"pointer"}}
               >
                 <i style={{ color: "#DD0031" }} className="tiny material-icons">
                   delete
                 </i>
-              </a>
+              </div>
             </div>
           </div>
         );

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
@@ -17,11 +16,8 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
     }
 
     const date = new Date();
-
-    const day = ("0" + date.getDate()).slice(-2);
-
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-
+    const day = date.getDate().toString().padStart(2, "0")
+    const month = (date.getMonth() + 1).toString().padStart(2, "0")
     const launch = {
       value: 0,
       category: "",
@@ -35,17 +31,17 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
     };
 
     setObjectLaunch(launch);
-  }, []);
+  }, [onLaunch]);
 
   const validate = () => {
-    const getlaunch = objectLaunch;
+    const getLaunch = objectLaunch;
 
     const valid =
-      getlaunch.description !== null &&
-      getlaunch.description !== "" &&
-      getlaunch.category !== null &&
-      getlaunch.category !== "" &&
-      getlaunch.value > 0;
+      getLaunch.description !== null &&
+      getLaunch.description !== "" &&
+      getLaunch.category !== null &&
+      getLaunch.category !== "" &&
+      getLaunch.value > 0;
 
     setIsValid(valid);
   };
@@ -54,64 +50,55 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
     onCloseModal();
   };
 
-  const handleTypelaunch = (event) => {
-    const getlaunch = objectLaunch;
+  const handleTypeLaunch = (event) => {
+    const getLaunch = objectLaunch;
 
-    getlaunch.type = event.target.value;
-
-    setObjectLaunch(getlaunch);
+    getLaunch.type = event.target.value;
+    setObjectLaunch(getLaunch);
 
     validate();
   };
 
   const handleDescription = (event) => {
-    const getlaunch = objectLaunch;
+    const getLaunch = objectLaunch;
 
-    getlaunch.description = event.target.value;
-
-    setObjectLaunch(getlaunch);
+    getLaunch.description = event.target.value;
+    setObjectLaunch(getLaunch);
 
     validate();
   };
 
   const handleCategory = (event) => {
-    const getlaunch = objectLaunch;
+    const getLaunch = objectLaunch;
 
-    getlaunch.category = event.target.value;
-
-    setObjectLaunch(getlaunch);
+    getLaunch.category = event.target.value;
+    setObjectLaunch(getLaunch);
 
     validate();
   };
 
   const handleValue = (event) => {
-    const getlaunch = objectLaunch;
+    const getLaunch = objectLaunch;
 
-    getlaunch.value = +event.target.value;
-
-    setObjectLaunch(getlaunch);
+    getLaunch.value = +event.target.value;
+    setObjectLaunch(getLaunch);
 
     validate();
   };
 
   const handleDate = (event) => {
-    const getlaunch = objectLaunch;
-
+    const getLaunch = objectLaunch;
     const date = event.target.value.split("-");
 
     console.log(date);
 
-    getlaunch.year = +date[0];
+    getLaunch.year = +date[0];
+    getLaunch.month = +date[1];
+    getLaunch.day = +date[2];
+    getLaunch.yearMonth = `${date[0]}-${date[1]}`;
+    getLaunch.yearMonthDay = event.target.value;
 
-    getlaunch.month = +date[1];
-
-    getlaunch.day = +date[2];
-
-    getlaunch.yearMonth = `${date[0]}-${date[1]}`;
-
-    getlaunch.yearMonthDay = event.target.value;
-
-    setObjectLaunch(getlaunch);
+    setObjectLaunch(getLaunch);
 
     validate();
   };
@@ -146,7 +133,7 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
                 defaultChecked={
                   objectLaunch != null && objectLaunch.type === "-"
                 }
-                onChange={handleTypelaunch}
+                onChange={handleTypeLaunch}
                 value="-"
               />
               <span>Despesa</span>
@@ -161,7 +148,7 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
                 defaultChecked={
                   objectLaunch != null && objectLaunch.type === "+"
                 }
-                onChange={handleTypelaunch}
+                onChange={handleTypeLaunch}
                 value="+"
               />
               <span>Receita</span>
