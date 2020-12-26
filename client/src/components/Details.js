@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function details({ yearMonths, onDelete, onEdit }) {
+export default function Details({ yearMonths, onDelete, onEdit }) {
   const handleEdit = (item) => {
     onEdit(item);
   };
@@ -30,21 +30,25 @@ export default function details({ yearMonths, onDelete, onEdit }) {
               {item.day.toString().padStart(2, "0")}/
               {item.month.toString().padStart(2, "0")}
             </div>
+
             <div className="col s8">
               <div style={{ fontWeight: "bold", fontSize: "1.1em", paddingTop:"7px"}}>
                 Categoria: {item.category}
               </div>
+
               <div style={{ fontSize: "0.8em" }}>
                 Descrição: {item.description}
               </div>
             </div>
+            
             <div
               className="col s2 valign-wrapper"
-              style={{ fontSize: "1.6em", paddingRight: "10px" }}
+              style={{ fontSize: "1.6em"}}
             >
               R${" "}
               {item.value.toLocaleString("pt-br", { minimumFractionDigits: 2 })}
             </div>
+            
             <div
               className="col s1 right-align valign-wrapper"
               style={{
@@ -62,6 +66,7 @@ export default function details({ yearMonths, onDelete, onEdit }) {
                   edit
                 </i>
               </a>
+              
               <a
                 className="waves-effect waves-teal btn-flat"
                 onClick={() => handleDelete(item)}

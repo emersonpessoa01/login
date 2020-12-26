@@ -2,6 +2,7 @@ import React from "react";
 
 export default function Spinner() {
   const { flexRow, span } = styles;
+  
   return (
     <div style={flexRow}>
       <div className="preloader-wrapper small active">
@@ -9,9 +10,11 @@ export default function Spinner() {
           <div className="circle-clipper left">
             <div className="circle"></div>
           </div>
+
           <div className="gap-patch">
             <div className="circle"></div>
           </div>
+
           <div className="circle-clipper right">
             <div className="circle"></div>
           </div>
