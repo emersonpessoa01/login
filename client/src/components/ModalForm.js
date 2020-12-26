@@ -16,8 +16,8 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
     }
 
     const date = new Date();
-    const day = date.getDate().toString().padStart(2, "0")
-    const month = (date.getMonth() + 1).toString().padStart(2, "0")
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const launch = {
       value: 0,
       category: "",
@@ -109,20 +109,23 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
     onSave(objectLaunch, isEdit);
   };
 
+  const { flexRow, title } = styles;
   return (
     <div>
       <Modal isOpen={true} style={customStyles}>
-        <div style={styles.flexRow}>
-          <span style={styles.title}>
+        <div style={flexRow}>
+          <span style={title}>
             {onLaunch === null ? "Incluir" : "Editar"} Lançamento
           </span>
+
           <button
-            className="waves-effect waves-lights btn red dark-4"
+            className="waves-effect waves-light btn red dark-"
             onClick={handleClose}
           >
             X
           </button>
         </div>
+
         <div className="row">
           <div className="col s6">
             <label>
@@ -139,6 +142,7 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
               <span>Despesa</span>
             </label>
           </div>
+
           <div className="col s6">
             <label>
               <input
@@ -154,22 +158,24 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
               <span>Receita</span>
             </label>
           </div>
+
           <div className="input-field col s12">
             <input
+              autoFocus
               placeholder="Informe uma descrição"
               id="description"
               name="description"
               type="text"
               className="validate"
-              defaultValue={
-                objectLaunch != null && objectLaunch.description
-              }
+              defaultValue={objectLaunch != null && objectLaunch.description}
               onChange={handleDescription}
             />
+
             <label htmlFor="description" className="active">
               Descrição
             </label>
           </div>
+
           <div className="input-field col s12">
             <input
               placeholder="Informe uma categoria"
@@ -177,15 +183,15 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
               name="category"
               type="text"
               className="validate"
-              defaultValue={
-                objectLaunch != null && objectLaunch.category
-              }
+              defaultValue={objectLaunch != null && objectLaunch.category}
               onChange={handleCategory}
             />
+
             <label htmlFor="category" className="active">
               Categoria
             </label>
           </div>
+          
           <div className="input-field col s6">
             <input
               id="value"
@@ -201,15 +207,14 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
               Valor
             </label>
           </div>
+
           <div className="input-field col s6">
             <input
               id="date"
               name="date"
               type="date"
               className="validate"
-              defaultValue={
-                objectLaunch != null && objectLaunch.yearMonthDay
-              }
+              defaultValue={objectLaunch != null && objectLaunch.yearMonthDay}
               onChange={handleDate}
             />
             <label htmlFor="date" className="active">
@@ -217,6 +222,7 @@ export default function ModalForm({ onCloseModal, onSave, onLaunch }) {
             </label>
           </div>
         </div>
+        
         <div className="row">
           <button
             className="btn waves-effect waves-light"
@@ -243,10 +249,6 @@ const styles = {
     fontSize: "1.3rem",
     fontWeight: "bold",
   },
-  erroMessage: {
-    color: "red",
-    fontWeight: "bold",
-  },
 };
 
 const customStyles = {
@@ -258,5 +260,7 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
-  overlay: { zIndex: 1000 },
+  overlay: { 
+    zIndex: 1000 
+  },
 };
