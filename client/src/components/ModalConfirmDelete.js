@@ -14,29 +14,30 @@ export default function ModalConfirmDelete({ onDelete }) {
   };
 
   const { flexRow, title } = styles;
-
   return (
     <div>
       <Modal isOpen={true} style={customStyles}>
         <div style={flexRow}>
           <span style={title}>Exluir Lançamento</span>
           <button
-            className="waves-effect Default btn"
+            className="waves-effect waves-light btn red dark-4"
             onClick={handleClose}
           >
             X
           </button>
         </div>
+        
         <div className="right-align">
           <button
-            className="waves-effect waves-lights btn"
+            className="waves-effect waves-light btn"
             style={{ marginRight: "5px" }}
             onClick={handleDeleteOk}
           >
             Sim
           </button>
+
           <button
-            className="waves-effect waves-lights btn red"
+            className="waves-effect waves-light btn red"
             onClick={handleClose}
           >
             Não
