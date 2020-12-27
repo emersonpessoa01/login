@@ -13,13 +13,15 @@ export default function ModalConfirmDelete({ onDelete }) {
     onDelete(true);
   };
 
+  const { flexRow, title } = styles;
+
   return (
     <div>
       <Modal isOpen={true} style={customStyles}>
-        <div style={styles.flexRow}>
-          <span style={styles.title}>Exluir Lançamento</span>
+        <div style={flexRow}>
+          <span style={title}>Exluir Lançamento</span>
           <button
-            className="waves-effect waves-lights btn red dark-4"
+            className="waves-effect Default btn"
             onClick={handleClose}
           >
             X

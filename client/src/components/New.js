@@ -8,10 +8,11 @@ export default function New({ onPersist }) {
   return (
     <div className="col s3">
       <button
-        className="btn waves-effect waves-light"
+        href="#!"
+        class="waves-effect waves-circle waves-light btn-floating secondary-content"
         onClick={handleNewLaunch}
       >
-        +NOVO
+        <i class="material-icons">add</i>
       </button>
     </div>
   );
