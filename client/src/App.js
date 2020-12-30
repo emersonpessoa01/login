@@ -12,10 +12,9 @@ import ModalConfirmDelete from "./components/ModalConfirmDelete";
 export default function App() {
   const date = new Date();
 
-  const yearMonthCurrent = `${date.getFullYear()}-${(
-    "0" +
-    (date.getMonth() + 1)
-  ).slice(-2)}`;
+  const yearMonthCurrent = `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}`;
 
   const [period, setPeriod] = useState(yearMonthCurrent);
   const [yearMonthFiltered, setYearMonthFiltered] = useState([]);
@@ -104,9 +103,7 @@ export default function App() {
       <div className="container">
         <div style={centeredTitle}>Desafio Final - Bootcamp Full Stack</div>
 
-        <Navigate 
-        defaultPeriod={period} 
-        onChangeYearMonth={handleYearMonth} />
+        <Navigate defaultPeriod={period} onChangeYearMonth={handleYearMonth} />
 
         {yearMonthFiltered.length !== 0 && (
           <Resume yearMonths={yearMonthFiltered} />
@@ -119,9 +116,7 @@ export default function App() {
         <div className="container" style={{ paddingTop: "10px" }}>
           <div style={row}>
             <New onPersist={handlePersist} />
-            <Filter 
-            yearMonths={yearMonthSelected} 
-            onFilter={handleFilter} />
+            <Filter yearMonths={yearMonthSelected} onFilter={handleFilter} />
           </div>
         </div>
       )}
@@ -143,8 +138,7 @@ export default function App() {
       )}
 
       {isModalDeleteOpen && (
-        <ModalConfirmDelete 
-        onDelete={handlePersistDelete} />
+        <ModalConfirmDelete onDelete={handlePersistDelete} />
       )}
     </div>
   );
