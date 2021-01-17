@@ -1,26 +1,33 @@
-// const mongoose = require("mongoose");
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+//responsavel por chamar o Banco de Dados
+import mongooseDateFormat from "mongoose-date-format";
+// import bcrypt from "bcrypt";
 
-let schema = mongoose.Schema({
-  name_user: String,
-  email_user: String,
-  type_user:{type: Number, default:1},
-  password_user: String,
-
+export default(mongoose)=>{ 
+const userSchema = mongoose.Schema({
+  name: String,
+  email:String,
+  password: String,
+  type:{
+    type: Number,
+    default:1
+  },
+    
+  lastModified: {
+    type: Date,
+    default: Date.now(),
+  },
 },{
   timestamp: true,
 });
 
-schema.pre("save", function (next) {
-  if(!this.isModified("password_user")){
-    return next();
-  }
-  this.password_user = bcrypt.hashSync(this.password_user,10)
-})
+// studentSchema.pre("save", function (next) {
+//   if(!this.isModified("password")){
+//     return next();
+//   }
+//   this.password = bcrypt.hashSync(this.password,10)
+// })
 
-
-const userModel = mongoose.model("transaction", schema);
-
-// module.exports = transactionModel;
-export { userModel };
+const userModel = mongoose.model("user", userSchema, "user"); //para criar user no singular
+userSchema.plugin(mongooseDateFormat)
+return userModel;
+}
