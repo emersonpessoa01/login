@@ -59,5 +59,5 @@ app.use('/api/transaction', routes);
  */
 const APP_PORT = process.env.PORT || 8080;
 app.listen(APP_PORT, () => {
-  console.log(`Servidor iniciado em http://localhost:3001`);
+  console.log(`Servidor iniciado em http://localhost:3002`);
 });
