@@ -1,20 +1,11 @@
-// const express = require('express');
-// const service = require('../services/transactionService.js');
-import express from "express";
-import {
-  findPeriod,
-  getPeriods,
-  inserting,
-  removing,
-  updated,
-} from "../services/transactionService.js";
-
+const express = require('express');
 const transactionRouter = express.Router();
-transactionRouter.get("/", findPeriod);
-transactionRouter.get("/periods/", getPeriods);
-transactionRouter.post("/", inserting);
-transactionRouter.delete("/:id", removing);
-transactionRouter.put("/", updated);
+const service = require('../services/transactionService.js');
 
-// module.exports = transactionRouter;
-export { transactionRouter as routes };
+transactionRouter.get('/', service.findPeriod);
+transactionRouter.get('/periods/', service.getPeriods);
+transactionRouter.post('/', service.insert);
+transactionRouter.delete('/:id', service.delete);
+transactionRouter.put('/', service.update);
+
+module.exports = transactionRouter;

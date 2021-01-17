@@ -1,16 +1,9 @@
-// const express = require('express');
-// const cors = require('cors');
-// const mongoose = require('mongoose');
-// const routes = require('./routes/routes');
-// const path = require('path');
-// const dotenv = require('dotenv');
-
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import { routes } from "./routes/routes.js";
-import path from "path";
-import dotenv from "dotenv";
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const routes = require('./routes/routes');
+const path = require('path');
+const dotenv = require('dotenv');
 
 /**
  * Faz a leitura do arquivo
@@ -25,22 +18,22 @@ app.use(express.json());
 /**
  * Vinculando o React ao app
  */
-app.use(express.static(path.join("client/build")));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 /**
  * Rota raiz
  */
-app.get("/api/", (_, response) => {
+app.get('/api/', (_, response) => {
   response.send({
     message:
-      "Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações",
+      'Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações',
   });
 });
 
 /**
  * Rotas principais do app
  */
-app.use("/api/transaction", routes);
+app.use('/api/transaction', routes);
 
 /**
  * Conexão ao Banco de Dados
@@ -52,6 +45,7 @@ app.use("/api/transaction", routes);
     await mongoose.connect(DB_CONNECTION, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify:false,
     });
     console.log("Conectado ao MongoDb Atlas");
   } catch (err) {

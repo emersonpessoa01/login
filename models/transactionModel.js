@@ -1,5 +1,4 @@
-// const mongoose = require("mongoose");
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 let schema = mongoose.Schema({
   description: String,
@@ -13,7 +12,6 @@ let schema = mongoose.Schema({
   type: String,
 });
 
-const transactionModel = mongoose.model("transaction", schema);
+const TransactionModel = mongoose.model('transaction', schema);
 
-// module.exports = transactionModel;
-export { transactionModel };
+module.exports = TransactionModel;
