@@ -1,4 +1,4 @@
- // const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
@@ -8,7 +8,10 @@ let schema = mongoose.Schema({
   type_user:{type: Number, default:1},
   password_user: String,
 
+},{
+  timestamp: true,
 });
+
 schema.pre("save", function (next) {
   if(!this.isModified("password_user")){
     return next();
@@ -16,7 +19,8 @@ schema.pre("save", function (next) {
   this.password_user = bcrypt.hashSync(this.password_user,10)
 })
 
-const transactionModel = mongoose.model("user", schema);
 
-//  module.exports = transactionModel;
-export { transactionModel };
+const userModel = mongoose.model("transaction", schema);
+
+// module.exports = transactionModel;
+export { userModel };

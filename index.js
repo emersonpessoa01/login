@@ -11,6 +11,8 @@ import mongoose from "mongoose";
 import { routes } from "./routes/routes.js";
 import path from "path";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+// import pathUser from "path";
 
 /**
  * Faz a leitura do arquivo
@@ -21,6 +23,9 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+// app.use(path());
+
 
 /**
  * Vinculando o React ao app
@@ -33,14 +38,14 @@ app.use(express.static(path.join("client/build")));
 app.get("/api/", (_, response) => {
   response.send({
     message:
-      "Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações",
+      "Bem-vindo à API de lançamentos. Acesse /users e siga as orientações",
   });
 });
 
 /**
  * Rotas principais do app
  */
-app.use("/api/transaction", routes);
+app.use("/api/user", routes);
 
 /**
  * Conexão ao Banco de Dados
@@ -52,7 +57,6 @@ app.use("/api/transaction", routes);
     await mongoose.connect(DB_CONNECTION, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
     });
     console.log("Conectado ao MongoDb Atlas");
   } catch (err) {
