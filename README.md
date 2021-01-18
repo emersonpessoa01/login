@@ -1,10 +1,22 @@
 ### Preview: [app]()
-### Descrição
+### Descrição:
 - Backend vinculado ao Frontend(client)<br>
 - "npm run dev" para iniciar tanto api quanto o front<br>
 - Rota raiz: localhost:3002/api<br>
 - Métodos get, post, patch e delete.Todos testados.Ok!<br> 
 - Repositório Github integrado com a Heroku<br>
+
+### Install:
+`npm install bcrypt`<br>
+`npm install cookie-parse>`<br>
+`npm install cors`<br>
+`npm install dotenv`<br>
+`npm install express`<br>
+`npm install mongodb`<br>
+`npm install mongoose`<br>
+`npm install mongoose-date-format -D`<br>
+`npm install path`<br>
+`npm install concurrently -D`<br>
 
 ### scripts:
 `"client": "npm start --prefix client",`<br>
