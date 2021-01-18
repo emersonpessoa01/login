@@ -8,7 +8,7 @@
 
 ### Install:
 `npm install bcrypt`<br>
-`npm install cookie-parse>`<br>
+`npm install cookie-parser>`<br>
 `npm install cors`<br>
 `npm install dotenv`<br>
 `npm install express`<br>
@@ -18,10 +18,17 @@
 `npm install path`<br>
 `npm install concurrently -D`<br>
 
-### scripts:
+### scripts backend:
 `"client": "npm start --prefix client",`<br>
  `"dev": "concurrently \"npm run server\" \"npm run client\"",`<br>    
  `"server": "nodemon index.js",`<br>
  `"start": "node index.js",`<br>
  `"heroku-postbuild": "cd client && npm install && npm run build"`<br>
+
+ ### Install frontend:
+ * cd client<br>
+ * npm install @material-ui/core<br>
+ * npm install ou yarn add @material-ui/icons<br>
+
+
 
