@@ -20,11 +20,21 @@ const userSchema = mongoose.Schema({
   timestamp: true,
 });
 
-// studentSchema.pre("save", function (next) {
+/**criptografia de senha*/
+// userSchema.pre("save", (next)=> {
 //   if(!this.isModified("password")){
 //     return next();
 //   }
-//   this.password = bcrypt.hashSync(this.password,10)
+//   this.password = bcrypt.hashSync(password,10);
+//     next()
+// })
+
+// userSchema.prev("findOneAndUpdate",(next)=>{
+//   let password = this.getUpdate().password+""
+//   if(password.length === 55){
+//   this.getUpdate().password = bcrypt.hashSync(password,10);
+//   }
+//   next()
 // })
 
 const userModel = mongoose.model("user", userSchema, "user"); //para criar user no singular

@@ -1,20 +1,32 @@
 //interface para o controller,sendo que o mesmo faz tratamento de persistenca de dados
 import express from "express";
-import controller from '../controller/userController.js';
+import controllerUser from '../controller/userController.js';
+import controllerProduct from '../controller/productController.js';
 // import { podcastModel } from "./models/podcastModel.js";
 
 const app = express();
 
 //criando o create do CRUD
-app.post("/",controller.create);
+app.post("/api/users",controllerUser.create);
 
-app.get("/",controller.findAll);
+app.get("/api/users",controllerUser.findAll);
 
-app.get("/:id",controller.findOne);
+app.get("/api/users/:id",controllerUser.findOne);
 
-app.patch("/:id",controller.update);
+app.patch("/api/users/:id",controllerUser.update);
 
-app.delete("/:id",controller.remove);
+app.delete("/api/users/:id",controllerUser.remove);
+
+
+app.post("/api/products",controllerProduct.create);
+
+app.get("/api/products",controllerProduct.findAll);
+
+app.get("/api/products/:id",controllerProduct.findOne);
+
+app.patch("/api/products/:id",controllerProduct.update);
+
+app.delete("/api/products/:id",controllerProduct.remove);
 
 export { app as userRouter };
 

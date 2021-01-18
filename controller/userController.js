@@ -24,7 +24,7 @@ const create = async (req, res) => {
 };
 
 //BUSCAR TUDO(método get)
-const findAll = async (req, res) => {
+const findAll = async (_, res) => {
   try {
     const data = await User.find({});
 

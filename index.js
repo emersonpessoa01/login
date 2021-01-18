@@ -34,7 +34,7 @@ app.get("/", (_, response) => {
 /**
  * Rotas principais do app
  */
-app.use("/user", userRouter);
+app.use("/", userRouter);
 
 
 /**
