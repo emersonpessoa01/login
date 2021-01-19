@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   formControl:{
-    width: "70%",
+    width: "100%",
   }
 }));
 
@@ -92,7 +92,7 @@ export default function Dashboard() {
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={3}>
+                  <Grid item xs={12} sm={6}>
                     <TextField
                       required
                       id="password"
