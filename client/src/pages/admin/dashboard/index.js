@@ -44,7 +44,7 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      <MenuAdmin />
+      <MenuAdmin title={"DASHBOARD"} />
 
       {/*Drawer recortado */}
 
@@ -52,7 +52,7 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           
-          {/*Cadastro e atualização*/}
+          {/*Cadastro e atualização */}
           <Grid container spacing={3}>
             <img src={ImgAdmin} />
           </Grid>
