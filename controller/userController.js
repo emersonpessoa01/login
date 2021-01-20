@@ -6,7 +6,7 @@ const User = db.user;
 
 //função create(metodo post) do CRUD
 const create = async (req, res) => {
-  const {name, email,password,type} = req.body
+  const { name, email, password, type } = req.body;
   const user = new User({
     name,
     email,
@@ -24,7 +24,7 @@ const create = async (req, res) => {
 };
 
 //BUSCAR TUDO(método get)
-const findAll = async (_, res) => {
+const findAll = async (req, res) => {
   try {
     const data = await User.find({});
 
@@ -60,7 +60,7 @@ const update = async (req, res) => {
       }
     );
     if (!data) {
-      res.send(`User id ${id} não encontrado`);
+      res.send(`User id ${id} not found`);
     } else {
       res.send("User atualizado com sucesso");
     }
@@ -78,9 +78,9 @@ const remove = async (req, res) => {
     const data = await User.findOneAndDelete({ _id: id });
 
     if (!data) {
-      res.send(`User id ${id} não encontrado`);
+      res.send(`User id ${id} not found`);
     } else {
-    res.send(`User excluido com sucesso - ${data}`);
+      res.send(`User excluido com sucesso - ${data}`);
     }
   } catch (err) {
     res

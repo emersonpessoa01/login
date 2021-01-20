@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 
@@ -16,6 +16,10 @@ import Select from "@material-ui/core/Select";
 
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+
+import Button from "@material-ui/core/Button";
+
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,13 +48,62 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
   },
-  formControl:{
+  formControl: {
     width: "100%",
-  }
+  },
 }));
 
-export default function Dashboard() {
+const api = axios.create({
+  baseURL: "http://localhost:3002",
+  headers: {
+    "Content-type": "application/json",
+  },
+});
+
+export default function Dashboard() {s
   const classes = useStyles();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [type, setType] = useState("");
+
+  // const [form, setForm] = useState("");
+
+  // useEffect(() => {
+  //   const handleSubmit = async () => {
+  //     const res = await fetch("https://screen-login.herokuapp.com/api/users");
+  //     const json = await res.json();
+  //     let allUsers = json.map(({ name, email, password, type }) => {
+  //       return {
+  //         name,
+  //         email,
+  //         password,
+  //         type,
+  //       };
+  //     });
+  //     console.log(allUsers);
+
+      
+  //   };
+  //   handleSubmit();
+  // }, []);
+
+  const handleSubmit = async () => {
+    const data = {
+      name,
+      email,
+      password,
+      type,
+    };
+    console.log(data)
+    const res = await api.post("/api/users", data);
+    if (res.status === 200) {
+      window.location.href = "/users";
+    } else {
+      alert("Erro ao cadastrar usuário");
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -70,15 +123,16 @@ export default function Dashboard() {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       required
-                      id="name"
-                      name="name"
+                      id="nome"
+                      name="nome"
                       label="Nome completo"
                       fullWidth
-                      autoComplete="name"
+                      autoComplete="nome"
                       variant="standard"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </Grid>
-                  
 
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -89,38 +143,47 @@ export default function Dashboard() {
                       fullWidth
                       autoComplete="email"
                       variant="standard"
+                      email={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </Grid>
 
                   <Grid item xs={12} sm={6}>
                     <TextField
                       required
-                      id="password"
-                      name="password"
+                      id="senha"
+                      name="senha"
                       label="Senha"
                       fullWidth
-                      autoComplete="password"
+                      autoComplete="senha"
                       variant="standard"
+                      password={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </Grid>
 
-                  
-
-                  <Grid item xs={12} sm={3}>
+                  <Grid item xs={12} sm={4}>
                     <FormControl className={classes.formControl}>
                       <InputLabel id="lableTipo">Tipo</InputLabel>
                       <Select
                         labelId="lableTipo"
-                        id="type"
-                        // value={age}
-                        // onChange={handleChange}
+                        id="tipo"
+                        type={type}
+                        onChange={(e) => setType(e.target.value)}
                       >
                         <MenuItem value={1}>Administrador</MenuItem>
                         <MenuItem value={2}>Funcionário</MenuItem>
                       </Select>
                     </FormControl>
-
-                    <Grid item xs={12} sm={6}></Grid>
+                  </Grid>
+                  <Grid item xs={12} sm={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleSubmit}
+                    >
+                      Salvar
+                    </Button>
                   </Grid>
                 </Grid>
               </Paper>
