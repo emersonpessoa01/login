@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 
@@ -19,7 +19,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import Button from "@material-ui/core/Button";
 
-import axios from "axios";
+import api from "../../../services/api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,13 +53,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const api = axios.create({
-  baseURL: "http://localhost:3002",
-  headers: {
-    "Content-type": "application/json",
-  },
-});
-
 export default function Dashboard() {
   const classes = useStyles();
 
@@ -70,25 +63,6 @@ export default function Dashboard() {
 
   // const [form, setForm] = useState("");
 
-  // useEffect(() => {
-  //   const handleSubmit = async () => {
-  //     const res = await fetch("https://screen-login.herokuapp.com/api/users");
-  //     const json = await res.json();
-  //     let allUsers = json.map(({ name, email, password, type }) => {
-  //       return {
-  //         name,
-  //         email,
-  //         password,
-  //         type,
-  //       };
-  //     });
-  //     console.log(allUsers);
-
-      
-  //   };
-  //   handleSubmit();
-  // }, []);
-
   const handleSubmit = async () => {
     const data = {
       name,
@@ -96,12 +70,18 @@ export default function Dashboard() {
       password,
       type,
     };
-    console.log(data)
-    const res = await api.post("/api/users", data);
-    if (res.status === 200) {
-      window.location.href = "/users";
-    } else {
-      alert("Erro ao cadastrar usuário");
+    console.log(data);
+
+    //verificação
+    if (name !== "" && email !== "" && password !== "" && type !== "") {
+      const res = await api.post("/api/users", data);
+      if (res.status === 200) {
+        window.location.href = "/admin/users";
+      } else {
+        alert("Erro ao cadastrar usuário");
+      }
+    }else{
+      alert("É necessário que preencha todos os campos")
     }
   };
 

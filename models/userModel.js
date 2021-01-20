@@ -29,8 +29,8 @@ const userSchema = mongoose.Schema({
 //     next()
 // })
 
-// userSchema.prev("findOneAndUpdate",(next)=>{
-//   let password = this.getUpdate().password+""
+// userSchema.pre("findOneAndUpdate",(next)=>{
+//   let password = this.getUpdate().password +""
 //   if(password.length === 55){
 //   this.getUpdate().password = bcrypt.hashSync(password,10);
 //   }

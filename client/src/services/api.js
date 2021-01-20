@@ -1,4 +1,3 @@
-import React from 'react'
 import axios from "axios";
 
 const api = axios.create({
@@ -8,10 +7,5 @@ const api = axios.create({
   },
 })
 
-export default function Api() {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+export default api
+  
