@@ -65,6 +65,20 @@ export default function UsersList() {
     loadUsers();
   }, []);
 
+  async function handleDelete(id){
+    // const API_URL = "/api/users";
+    // `${API_URL}/${id}`
+    if(window.confirm("Deseja realmente excluir este usuário?")){
+      var result = await api.delete("/api/users/"+id);
+
+      if( result.status === 200){
+       window.location.href ="/admin/users"
+      }else{
+        console.log("Ocorreu um erro")
+      }
+    }
+  }
+
   return (
     <div className={classes.root}>
       <MenuAdmin title={"USUÁRIOS"} />
@@ -127,7 +141,7 @@ export default function UsersList() {
                               <TableCell align="center">
                                 <ButtonGroup aria-label="outlined primary button group">
                                   <Button color="primary">Atualizar</Button>
-                                  <Button color="secondary">Excluir</Button>
+                                  <Button color="secondary"  onClick={()=>handleDelete(row._id)}>Excluir</Button>
                                 </ButtonGroup>
                               </TableCell>
                             </TableRow>

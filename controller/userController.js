@@ -72,6 +72,18 @@ const update = async (req, res) => {
 };
 
 //deletar documentos(metodo delete)
+
+// const remove = async (req, res) => {
+//   const { _id } = req.params;
+//   try {
+//     const user = await User.findOneAndDelete({ id: _id });
+//     return res.json(user);
+//   } catch (err) {
+//     res
+//       .status(400)
+//       .send({ message: `Erro ao excluir o User id ${id} ${error}` });
+//   }
+// };
 const remove = async (req, res) => {
   const id = req.params.id;
   try {
