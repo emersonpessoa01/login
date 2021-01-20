@@ -10,10 +10,10 @@ export default (mongoose) => {
       type: Number,
       default: 0,
     },
-
-    lastModified: {
+    created_at: {
       type: Date,
-      default: Date.now(),
+      required: true,
+      default: Date.now,
     },
   });
 
