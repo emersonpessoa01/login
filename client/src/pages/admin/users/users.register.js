@@ -60,7 +60,7 @@ const api = axios.create({
   },
 });
 
-export default function Dashboard() {s
+export default function Dashboard() {
   const classes = useStyles();
 
   const [name, setName] = useState("");
