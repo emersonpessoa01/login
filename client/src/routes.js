@@ -39,7 +39,7 @@ export default function Routes(){
         {/*ROTA USUÁRIOS */}
         <Route path="/admin/users" exact component={Users} />
         <Route path="/admin/users/register" exact component={UserRegister} />
-        <Route path="/admin/users/edit/:idProduct" exact component={UserEdit} />
+        <Route path="/admin/users/edit/:idUser" exact component={UserEdit} />
 
 
       </Switch>

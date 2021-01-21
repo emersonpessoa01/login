@@ -35,34 +35,41 @@ const findAll = async (req, res) => {
 };
 
 //BUSCAR PELO ID(metodo get)
-const findOne = async (req, res) => {
-  const id = req.params.id;
 
+const details = async (req, res) => {
+  const { id } = req.params;
   try {
-    const data = await User.findById({ _id: id });
+    const data = await User.findOne({_id:id});
 
-    res.send(data);
+    res.json(data);
   } catch (err) {
-    res
-      .status(400)
-      .send({ message: `Erro ao buscar user id ${id} ${error}` });
+    res.status(400).send({ message: `Erro ao buscar todos users ${error}` });
   }
 };
+
+//BUSCAR PELO ID(metodo get)
+// const details = async (req, res) => {
+//   const id = req.params.id;
+
+//   try {
+//     const data = await User.findById({ _id: id });
+
+//     res.send(data);
+//   } catch (err) {
+//     res.status(400).send({ message: `Erro ao buscar user id ${id} ${error}` });
+//   }
+// };
 
 //Atualizar dados(metodo put)
 const update = async (req, res) => {
   try {
-    const data = await User.findOneAndUpdate(
-      { _id: req.params.id },
-      req.body,
-      {
-        new: true,
-      }
-    );
+    const data = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    });
     if (!data) {
       res.send(`User id ${id} not found`);
     } else {
-      res.send("User atualizado com sucesso");
+      res.send("Status: atualizado com sucesso");
     }
   } catch (err) {
     res
@@ -101,4 +108,4 @@ const remove = async (req, res) => {
   }
 };
 
-export default { create, findAll, findOne, update, remove };
+export default { create, findAll, details, update, remove };

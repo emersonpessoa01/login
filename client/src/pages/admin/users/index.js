@@ -65,16 +65,16 @@ export default function UsersList() {
     loadUsers();
   }, []);
 
-  async function handleDelete(id){
+  async function handleDelete(id) {
     // const API_URL = "/api/users";
     // `${API_URL}/${id}`
-    if(window.confirm("Deseja realmente excluir este usuário?")){
-      var result = await api.delete("/api/users/"+id);
+    if (window.confirm("Deseja realmente excluir este usuário?")) {
+      let result = await api.delete("/api/users/" + id);
 
-      if( result.status === 200){
-       window.location.href ="/admin/users"
-      }else{
-        console.log("Ocorreu um erro")
+      if (result.status === 200) {
+        window.location.href = "/admin/users";
+      } else {
+        console.log("Ocorreu um erro");
       }
     }
   }
@@ -88,7 +88,7 @@ export default function UsersList() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          {/*Cadastro e atualização */}
+          {/*Exclusão e atualização de listagem de usuários */}
           <Grid container spacing={3}>
             <Grid item sm={12}>
               <Paper className={classes.paper}>
@@ -122,26 +122,30 @@ export default function UsersList() {
                               <TableCell align="center">{row.email}</TableCell>
                               <TableCell align="center">
                                 {row.type === 1 ? (
-                                  <Chip
-                                    label="Administrador"
-                                    color="primary"
-                                    
-                                  />
+                                  <Chip label="Administrador" color="primary" />
                                 ) : (
-                                  <Chip
-                                    label="Funcionário"
-                                    color="secondary"
-                                    
-                                  />
+                                  <Chip label="Funcionário" color="secondary" />
                                 )}
                               </TableCell>
                               <TableCell align="center">
-                                {new Date(row.created_at).toLocaleString("pt-br")}
+                                {new Date(row.created_at).toLocaleString(
+                                  "pt-br"
+                                )}
                               </TableCell>
                               <TableCell align="center">
                                 <ButtonGroup aria-label="outlined primary button group">
-                                  <Button color="primary">Atualizar</Button>
-                                  <Button color="secondary"  onClick={()=>handleDelete(row._id)}>Excluir</Button>
+                                  <Button
+                                    color="primary"
+                                    href={"/admin/users/edit/" + row._id}
+                                  >
+                                    Atualizar
+                                  </Button>
+                                  <Button
+                                    color="secondary"
+                                    onClick={() => handleDelete(row._id)}
+                                  >
+                                    Excluir
+                                  </Button>
                                 </ButtonGroup>
                               </TableCell>
                             </TableRow>

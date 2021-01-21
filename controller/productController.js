@@ -62,7 +62,7 @@ const update = async (req, res) => {
     if (!data) {
       res.send( `Product id ${id} não encontrado`);
     } else {
-      res.send("UserProduct atualizado com sucesso");
+      res.send("Status: atualizado com sucesso");
     }
   } catch (err) {
     res

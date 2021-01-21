@@ -11,7 +11,9 @@ app.post("/api/users",controllerUser.create);
 
 app.get("/api/users",controllerUser.findAll);
 
-app.get("/api/users/:id",controllerUser.findOne);
+app.get("/api/users.details/:id",controllerUser.details);
+
+// app.get("/api/users/:id",controllerUser.findOne);
 
 app.patch("/api/users/:id",controllerUser.update);
 
