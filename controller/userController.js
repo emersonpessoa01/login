@@ -60,8 +60,15 @@ const details = async (req, res) => {
 //   }
 // };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+
 //Atualizar dados(metodo put)
 const update = async (req, res) => {
+
   try {
     const data = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
       new: true,

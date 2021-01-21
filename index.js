@@ -47,6 +47,7 @@ app.use("/", userRouter);
     await mongoose.connect(DB_CONNECTION, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify:false,
     });
     console.log("Conectado ao MongoDb Atlas");
   } catch (err) {

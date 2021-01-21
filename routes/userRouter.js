@@ -15,7 +15,7 @@ app.get("/api/users.details/:id",controllerUser.details);
 
 // app.get("/api/users/:id",controllerUser.findOne);
 
-app.patch("/api/users/:id",controllerUser.update);
+app.put("/api/users/:id",controllerUser.update);
 
 app.delete("/api/users/:id",controllerUser.remove);
 
@@ -26,7 +26,7 @@ app.get("/api/products",controllerProduct.findAll);
 
 app.get("/api/products/:id",controllerProduct.findOne);
 
-app.patch("/api/products/:id",controllerProduct.update);
+app.put("/api/products/:id",controllerProduct.update);
 
 app.delete("/api/products/:id",controllerProduct.remove);
 
