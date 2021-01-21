@@ -133,6 +133,7 @@ export default function Dashboard() {
                       required
                       id="senha"
                       name="senha"
+                      type="password"
                       label="Senha"
                       fullWidth
                       autoComplete="senha"
