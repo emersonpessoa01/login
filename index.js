@@ -1,9 +1,10 @@
-import express from 'express'
-import mongoose from "mongoose";
-import { userRouter } from "./routes/userRouter.js";
-import cors from "cors";
-import path from "path";
-import dotenv from 'dotenv';
+const express = require('express');
+// const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const path = require('path');
+const mongoose = require('mongoose');
+const routes =  require('./routes/routes');
+const dotenv = require("dotenv");
 
 /**
  * Faz a leitura do arquivo
@@ -14,6 +15,8 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+// app.use(cookieParser());
+
 
 /**
  * Vinculando o React ao app
@@ -33,7 +36,7 @@ app.get("/", (_, response) => {
 /**
  * Rotas principais do app
  */
-app.use("/", userRouter);
+app.use("/", routes);
 
 
 /**

@@ -17,6 +17,7 @@
 `npm install mongoose-date-format -D`<br>
 `npm install path`<br>
 `npm install concurrently -D`<br>
+`npm install jsonwebtoken`<br>
 
 ### scripts backend:
 `"client": "npm start --prefix client",`<br>
