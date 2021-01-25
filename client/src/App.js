@@ -1,14 +1,14 @@
-import React from "react";
-// import axios from "axios";
-// import Initial from "./pages/client/painel"
-import Routes from "./routes"
+import React from 'react';
 
-export default function App() {
+// import Inicio from './pages/client/painel';
+import Routes from './routes';
 
+function App() {
   return (
-    <div>
-      {/* <Initial /> */}
+    <div className="App">
       <Routes />
     </div>
   );
 }
+
+export default App;

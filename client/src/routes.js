@@ -1,48 +1,48 @@
-import React from "react";
+import React from 'react';
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-
-//IMPORT ADMIN
-import Dashboard from "./pages/admin/dashboard";
-
-import Products from "./pages/admin/products";
-import ProductEdit from "./pages/admin/products/product.edit";
-import ProductRegister from "./pages/admin/products/product.register";
-
-//IMPORT USUÁRIOS
-import Users from "./pages/admin/users"
-import UserEdit from "./pages/admin/users/users.edit";
-import UserRegister from './pages/admin/users/users.register'
+import {  BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 
 
-//IMPORT CLIENT
-import Home from "./pages/client/home";
-import ProductDetails from "./pages/client/products/products.details";
+// IMPORTS ADMIN
+import Dashboard from './pages/admin/dashboard';
+
+import Produtos from './pages/admin/produtos';
+import ProdutoEditar from './pages/admin/produtos/produtos.editar';
+import ProdutoCadastrar from './pages/admin/produtos/produtos.cadastrar'
+
+import Usuarios from './pages/admin/usuarios';
+import UsuarioEditar from './pages/admin/usuarios/usuarios.editar';
+import UsuarioCadastrar from './pages/admin/usuarios/usuarios.cadastrar'
+
+// IMPORTS CLIENT
+import Home from './pages/client/home';
+import ProdutoDetails from './pages/client/produtos/produtos.details';
+import Login from './pages/admin/login';
+
+import PrivateRoute from './services/wAuth';
 
 export default function Routes(){
 
-  return (
-    <BrowserRouter>
-      <Switch>
-        {/*ROTA CLIENTE */}
-        <Route path="/" exact component={Home} />
-        <Route path="/products/:idProduct" exact component={ProductDetails} />
-        
+    return(
+        <BrowserRouter>
+            <Switch>
+                {/* Rota Cliente */}
+                <Route path="/" exact component={Home} />
+                <Route path="/produtos/:idProduto" exact component={ProdutoDetails} />
 
-        {/*ROTA ADMIN */}
-        <Route path="/admin" exact component={Dashboard} />
+                {/* Rota Admin */}
+                <Route path="/admin/login" exact component={Login} />
+                <PrivateRoute path="/admin" exact component={Dashboard} />
+                
+                <PrivateRoute path="/admin/produtos" exact component={Produtos} />
+                <PrivateRoute path="/admin/produtos/cadastrar" exact component={ProdutoCadastrar} />
+                <PrivateRoute path="/admin/produtos/editar/:idProduto" exact component={ProdutoEditar} />
 
-        <Route path="/admin/products" exact component={Products} />
-        <Route path="/admin/products/register" exact component={ProductRegister} />
-        <Route path="/admin/products/edit/:idProduct" exact component={ProductEdit} />
+                <PrivateRoute path="/admin/usuarios" exact component={Usuarios} />
+                <PrivateRoute path="/admin/usuarios/cadastrar" exact component={UsuarioCadastrar} />
+                <PrivateRoute path="/admin/usuarios/editar/:idUsuario" exact component={UsuarioEditar} />
 
-        {/*ROTA USUÁRIOS */}
-        <Route path="/admin/users" exact component={Users} />
-        <Route path="/admin/users/register" exact component={UserRegister} />
-        <Route path="/admin/users/edit/:idUser" exact component={UserEdit} />
-
-
-      </Switch>
-    </BrowserRouter>
-  )
+            </Switch>
+        </BrowserRouter>
+    )
 }
