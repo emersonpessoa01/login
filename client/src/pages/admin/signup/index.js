@@ -62,11 +62,9 @@ export default function SignUp() {
 
     if (nome !== "" && email !== "" && senha !== "") {
       const response = await api.post("/api/usuarios", data);
-      console.log(response.data)
 
       if (response.status === 200) {
         window.location.href = "/admin/login";
-
       } else {
         alert("Erro ao cadastrar o usuário!");
       }
@@ -136,6 +134,7 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             color="primary"
+            href={"/admin/login"}
             onClick={handleSubmit}
             className={classes.submit}
           >
