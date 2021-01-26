@@ -29,7 +29,7 @@ app.use(express.static(path.join("client/build")));
 app.get("/", (_, response) => {
   response.send({
     message:
-      "Bem-vindo à API de lançamentos. Acesse /user e siga as orientações",
+      "Bem-vindo à API de lançamentos. Acesse /api/usuarios e siga as orientações",
   });
 });
 
