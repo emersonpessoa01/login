@@ -19,7 +19,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Delivery-system
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -139,7 +139,7 @@ export default function SignUp() {
             onClick={handleSubmit}
             className={classes.submit}
           >
-            Sign Up
+            Cadastrar
           </Button>
         </form>
       </div>
