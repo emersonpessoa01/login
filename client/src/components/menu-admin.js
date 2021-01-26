@@ -18,7 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { mainListItems, secondaryListItems } from './list-menu-admin';
 import { getNomeUsuario } from '../services/auth';
-import logoSistema from '../assets/img/ashoka-tano.gif';
+import logoSistema from '../assets/img/giphy.gif';
 
 const drawerWidth = 240;
 
