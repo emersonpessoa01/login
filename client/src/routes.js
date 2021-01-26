@@ -18,6 +18,7 @@ import UsuarioCadastrar from './pages/admin/usuarios/usuarios.cadastrar'
 import Home from './pages/client/home';
 import ProdutoDetails from './pages/client/produtos/produtos.details';
 import Login from './pages/admin/login';
+import Signup from './pages/admin/signup';
 
 import PrivateRoute from './services/wAuth';
 
@@ -32,6 +33,7 @@ export default function Routes(){
 
                 {/* Rota Admin */}
                 <Route path="/admin/login" exact component={Login} />
+                <Route path="/admin/signup" exact component={Signup} />
                 <PrivateRoute path="/admin" exact component={Dashboard} />
                 
                 <PrivateRoute path="/admin/produtos" exact component={Produtos} />

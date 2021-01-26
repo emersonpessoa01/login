@@ -170,7 +170,7 @@ export default function SignIn() {
           style={{ marginBottom: 10 }}
           variant="contained"
           color="secondary"
-          href={"/admin/usuarios/cadastrar"}
+          href={"/admin/signup"}
         >
           Cadastrar
         </Button>
