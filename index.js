@@ -33,10 +33,6 @@ app.get("/", (_, response) => {
   });
 });
 
-app.get('*', (req,res) =>{
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
-
 /**
  * Rotas principais do app
  */
