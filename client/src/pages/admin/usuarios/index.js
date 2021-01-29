@@ -24,7 +24,8 @@ import Chip from '@material-ui/core/Chip';
 import {getNomeTipo,getNomeTipoLabel} from '../../../functions/static_data'
 import AddIcon from '@material-ui/icons/Add';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
-import ClearIcon from '@material-ui/icons/Clear';
+// import ClearIcon from '@material-ui/icons/Clear';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,7 +121,7 @@ export default function UsuariosListagem() {
                             <TableCell align="right">
                             <ButtonGroup aria-label="outlined primary button group">
                               <Button variant="contained" color="primary" href={'/admin/usuarios/editar/'+row._id}><AutorenewIcon /> Atualizar</Button>
-                              <Button variant="contained" color="secondary" onClick={() => handleDelete(row._id)}><ClearIcon /></Button>
+                              <Button variant="contained" color="secondary" onClick={() => handleDelete(row._id)}><DeleteForeverIcon /></Button>
                             </ButtonGroup>
                             </TableCell>
                           </TableRow>
