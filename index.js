@@ -20,7 +20,7 @@ app.use(express.json());
 /**
  * Vinculando o React ao app
  */
-app.use(express.static(path.join("client/build")));
+// app.use(express.static(path.join("client/build")));
 
 /**
  * Rota raiz
@@ -40,7 +40,7 @@ app.use("/", routes);
 if (process.env.DB_CONNECTION === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.join("client", "build", "index.html"));
   });
 }
 
