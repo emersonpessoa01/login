@@ -28,7 +28,7 @@ app.use(express.json());
 app.get("/", (_, response) => {
   response.send({
     message:
-      "Bem-vindo à API de lançamentos. Acesse /api/usuarios e siga as orientações",
+      "Bem-vindo à API de lançamentos. Acesse /api/usuarios ou /admin/login e siga as orientações",
   });
 });
 
