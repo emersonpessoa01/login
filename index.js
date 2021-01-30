@@ -37,12 +37,10 @@ app.get("/", (_, response) => {
  */
 app.use("/", routes);
 
-if (process.env.DB_CONNECTION === "production") {
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join("client", "build", "index.html"));
-  });
-}
+app.use(express.static("client/build"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join("client", "build", "index.html"));
+});
 
 /**
  * Conexão ao Banco de Dados
