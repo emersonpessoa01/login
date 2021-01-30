@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 // const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const path = require('path');
-const mongoose = require('mongoose');
-const routes =  require('./routes/routes');
+const cors = require("cors");
+const path = require("path");
+const mongoose = require("mongoose");
+const routes = require("./routes/routes");
 const dotenv = require("dotenv");
 
 /**
@@ -17,11 +17,10 @@ app.use(cors());
 app.use(express.json());
 // app.use(cookieParser());
 
-
 /**
  * Vinculando o React ao app
  */
-app.use(express.static(path.join("client/build")));
+// app.use(express.static(path.join("client/build")));
 
 /**
  * Rota raiz
@@ -37,7 +36,12 @@ app.get("/", (_, response) => {
  * Rotas principais do app
  */
 app.use("/", routes);
-
+if (process.env.DB_CONNECTION && process.env.PORT === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
 
 /**
  * Conexão ao Banco de Dados
@@ -49,7 +53,7 @@ app.use("/", routes);
     await mongoose.connect(DB_CONNECTION, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify:false,
+      useFindAndModify: false,
     });
     console.log("Conectado ao MongoDb Atlas");
   } catch (err) {
