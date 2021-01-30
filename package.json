@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "5.0.0",
+    "concurrently": "5.3.0",
     "cookie-parser": "1.4.5",
     "cors": "2.8.5",
     "crypto": "1.0.1",
@@ -14,11 +15,8 @@
     "mongodb": "3.6.3",
     "mongoose": "5.11.14",
     "mongoose-date-format": "1.2.0",
+    "nodemon": "2.0.7",
     "path": "0.12.7"
-  },
-  "devDependencies": {
-    "concurrently": "5.3.0",
-    "nodemon": "2.0.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
