@@ -35,7 +35,7 @@ app.get("/", (_, response) => {
 /**
  * Rotas principais do app
  */
-app.use("/", routes);
+app.use(routes);
 if (process.env.PORT === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
