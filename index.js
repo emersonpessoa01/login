@@ -36,7 +36,7 @@ app.get("/", (_, response) => {
  * Rotas principais do app
  */
 app.use("/", routes);
-if (process.env.DB_CONNECTION && process.env.PORT === "production") {
+if (process.env.DB_CONNECTION === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));

@@ -25,7 +25,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon index.js",
     "start": "node index.js",
-    "heroku-postbuild": "cd client && npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "cd client && npm install --prefix client && npm run build"
   },
   "nodemonConfig": {
     "ignore": [
