@@ -5,6 +5,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const routes = require("./routes/routes");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 
 /**
  * Faz a leitura do arquivo
@@ -36,6 +37,16 @@ app.get("/", (_, response) => {
  * Rotas principais do app
  */
 app.use("/", routes);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  console.log("Acessou o Middleware!");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  app.use(cors());
+  next();
+});
 
 
 if(process.env.NODE_ENV === "production"){
