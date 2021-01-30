@@ -11,7 +11,8 @@ const bodyParser = require("body-parser");
  * Faz a leitura do arquivo
  * ".env" por padrão
  */
-dotenv.config();
+dotenv.config({  
+  path: process.env.NODE_ENV === "test" ? ".env.testing" : ".env");
 
 const app = express();
 app.use(cors());
