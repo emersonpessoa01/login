@@ -138,6 +138,16 @@ export default function SignUp() {
           >
             Cadastrar
           </Button>
+          <Button
+         fullWidth
+          style={{ marginBottom: 10 }}
+          variant="contained"
+          color="secondary"
+          href={"/admin/login"}
+        >
+          Voltar
+        </Button>
+
         </form>
       </div>
       <Box mt={5}>
