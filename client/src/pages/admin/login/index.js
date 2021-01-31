@@ -17,6 +17,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 import api from "../../../services/api";
 
@@ -41,8 +43,21 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100vh",
+  },
+  image: {
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  },
   paper: {
-    marginTop: theme.spacing(8),
+    margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -93,29 +108,32 @@ export default function SignIn() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Digite seu email"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {/* <TextField
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Digite seu email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -129,55 +147,57 @@ export default function SignIn() {
             onChange={e => setSenha(e.target.value)}
           /> */}
 
-        <FormControl
-          variant="outlined"
-          style={{ width: "100%", marginTop: 10 }}
-        >
-          <InputLabel htmlFor="campoSenha">Digite sua senha</InputLabel>
-          <OutlinedInput
-            id="campoSenha"
-            type={showPassword ? "text" : "password"}
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={(e) => setShowPassword(!showPassword)}
-                  edge="end"
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            labelWidth={120}
-          />
-        </FormControl>
+            <FormControl
+              variant="outlined"
+              style={{ width: "100%", marginTop: 10 }}
+            >
+              <InputLabel htmlFor="campoSenha">Digite sua senha</InputLabel>
+              <OutlinedInput
+                id="campoSenha"
+                type={showPassword ? "text" : "password"}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={(e) => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelWidth={120}
+              />
+            </FormControl>
 
-        <Button
-          fullWidth
-          variant="contained"
-          color="secondary"
-          className={classes.submit}
-          onClick={loadSubmit}
-          disabled={loading}
-        >
-          {loading ? <CircularProgress /> : "ENTRAR"}
-        </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+              onClick={loadSubmit}
+              disabled={loading}
+            >
+              {loading ? <CircularProgress /> : "ENTRAR"}
+            </Button>
 
-        <Button
-         fullWidth
-          style={{ marginBottom: 10 }}
-          variant="contained"
-          color="secondary"
-          href={"/admin/signup"}
-        >
-          Cadastrar
-        </Button>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
+            <Button
+              fullWidth
+              style={{ marginBottom: 10 }}
+              variant="contained"
+              color="secondary"
+              href={"/admin/signup"}
+            >
+              Cadastrar
+            </Button>
+            <Box mt={8}>
+              <Copyright />
+            </Box>
+          </form>
+        </div>
+      </Grid>
+    </Grid>
   );
 }
