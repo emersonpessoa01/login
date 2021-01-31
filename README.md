@@ -20,11 +20,18 @@
 `npm install jsonwebtoken`<br>
 
 ### scripts backend:
-`"client": "npm start --prefix client",`<br>
+<!-- `"client": "npm start --prefix client",`<br>
  `"dev": "concurrently \"npm run server\" \"npm run client\"",`<br>    
  `"server": "nodemon index.js",`<br>
  `"start": "node index.js",`<br>
- `"heroku-postbuild": "cd client && npm install && npm run build"`<br>
+ `"heroku-postbuild": "cd client && npm install && npm run build"`<br> -->
+ `"test": "echo \"Error: no test specified\" && exit 1"`,<br>
+    `"start": "node index.js",`<br>
+    `"server1": "nodemon index.js",`<br>
+    `"server": "node index.js",`<br>
+    `"client": "npm start --prefix client",`<br>
+    `"dev": "concurrently \"npm run server1\" \"npm run client\"",`<br>
+    `"heroku-postbuild": "cd client && npm install && npm run build"`<br>
 
  ### Install frontend:
  * cd client<br>
