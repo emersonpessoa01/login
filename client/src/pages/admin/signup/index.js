@@ -119,7 +119,6 @@ export default function SignUp() {
                 fullWidth
                 name="senha"
                 label="Senha"
-                type="password"
                 id="senha"
                 autoComplete="senha"
                 value={senha}

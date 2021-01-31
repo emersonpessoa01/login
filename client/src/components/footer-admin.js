@@ -7,7 +7,7 @@ export default function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
-        <Link color="inherit" href="javascript:;">
+        <Link color="inherit" href="javascript">
           Delivery-system
         </Link>{' '}
         {new Date().getFullYear()}

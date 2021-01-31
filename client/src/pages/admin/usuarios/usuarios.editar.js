@@ -54,7 +54,7 @@ export default function UsuarioCadastrar() {
     }
 
     getUsuario();
-  },[])
+  },[idUsuario])
 
   async function handleSubmit(){
 
