@@ -91,7 +91,7 @@ export default function ProdutosListagem() {
                 href={"/admin/produtos/cadastrar"}
               >
                 <AddIcon />
-                Cadastrar
+                PRODUTO
               </Button>
               <Paper className={classes.paper}>
                 <h2>Listagem de Produtos</h2>
