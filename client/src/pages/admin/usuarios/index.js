@@ -102,11 +102,11 @@ export default function UsuariosListagem() {
                     <Table className={classes.table} aria-label="simple table">
                       <TableHead>
                         <TableRow>
-                          <TableCell>Nome</TableCell>
-                          <TableCell align="center">Email</TableCell>
-                          <TableCell align="center">Tipo</TableCell>
-                          <TableCell align="center">Data de Cadastro</TableCell>
-                          <TableCell align="right">Opções</TableCell>
+                          <TableCell style={{fontWeight:"bold"}}>Nome</TableCell>
+                          <TableCell style={{fontWeight:"bold"}} align="center">Email</TableCell>
+                          <TableCell style={{fontWeight:"bold"}} align="center">Tipo</TableCell>
+                          <TableCell style={{fontWeight:"bold"}} align="center">Data de Cadastro</TableCell>
+                          <TableCell style={{fontWeight:"bold"}} align="center">Opções</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>

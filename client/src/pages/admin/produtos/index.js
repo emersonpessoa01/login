@@ -88,7 +88,7 @@ export default function ProdutosListagem() {
                 style={{ marginBottom: 10 }}
                 variant="contained"
                 color="primary"
-                href={"/admin/usuarios/cadastrar"}
+                href={"/admin/produtos/cadastrar"}
               >
                 <AddIcon />
                 Cadastrar
@@ -109,14 +109,39 @@ export default function ProdutosListagem() {
                         >
                           <TableHead>
                             <TableRow>
-                              <TableCell>Produto</TableCell>
-                              <TableCell align="center">Descrição</TableCell>
-                              <TableCell align="center">Preço</TableCell>
-                              <TableCell align="center">Quantidade</TableCell>
-                              <TableCell align="center">
+                              <TableCell style={{ fontWeight: "bold" }}>
+                                Produto
+                              </TableCell>
+                              <TableCell
+                                style={{ fontWeight: "bold" }}
+                                align="center"
+                              >
+                                Descrição
+                              </TableCell>
+                              <TableCell
+                                style={{ fontWeight: "bold" }}
+                                align="center"
+                              >
+                                Preço
+                              </TableCell>
+                              <TableCell
+                                style={{ fontWeight: "bold" }}
+                                align="center"
+                              >
+                                Quantidade
+                              </TableCell>
+                              <TableCell
+                                style={{ fontWeight: "bold" }}
+                                align="center"
+                              >
                                 Data de Cadastro
                               </TableCell>
-                              <TableCell align="right">Opções</TableCell>
+                              <TableCell
+                                style={{ fontWeight: "bold" }}
+                                align="center"
+                              >
+                                Opções
+                              </TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
@@ -129,13 +154,13 @@ export default function ProdutosListagem() {
                                   {row.descricao_produto}
                                 </TableCell>
                                 <TableCell align="center">
-                                  {(row.preco_produto).toLocaleString("pt-br",{
-                                    style:"currency",
-                                    currency:"BRL"
+                                  {row.preco_produto.toLocaleString("pt-br", {
+                                    style: "currency",
+                                    currency: "BRL",
                                   })}
                                 </TableCell>
                                 <TableCell align="center">
-                                  {(row.qtd_produto).toString().padStart(2,"0")}
+                                  {row.qtd_produto.toString().padStart(2, "0")}
                                 </TableCell>
                                 <TableCell align="center">
                                   {new Date(row.createdAt).toLocaleString(
@@ -147,7 +172,7 @@ export default function ProdutosListagem() {
                                     <Button
                                       variant="contained"
                                       color="primary"
-                                      href={"/admin/usuarios/editar/" + row._id}
+                                      href={"/admin/produtos/editar/" + row._id}
                                     >
                                       <AutorenewIcon /> Atualizar
                                     </Button>
